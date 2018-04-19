@@ -1,8 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
-	<!-- TODO Add Nodes -->
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="249.0" prefWidth="477.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="AddNewUserPopupBoxController">
+   <children>
+      <VBox alignment="CENTER" layoutX="117.0" layoutY="30.0" prefHeight="207.0" prefWidth="244.0">
+         <children>
+            <GridPane prefHeight="120.0" prefWidth="220.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="55.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <CheckBox fx:id="newIsAdmin" mnemonicParsing="false" onAction="#showAdminDept" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Label text="Username:" />
+                  <Label text="Password:" GridPane.rowIndex="1" />
+                  <Label text="Admin:" GridPane.rowIndex="2" />
+                  <Label text="Department:" GridPane.rowIndex="3" />
+                  <ChoiceBox fx:id="newDepartment" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <TextField fx:id="newPassword" prefHeight="26.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="newUsername" GridPane.columnIndex="1" />
+               </children>
+            </GridPane>
+            <HBox alignment="CENTER" prefHeight="50.0" prefWidth="244.0" spacing="20.0">
+               <children>
+                  <Button fx:id="createUserButton" mnemonicParsing="false" onAction="#createNewUser" text="Create User" />
+                  <Button fx:id="newUserCancel" mnemonicParsing="false" onAction="#closePopup" text="Cancel" />
+               </children>
+            </HBox>
+            <Label fx:id="errorText" alignment="CENTER" contentDisplay="CENTER" textFill="RED" />
+         </children>
+      </VBox>
+   </children>
 </AnchorPane>
-
