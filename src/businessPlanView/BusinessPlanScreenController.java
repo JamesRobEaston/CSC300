@@ -52,17 +52,24 @@ public class BusinessPlanScreenController
 	BP businessPlan;
 	Statement currentNode;
 	boolean needsToBeSaved;
+	BPApplication application;
+	ClientProxy client;
 
 	public BusinessPlanScreenController(BP bp, ClientProxy client, BPApplication application)
 	{
 		businessPlan = bp;
 		needsToBeSaved = false;
-		application.notify(viewBPStatement(bp.getTree().getRoot(), client, application));
+		this.client = client;
+		this.application = application;
+		application.notify(viewBPStatement(bp.getTree().getRoot()));
 	}
 	
-	public Scene viewBPStatement(Statement statement, ClientProxy client, BPApplication application)
+	public Scene viewBPStatement(Statement statement)
 	{
 		currentNode = statement;
+		
+		nameLabel.setText("Name: " + currentNode.getId());
+		categoryLabel.setText("Category: " + statement.getType().getName());
 	}
 	
 	@FXML
@@ -86,7 +93,29 @@ public class BusinessPlanScreenController
 	@FXML
 	void deleteNode(ActionEvent event)
 	{
+		if(currentNode.getParent() != null)
+		{
+			int indexOfThis = -1;
+			Statement parent = currentNode.getParent();
+			for(int i = 0; i < parent.getChildren().size(); i++)
+			{
+				Statement child = parent.getChildren().get(i);
+				if(child.getId().equals(currentNode.getId()))
+				{
+					indexOfThis = i;
+					break;
+				}
+			}
+			
+			parent.getChildren().remove(indexOfThis);
 
+			needsToBeSaved = true;
+			application.notify(viewBPStatement(currentNode.getParent()));
+		}
+		else
+		{
+			client.delete(businessPlan);
+		}
 	}
 
 	@FXML
@@ -98,7 +127,10 @@ public class BusinessPlanScreenController
 	@FXML
 	void goUpALevel(ActionEvent event)
 	{
-
+		if(currentNode.getParent() != null)
+		{
+			application.notify(viewBPStatement(currentNode.getParent()));
+		}
 	}
 
 	@FXML
