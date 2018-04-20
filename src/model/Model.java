@@ -19,6 +19,7 @@ import clientServerPackage.ClientProxy;
 import clientServerPackage.ConcreteServer;
 import clientServerPackage.Department;
 import clientServerPackage.ServerInterface;
+import editOrClonePopup.EditOrClonePopupBoxController;
 import homePage.homePageController;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -56,10 +57,6 @@ public class Model
 	public boolean authenticate(TextField userName_input,PasswordField pass_input,TextField serv_input, Button login_but )
 	{
 		ServerInterface server = new ConcreteServer();
-		
-		userName_input.setText("admin");
-		pass_input.setText("admin");
-		serv_input.setText("1099");
 		
 		boolean foundServer = true;
 		int serverAddress = Integer.parseInt(serv_input.getText());
@@ -613,6 +610,30 @@ public class Model
 		popupStage.setScene(newScene);
 		popupStage.show();		
 				
+	}
+	
+	public void showEditOrClone()
+	{
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(EditOrClonePopupBoxController.class.getResource("/editOrClonePopup/EditOrClonePopupBox.fxml"));
+		Scene newScene = new Scene(new AnchorPane());
+		try
+		{
+			newScene = new Scene(loader.load());
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		
+		EditOrClonePopupBoxController cont = loader.getController();
+		cont.setModel(this);
+
+		popupStage = new Stage();
+		popupStage.initModality(Modality.APPLICATION_MODAL);
+		popupStage.setTitle("Edit or Clone Business Plan");
+		popupStage.setResizable(false);
+		popupStage.setScene(newScene);
+		popupStage.show();
 	}
 
 	public void loadLocalCopy()

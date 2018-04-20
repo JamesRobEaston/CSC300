@@ -1,6 +1,6 @@
 package editOrClonePopup;
 
-import java.awt.event.ActionEvent;
+
 import java.io.IOException;
 
 import addDepartmentPopup.AddDepartmentPopupBoxController;
@@ -8,6 +8,7 @@ import applicationFiles.BPApplication;
 import businessPlanView.BusinessPlanScreenController;
 import clientServerPackage.ClientProxy;
 import newBPPopup.NewBPPopupBoxController;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -54,6 +55,11 @@ public class EditOrClonePopupBoxController
 		popupStage.setTitle("Edit or Clone Business Plan");
 		popupStage.setResizable(false);
 		popupStage.setScene(editOrCloneScene);
+	}
+	
+	public void setModel(Model model)
+	{
+		this.model = model;
 	}
 
 	@FXML

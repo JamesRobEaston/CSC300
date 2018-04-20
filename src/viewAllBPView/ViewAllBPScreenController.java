@@ -224,9 +224,8 @@ public class ViewAllBPScreenController
 				{
 					client.retrieve(bp[0]);
 				}
-				
-				EditOrClonePopupBoxController editOrClonePopupBox = new EditOrClonePopupBoxController(model);
-				editOrClonePopupBox.show();
+				model.setBusinessPlan(client.getLocalCopy());
+				model.showEditOrClone();
 			});
 
 			StackPane buttonMargins = new StackPane(bpButton);
