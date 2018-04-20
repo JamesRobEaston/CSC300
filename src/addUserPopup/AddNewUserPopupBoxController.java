@@ -59,7 +59,6 @@ public class AddNewUserPopupBoxController
 
 		ArrayList<Department> departments = model.getAllDepartments();
 		newDepartment.setConverter(new DepartmentConverter<Department>());
-		adminDepartment = null;
 
 		for (Department department : departments)
 		{

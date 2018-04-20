@@ -39,11 +39,17 @@ public class AddDepartmentPopupBoxController {
 
     public AddDepartmentPopupBoxController() {}
     
-    public AddDepartmentPopupBoxController(Model model) throws IOException {
+    public AddDepartmentPopupBoxController(Model model){
     	this.model = model;
 		loader = new FXMLLoader();
 		loader.setLocation(AddDepartmentPopupBoxController.class.getResource("AddDepartmentPopupBox.fxml"));
-		newDepartmentScene = new Scene(loader.load());
+		try
+		{
+			newDepartmentScene = new Scene(loader.load());
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 		
 		popupStage = new Stage();
 		popupStage.initModality(Modality.APPLICATION_MODAL);
