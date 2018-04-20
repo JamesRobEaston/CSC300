@@ -32,7 +32,7 @@ public class AddNewUserPopupBoxController
 	private CheckBox newIsAdmin;
 
 	@FXML
-	private ChoiceBox<Department> newDepartment;
+	public ChoiceBox<Department> newDepartment;
 
 	@FXML
 	private TextField newPassword;
@@ -48,40 +48,10 @@ public class AddNewUserPopupBoxController
 	
 	private Label errorText;
 
-	public AddNewUserPopupBoxController() {}
-	
-	public AddNewUserPopupBoxController(Model model) throws IOException
-	{
-		this.model = model;
-		loader = new FXMLLoader();
-		loader.setLocation(AddNewUserPopupBoxController.class.getResource("AddNewUserPopupBox.fxml"));
-		newUserScene = new Scene(loader.load());
-
-		ArrayList<Department> departments = model.getAllDepartments();
-		newDepartment.setConverter(new DepartmentConverter<Department>());
-
-		for (Department department : departments)
-		{
-			if (!department.getName().equals("Admin"))
-			{
-				newDepartment.getItems().add(department);
-			} else
-			{
-				model.setAdminDepartment(department);
-			}
-		}
-
-		popupStage = new Stage();
-		popupStage.initModality(Modality.APPLICATION_MODAL);
-		popupStage.setTitle("Add New User");
-		popupStage.setResizable(false);
-		popupStage.setScene(newUserScene);
-	}
-
 	@FXML
 	void closePopup(ActionEvent event)
 	{
-		popupStage.close();
+		model.closePopupBox();
 	}
 
 	@FXML
@@ -141,7 +111,7 @@ public class AddNewUserPopupBoxController
 			}
 			else
 			{
-				popupStage.close();
+				model.closePopupBox();
 			}
 		}
 	}
@@ -158,6 +128,11 @@ public class AddNewUserPopupBoxController
 			newDepartment.getItems().remove(model.getAdminDepartment());
 			newDepartment.setValue(null);
 		}
+	}
+	
+	public void setModel(Model model)
+	{
+		this.model = model;
 	}
 
 }

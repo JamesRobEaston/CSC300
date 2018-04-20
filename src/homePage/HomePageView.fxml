@@ -4,9 +4,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane fx:id="homePage_view" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.4" xmlns:fx="http://javafx.com/fxml/1" fx:controller="homePageController">
+<AnchorPane fx:id="homePage_view" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="homePage.homePageController">
    <children>
-      <Button fx:id="logout_but" layoutX="502.0" layoutY="26.0" mnemonicParsing="false" text="Log Out" />
+      <Button fx:id="logout_but" layoutX="502.0" layoutY="26.0" mnemonicParsing="false" onAction="#logout" text="Log Out" />
       <Button fx:id="addUser_but" layoutX="225.0" layoutY="254.0" mnemonicParsing="false" onAction="#addUser" prefHeight="27.0" prefWidth="150.0" text="Add New User" />
       <Button fx:id="addDept_but" layoutX="225.0" layoutY="296.0" mnemonicParsing="false" onAction="#addDept" text="Add New Department" />
       <Button fx:id="newBP_but" layoutX="225.0" layoutY="213.0" mnemonicParsing="false" onAction="#newBP" prefHeight="27.0" prefWidth="150.0" text="New Business Plan" />

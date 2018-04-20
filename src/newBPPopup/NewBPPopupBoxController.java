@@ -19,7 +19,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Model;
 
-public class NewBPPopupBoxController {
+public class NewBPPopupBoxController
+{
 
 	Stage popupStage;
 	FXMLLoader loader;
@@ -27,101 +28,94 @@ public class NewBPPopupBoxController {
 	boolean isClone;
 	BP businessPlan;
 	Model model;
-	
-    @FXML
-    private TextField planYearField;
 
-    @FXML
-    private TextField planIDField;
+	@FXML
+	private TextField planYearField;
 
-    @FXML
-    private Button createPlanButton;
+	@FXML
+	private TextField planIDField;
 
-    @FXML
-    private Button closePopupButton;
-    
-    @FXML
-    private Label errorText;
+	@FXML
+	private Button createPlanButton;
 
-    public NewBPPopupBoxController() {}
-    
-    public NewBPPopupBoxController(Model model, boolean isClone) throws IOException {
-    	this.model = model;
+	@FXML
+	private Button closePopupButton;
+
+	@FXML
+	private Label errorText;
+
+	public void setModel(Model model)
+	{
+		this.model = model;
+	}
+
+	public void setIsClone(boolean isClone)
+	{
 		this.isClone = isClone;
-		loader = new FXMLLoader();
-		loader.setLocation(AddDepartmentPopupBoxController.class.getResource("AddDepartmentPopupBox.fxml"));
-		newBPScene = new Scene(loader.load());
-		
-		popupStage = new Stage();
-		popupStage.initModality(Modality.APPLICATION_MODAL);
-		popupStage.setTitle("New Business Plan");
-		popupStage.setResizable(false);
-		popupStage.setScene(newBPScene);
-    }
-    
-    @FXML
-    void closePopup(ActionEvent event) {
+	}
 
-    }
+	@FXML
+	void closePopup(ActionEvent event)
+	{
+		model.closePopupBox();
+	}
 
-    @FXML
-    void createPlan(ActionEvent event) {
-    	String id = planIDField.getText();
+	@FXML
+	void createPlan(ActionEvent event)
+	{
+		String id = planIDField.getText();
 		String year = planYearField.getText();
-		
-		if(id.replaceAll("\\s+","").equals("")) 
+
+		if (id.replaceAll("\\s+", "").equals(""))
 		{
 			errorText.setText("Please enter a valid ID.");
 			planIDField.setText("");
-		}
-		else if(year.replaceAll("\\s+","").equals("")) 
+		} 
+		else if (year.replaceAll("\\s+", "").equals(""))
 		{
 			errorText.setText("Please enter a valid year.");
 			planYearField.setText("");
-		}
-		else 
+		} 
+		else
 		{
 			model.retrieve(id + " " + year);
-			if(model.getBusinessPlan() == null && isInt(year))
+			if (model.getBusinessPlan() == null && !isInt(year))
 			{
-				if(!isClone)
+				if (!isClone)
 				{
 					businessPlan = new BP(year, id);
-					popupStage.show();
-				}
-				else
+					model.setBusinessPlan(businessPlan);
+					model.closePopupBox();
+					model.showCategoryPopupBox();
+				} else
 				{
 					businessPlan = model.getBusinessPlan();
 					BP newBP = businessPlan.copy();
-					newBP.setID(id + " " +year);
+					newBP.setID(id + " " + year);
 					newBP.setYear(year);
 					model.setLocalCopy(businessPlan);
-					new BusinessPlanScreenController(model);
+					model.showBusinessPlanScreen();
 				}
-				popupStage.close();
 				planIDField.setText("");
 				planYearField.setText("");
-			}
-			else if(!isInt(year))
+			} else if (!isInt(year))
 			{
 				errorText.setText("Please enter a valid year.");
-			}
-			else
+			} else
 			{
 				errorText.setText("A Business Plan already has that name and year.");
 			}
 
 		}
-    }
-    
-    private boolean isInt(String integer)
+	}
+
+	private boolean isInt(String integer)
 	{
 		try
 		{
 			Integer.parseInt(integer);
 			return true;
-		}
-		catch(NumberFormatException e)
+		} catch (NumberFormatException e)
 		{
 		}
 		return false;

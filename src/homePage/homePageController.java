@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import model.Model;
 import newBPPopup.NewBPPopupBoxController;
 import viewAllBPView.ViewAllBPScreenController;
@@ -37,24 +38,7 @@ public class homePageController
 	@FXML
 	private Button loadlc_but;
 
-	public Scene homePage;
-
-	public homePageController() {}
-	
-	public homePageController(Model model)
-	{
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(BPApplication.class.getResource("HomePageView.fxml"));
-		try
-		{
-			homePage = new Scene(loader.load());
-			this.setModel(model);
-		} catch (IOException e)
-		{
-
-			e.printStackTrace();
-		}
-	}
+	private AnchorPane homePage_view;
 
 	public void setModel(Model model)
 	{
@@ -65,36 +49,38 @@ public class homePageController
 	@FXML
 	void addDept(ActionEvent event)
 	{
-		new AddDepartmentPopupBoxController(model);
+		model.showAddDepartmentPopupBox();
 	}
 
 	@FXML
 	void addUser(ActionEvent event) throws IOException
 	{
-		new AddNewUserPopupBoxController(model);
+		model.showAddUserPopupBox();
 	}
 
 	@FXML
 	void loadLocalCopy(ActionEvent event)
 	{
-		new BusinessPlanScreenController(model);
+		model.loadLocalCopy();
+		model.showBusinessPlanScreen();
 	}
 
 	@FXML
-	void newBP(ActionEvent event) throws IOException
+	void newBP(ActionEvent event)
 	{
-		new NewBPPopupBoxController(model, false);
+		model.showNewBPPopupBox(false);
 	}
 
 	@FXML
 	void viewAllPlans(ActionEvent event)
 	{
-		new ViewAllBPScreenController(model);
+		model.showViewAllBPScreen();
 	}
-	
-	public Scene getScene()
+
+	@FXML
+	void logout(ActionEvent event)
 	{
-		return homePage;
+		model.showLogin();
 	}
 
 }

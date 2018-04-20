@@ -59,22 +59,21 @@ public class EditOrClonePopupBoxController
 	@FXML
 	void cloneBusinessPlan(ActionEvent event) throws IOException
 	{
-		new NewBPPopupBoxController(model, true);
+		model.showNewBPPopupBox(true);
 		popupStage.close();
 	}
 
 	@FXML
 	void closePopup(ActionEvent event)
 	{
-		popupStage.close();
+		model.closePopupBox();
 	}
 
 	@FXML
 	void editBusinessPlan(ActionEvent event)
 	{
-		new BusinessPlanScreenController(model);
-		popupStage.close();
-
+		model.showBusinessPlanScreen();
+		model.closePopupBox();
 	}
 
 	public void show()

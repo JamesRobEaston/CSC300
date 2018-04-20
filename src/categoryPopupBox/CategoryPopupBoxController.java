@@ -39,42 +39,13 @@ public class CategoryPopupBoxController
 	private Button VMOSAButton;
 	
     @FXML
-    private static VBox categoriesNode;
-	private static ArrayList<TextField> categoryInputs;
+    private VBox categoriesNode;
+    
+	public static ArrayList<TextField> categoryInputs;
 	private static BP businessPlan;
 	public static Stage categoriesPopupBox;
 
 	Model model;
-
-	public CategoryPopupBoxController() {}
-	
-	public CategoryPopupBoxController(Model model)
-	{
-
-		this.model = model;
-		businessPlan = model.getBusinessPlan();
-		
-		categoriesPopupBox = new Stage();
-		categoriesPopupBox.setWidth(500.0);
-		categoriesPopupBox.setHeight(350.0);
-		categoriesPopupBox.initModality(Modality.APPLICATION_MODAL);
-		categoriesPopupBox.setTitle("Create Categories");
-		categoriesPopupBox.setResizable(false);
-		
-		categoryInputs = new ArrayList<TextField>();
-		
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(BusinessPlanScreenController.class.getResource("businessPlanView/BusinessPlanScreen.fxml"));
-		
-		try
-		{
-			categoriesPopupBox.setScene(new Scene(loader.load()));
-		} catch (IOException e1)
-		{
-			e1.printStackTrace();
-			categoriesPopupBox.setScene(new Scene(new VBox()));
-		}
-	}
 
 	@FXML
 	void VMOSAModel(ActionEvent event)
@@ -93,7 +64,7 @@ public class CategoryPopupBoxController
 	@FXML
 	void cancel(ActionEvent event)
 	{
-		categoriesPopupBox.close();
+		model.closePopupBox();
 	}
 
 	@FXML
@@ -106,6 +77,7 @@ public class CategoryPopupBoxController
 	@FXML
 	void submit(ActionEvent event)
 	{
+		businessPlan = model.getBusinessPlan();
 		for(int i = 0; i < categoryInputs.size(); i++)
 		{
 			TextField categoryInput = categoryInputs.get(i);
@@ -114,13 +86,13 @@ public class CategoryPopupBoxController
 			design.addCategory(categoryName, i + 1, 0, 10000000);
 		}
 		businessPlan.setCategoryList();
-		BusinessPlanScreenController bpScreen = new BusinessPlanScreenController(model);
-		categoriesPopupBox.close();
-		model.notify(bpScreen.getScene());
+		model.setLocalCopy(businessPlan);
+		model.showBusinessPlanScreen();
+		model.closePopupBox();
 	}
 	
 	//Helper method
-	private static void addNewTextField(String text, boolean isPromptText)
+	private void addNewTextField(String text, boolean isPromptText)
 	{
 		HBox newTextFieldBox = new HBox(20);
 		TextField newTextField = new TextField();
@@ -143,12 +115,17 @@ public class CategoryPopupBoxController
 		newTextFieldBox.getChildren().addAll(newTextField, deleteButton);
 		
 		categoryInputs.add(newTextField);
-		categoriesNode.getChildren().add(categoriesNode.getChildren().size() - 2, newTextFieldBox);
+		categoriesNode.getChildren().add(categoriesNode.getChildren().size() - 2,newTextFieldBox);
 	}
 
 	public void show()
 	{
 		categoriesPopupBox.show();
+	}
+	
+	public void setModel(Model model)
+	{
+		this.model = model;
 	}
 	
 }

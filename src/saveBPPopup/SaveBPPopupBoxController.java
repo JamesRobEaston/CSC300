@@ -46,29 +46,32 @@ public class SaveBPPopupBoxController
 			e1.printStackTrace();
 		}
 	}
+	
+	public void setModel(Model model)
+	{
+		this.model = model;
+	}
 
 	@FXML
 	void cancel(ActionEvent event)
 	{
-		saveBPPopupBox.close();
+		model.closePopupBox();
 	}
 
 	@FXML
 	void discard(ActionEvent event)
 	{
-		homePageController homePage = new homePageController(model);
-		model.notify(homePage.getScene());
-		saveBPPopupBox.close();
+		model.showHome();
+		model.closePopupBox();
 	}
 
 	@FXML
 	void save(ActionEvent event)
 	{
-		homePageController homePage = new homePageController(model);
 		model.setLocalCopy(model.getBusinessPlan());
 		model.saveLocalPlanXML();
-		model.notify(homePage.getScene());
-		saveBPPopupBox.close();
+		model.showHome();
+		model.closePopupBox();
 
 	}
 

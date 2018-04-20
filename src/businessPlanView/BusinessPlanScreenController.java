@@ -21,60 +21,60 @@ public class BusinessPlanScreenController
 {
 
 	@FXML
-    private Button goUpALevelButton;
+    public Button goUpALevelButton;
 
     @FXML
-    private Label categoryLabel;
+	public Label categoryLabel;
 
     @FXML
-    private Label nameLabel;
+	public Label nameLabel;
 
     @FXML
-    private VBox statementsNode;
+    public VBox statementsNode;
 
     @FXML
-    private Button addNewStatementButton;
+    public Button addNewStatementButton;
 
     @FXML
-    private Label subcategoryLabel;
+    public Label subcategoryLabel;
 
     @FXML
-    private Button createNewSubcategoryButton;
+    public Button createNewSubcategoryButton;
 
     @FXML
-    private TilePane childrenNode;
+    public TilePane childrenNode;
     
     @FXML
-    private Button deleteButton;
+    public Button deleteButton;
     
     @FXML
-    private ScrollPane childrenScrollPane;
+    public ScrollPane childrenScrollPane;
 
     @FXML
-    private Button homeButton;
+    public Button homeButton;
 
     @FXML
-    private Button saveButton;
+    public Button saveButton;
 
     @FXML
-    private Button saveToServerButton;
+    public Button saveToServerButton;
 
     @FXML
-    private HBox isEditableHBox;
+    public HBox isEditableHBox;
 
     @FXML
-    private CheckBox isEditableCheckbox;
+    public CheckBox isEditableCheckbox;
 
     @FXML
-    private Label isEditableLabel;
+    public Label isEditableLabel;
 
     @FXML
-    private Label invalidSaveLabel;
+    public Label invalidSaveLabel;
 	
 	Scene viewBPScreen;
 	BP businessPlan;
-	Statement currentNode;
-	boolean needsToBeSaved;
+	public Statement currentNode;
+	public boolean needsToBeSaved;
 	Model model;
 
 	public BusinessPlanScreenController() {}
@@ -87,19 +87,14 @@ public class BusinessPlanScreenController
 		viewBPScreen = viewBPStatement(businessPlan.getTree().getRoot());
 	}
 	
-	public Scene viewBPStatement(Statement statement)
+	public void setModel(Model model)
 	{
-		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(BusinessPlanScreenController.class.getResource("businessPlanView/BusinessPlanScreen.fxml"));
-		
-		try
-		{
-			viewBPScreen = new Scene(loader.load());
-		} catch (IOException e1)
-		{
-			e1.printStackTrace();
-		}
-		
+		this.model = model;
+		businessPlan = model.getBusinessPlan();
+	}
+	
+	public Scene viewBPStatement(Statement statement)
+	{	
 		currentNode = statement;
 		
 		nameLabel.setText("Name: " + currentNode.getId());
@@ -291,7 +286,6 @@ public class BusinessPlanScreenController
 	{
 		needsToBeSaved = true;
 		businessPlan.setEditable(isEditableCheckbox.isSelected());
-		new BusinessPlanScreenController(model);
 	}
 
 	@FXML
@@ -303,11 +297,11 @@ public class BusinessPlanScreenController
 		Button submitButton = new Button("Submit");
 		submitButton.setOnAction(e1 ->
 		{
-			ArrayList<Category> categories = businessPlan.getDesign().getCategoryList();
+			ArrayList<Category> categories = model.getBusinessPlan().getDesign().getCategoryList();
 			Category newChildCategory = categories.get(categories.indexOf(currentNode.getType()) + 1);
 			Statement newChild = new Statement(newChildCategory, currentNode, new ArrayList<String>(), newChildIDInput.getText());
 			currentNode.addChild(newChild);
-			model.notify(viewBPStatement(newChild));
+			model.showBusinessPlanScreen(newChild);
 		});
 		childrenNode.getChildren().remove(createNewSubcategoryButton);
 		childrenNode.getChildren().addAll(newChildIDInput, submitButton);
@@ -333,7 +327,7 @@ public class BusinessPlanScreenController
 			parent.getChildren().remove(indexOfThis);
 
 			needsToBeSaved = true;
-			model.notify(viewBPStatement(currentNode.getParent()));
+			model.showBusinessPlanScreen(currentNode.getParent());
 		}
 	}
 
@@ -342,13 +336,11 @@ public class BusinessPlanScreenController
 	{
 		if(businessPlan.isEditable() && needsToBeSaved)
 		{
-			//TODO: Open up a popupbox to prompt the user to save
-			//SaveBPPopupBox.show(businessPlan);
+			model.showSaveBPPopupBox();
 		}
 		else
 		{
-			//TODO: Show Home Screen
-			//application.notify(HomeScreen.homeScreen);
+			model.showHome();
 		}
 	}
 
@@ -357,7 +349,7 @@ public class BusinessPlanScreenController
 	{
 		if(currentNode.getParent() != null)
 		{
-			model.notify(viewBPStatement(currentNode.getParent()));
+			model.showBusinessPlanScreen(currentNode.getParent());
 		}
 	}
 
@@ -377,15 +369,12 @@ public class BusinessPlanScreenController
 		{
 			if(model.isAdmin())
 			{
-				//TODO
-				//client.saveBPToDepartment(businessPlan, ViewAllScreen.currDepartment.getDepartmentName());
+				model.saveBPToDepartment(model.getBusinessPlan(), Model.currDepartment.getDepartmentName());
 			}
 			else
 			{
 				model.submitPlan();
 			}
-			//TODO
-			//new ViewAllScreen(client, application);
 			needsToBeSaved = false;
 			invalidSaveLabel.setText("");
 			

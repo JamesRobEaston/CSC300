@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_162" class="java.beans.XMLDecoder">
+ <object class="clientServerPackage.ConcreteServer" id="ConcreteServer0"/>
+<void class="clientServerPackage.Department" id="Department0">
+ <void property="plans">
+  <object class="java.util.ArrayList"/>
+ </void>
+ <void property="departmentName">
+  <string>Admin</string>
+ </void>
+</void>
+<void class="clientServerPackage.ConcreteServer" id="Field0" method="getField">
+ <string>users</string>
+ <void id="ArrayList0" method="get">
+  <object idref="ConcreteServer0"/>
+  <void method="add">
+   <object class="clientServerPackage.AdminClient" id="AdminClient0">
+    <void class="clientServerPackage.ConcreteClient" method="getField">
+     <string>username</string>
+     <void method="set">
+      <object idref="AdminClient0"/>
+      <string>admin</string>
+     </void>
+    </void>
+    <void class="clientServerPackage.ConcreteClient" method="getField">
+     <string>password</string>
+     <void method="set">
+      <object idref="AdminClient0"/>
+      <string>admin</string>
+     </void>
+    </void>
+    <void class="clientServerPackage.ConcreteClient" method="getField">
+     <string>department</string>
+     <void method="set">
+      <object idref="AdminClient0"/>
+      <object idref="Department0"/>
+     </void>
+    </void>
+    <void class="clientServerPackage.ConcreteClient" method="getField">
+     <string>isAdmin</string>
+     <void method="set">
+      <object idref="AdminClient0"/>
+      <boolean>true</boolean>
+     </void>
+    </void>
+   </object>
+  </void>
+ </void>
+</void>
+<void idref="ArrayList0"/>
+<void class="clientServerPackage.ConcreteServer" id="Field1" method="getField">
+ <string>departments</string>
+ <void id="ArrayList1" method="get">
+  <object idref="ConcreteServer0"/>
+  <void method="add">
+   <object idref="Department0"/>
+  </void>
+ </void>
+</void>
+<void idref="ArrayList1"/>
+</java>

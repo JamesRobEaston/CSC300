@@ -31,7 +31,7 @@ public class ViewAllBPScreenController
 	private Button backButton;
 
 	@FXML
-	private ChoiceBox<Department> departmentDropDownMenu;
+	public ChoiceBox<Department> departmentDropDownMenu;
 
 	@FXML
 	private TextField yearTextInput;
@@ -48,7 +48,7 @@ public class ViewAllBPScreenController
     public Scene viewAllScreen;
 	
 	String[][] businessPlans;
-	ArrayList<String[]> validPlans;
+	public ArrayList<String[]> validPlans;
 	Button resetButton;
 	
 	public static Department currDepartment;
@@ -105,20 +105,23 @@ public class ViewAllBPScreenController
 		
 		updateBPScrollPane(model.getClient(), validPlans);
 	}
+	
+	public void setModel(Model model)
+	{
+		this.model = model;
+	}
 
 	@FXML
 	void goBack(ActionEvent event)
 	{
-		new homePageController(model);
+		model.showHome();
 		resetButton.fire();
 	}
 
 	@FXML
 	void newBP(ActionEvent event)
 	{
-		//TODO
-		//new NewBPPopupBox(client, application, false);
-		//NewBPPopupBox.newBPPopupBox.show();
+		model.showNewBPPopupBox(false);
 	}
 
 	@FXML
@@ -175,7 +178,7 @@ public class ViewAllBPScreenController
 		updateBPScrollPane(model.getClient(), validPlans);
 	}
 	
-	void setValidPlans(ClientProxy client, Department dept)
+	public void setValidPlans(ClientProxy client, Department dept)
 	{
 		validPlans = new ArrayList<String[]>();
 		String[][] bps = new String[0][0];
@@ -203,7 +206,7 @@ public class ViewAllBPScreenController
 		
 	}
 	
-	void updateBPScrollPane(ClientProxy client, ArrayList<String[]> validPlans)
+	public void updateBPScrollPane(ClientProxy client, ArrayList<String[]> validPlans)
 	{
 		bpScrollPane.setContent(null);
 		FlowPane rootNode = new FlowPane();

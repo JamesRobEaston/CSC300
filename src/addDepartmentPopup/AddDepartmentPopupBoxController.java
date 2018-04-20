@@ -37,30 +37,15 @@ public class AddDepartmentPopupBoxController {
     @FXML
     private Label errorText;
 
-    public AddDepartmentPopupBoxController() {}
-    
-    public AddDepartmentPopupBoxController(Model model){
+    public void setModel(Model model)
+    {
     	this.model = model;
-		loader = new FXMLLoader();
-		loader.setLocation(AddDepartmentPopupBoxController.class.getResource("AddDepartmentPopupBox.fxml"));
-		try
-		{
-			newDepartmentScene = new Scene(loader.load());
-		} catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-		
-		popupStage = new Stage();
-		popupStage.initModality(Modality.APPLICATION_MODAL);
-		popupStage.setTitle("Add Department");
-		popupStage.setResizable(false);
-		popupStage.setScene(newDepartmentScene);
     }
     
     @FXML
-    void closePopup(ActionEvent event) {
-    	popupStage.close();
+    void closePopup(ActionEvent event) 
+    {
+    	model.closePopupBox();
     }
 
     @FXML
@@ -112,7 +97,7 @@ public class AddDepartmentPopupBoxController {
 						}
 					}
 				}
-				popupStage.close();
+				model.closePopupBox();
 			}
 		}
     }

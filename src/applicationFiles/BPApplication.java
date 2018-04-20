@@ -8,7 +8,6 @@ import homePage.homePageController;
 import javafx.application.*;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.*;
-import login.Main;
 import login.loginController;
 import model.Model;
 import javafx.scene.*;
@@ -28,11 +27,8 @@ public class BPApplication extends Application
 		
 		//LoginScreen loginScreen = new LoginScreen(this);
 		
-		Model model = new Model(new ClientProxy(), this, null);
-		loginController login;
-		
-		login = new loginController(model);
-		primaryStage.setScene(login.getScene());
+		Model model = new Model(null, this, null);
+		model.showLogin();
 		
 		primaryStage.show();
 	}
@@ -49,20 +45,6 @@ public class BPApplication extends Application
 	public void notify(Scene scene)
 	{
 		this.setScene(scene);
-	}
-	
-	//Creates all of the classes with a static scene or window.
-	//This method is put here to encapsulate the creation of these objects.
-	public void createAllStaticScreensAndPopupBoxes(ClientProxy client)
-	{
-		/*new HomeScreen(client, this);
-		new AddUserPopupBox(client, this);
-		new AddDepartmentPopupBox(client, this);
-		new EditOrCloneBPPopupBox(client, this);
-		new SaveBPPopupBox(client, this);
-		new ViewAllScreen(client, this);
-		new categoriesPopupBox(client, this);
-		*/
 	}
 	
 	public static void main(String[] args)
