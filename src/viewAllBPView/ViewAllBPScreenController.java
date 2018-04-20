@@ -218,8 +218,8 @@ public class ViewAllBPScreenController
 				{
 					client.retrieve(bp[0]);
 				}
-				
-				EditOrCloneBPPopupBox.show(client.getLocalCopy());
+				//TODO
+				//EditOrCloneBPPopupBox.show(client.getLocalCopy());
 			});
 
 			StackPane buttonMargins = new StackPane(bpButton);

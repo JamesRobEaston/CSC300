@@ -1,13 +1,16 @@
-package login;
+package model;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
+import applicationFiles.BPApplication;
+import clientServerPackage.BP;
 import clientServerPackage.ClientProxy;
 import clientServerPackage.ConcreteServer;
 import clientServerPackage.ServerInterface;
-import guiFiles.screens.HomeScreen;
+import homePage.homePageController;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -17,7 +20,8 @@ import javafx.scene.layout.AnchorPane;
 public class Model 
 {
 	public ClientProxy client;
-	
+	BPApplication application;
+	BP businessPlan;
 	
 	public boolean authenticate(TextField userName_input,PasswordField pass_input,TextField serv_input, Button login_but )
 	{
@@ -63,7 +67,8 @@ public class Model
 			else
 			{
 				//application.createAllStaticScreensAndPopupBoxes(client);
-				//application.notify(HomeScreen.homeScreen);
+				homePageController homePage = new homePageController();
+				application.notify(homePage.homeScreen);
 				return true;
 			//	userName_input.setText("");
 				//pass_input.setText("");
@@ -72,6 +77,11 @@ public class Model
 		}
 		return false;
 		
+	}
+
+	public void notify(Scene scene)
+	{
+		application.notify(scene);
 	}
 
 }

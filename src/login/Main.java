@@ -3,11 +3,13 @@ package login;
 
 import java.io.IOException;
 
+import homePage.homePageController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import model.Model;
 
 public class Main extends Application 
 {

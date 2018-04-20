@@ -1,8 +1,16 @@
 package applicationFiles;
 
+import java.io.IOException;
+
+import addDepartmentPopup.AddDepartmentPopupBoxController;
 import clientServerPackage.*;
+import homePage.homePageController;
 import javafx.application.*;
+import javafx.fxml.FXMLLoader;
 import javafx.stage.*;
+import login.Main;
+import login.loginController;
+import model.Model;
 import javafx.scene.*;
 
 public class BPApplication extends Application
@@ -20,7 +28,12 @@ public class BPApplication extends Application
 		
 		//LoginScreen loginScreen = new LoginScreen(this);
 		
-		//setScene(loginScreen.getScene());
+		Model model = new Model();
+		loginController login;
+		
+		login = new loginController(model);
+		primaryStage.setScene(login.getScene());
+		
 		primaryStage.show();
 	}
 	
@@ -52,8 +65,8 @@ public class BPApplication extends Application
 		*/
 	}
 	
-	public void launch()
+	public static void main(String[] args)
 	{
-		super.launch();
+		launch();
 	}
 }
