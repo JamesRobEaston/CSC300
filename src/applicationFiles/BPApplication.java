@@ -28,7 +28,7 @@ public class BPApplication extends Application
 		
 		//LoginScreen loginScreen = new LoginScreen(this);
 		
-		Model model = new Model();
+		Model model = new Model(new ClientProxy(), this, null);
 		loginController login;
 		
 		login = new loginController(model);

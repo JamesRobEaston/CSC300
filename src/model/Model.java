@@ -23,6 +23,13 @@ public class Model
 	BPApplication application;
 	BP businessPlan;
 	
+	public Model(ClientProxy client, BPApplication application, BP businessPlan)
+	{
+		this.client = client;
+		this.application = application;
+		this.businessPlan = businessPlan;
+	}
+
 	public boolean authenticate(TextField userName_input,PasswordField pass_input,TextField serv_input, Button login_but )
 	{
 		ServerInterface server = new ConcreteServer();
@@ -68,7 +75,7 @@ public class Model
 			{
 				//application.createAllStaticScreensAndPopupBoxes(client);
 				homePageController homePage = new homePageController();
-				application.notify(homePage.homeScreen);
+				application.notify(homePage.getScene());
 				return true;
 			//	userName_input.setText("");
 				//pass_input.setText("");

@@ -55,9 +55,7 @@ public class loginController {
 	    
 	    public void setModel(Model model)
 	    {
-	    	  this. model=model;
-	    	
-	    	
+	    	this. model=model;
 	    }
 	    
 	   
@@ -66,8 +64,7 @@ public class loginController {
 	    {
 	    	  boolean foundUser=model.authenticate(userName_input,pass_input,serv_input,login_but);
 	    	  if (foundUser)
-	    	  {
-	    		  
+	    	  {  
 	    		  Main.showHomePage();
 	    	  }
 	    	
