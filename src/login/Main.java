@@ -14,7 +14,7 @@ import model.Model;
 public class Main extends Application 
 {
 	
-	static Model model = new Model();
+	static Model model;
 	static Stage stage;
     static AnchorPane login_view;
     Scene login_scene;
