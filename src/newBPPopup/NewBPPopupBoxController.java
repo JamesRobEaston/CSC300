@@ -2,6 +2,7 @@ import java.io.IOException;
 
 import addDepartmentPopup.AddDepartmentPopupBoxController;
 import applicationFiles.BPApplication;
+import businessPlanClasses.BusinessPlan;
 import businessPlanView.BusinessPlanScreenController;
 import clientServerPackage.BP;
 import clientServerPackage.ClientProxy;
@@ -23,6 +24,7 @@ public class NewBPPopupBoxController {
 	ClientProxy client;
 	BPApplication application;
 	boolean isClone;
+	BP businessPlan;
 	
     @FXML
     private TextField planYearField;
@@ -81,10 +83,12 @@ public class NewBPPopupBoxController {
 			{
 				if(!isClone)
 				{
-					categoriesPopupBoxController.show(new BP(year, id));
+					businessPlan = new BP(year, id);
+					popupStage.show();
 				}
 				else
 				{
+					businessPlan = client.getBusinessPlan();
 					BP newBP = businessPlan.copy();
 					newBP.setID(id + " " +year);
 					newBP.setYear(year);
