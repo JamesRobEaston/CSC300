@@ -20,6 +20,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
+import editOrClonePopup.EditOrCloneBPPopupBoxController;
 
 public class ViewAllBPScreenController
 {
@@ -220,8 +221,9 @@ public class ViewAllBPScreenController
 				{
 					client.retrieve(bp[0]);
 				}
-				//TODO
-				//EditOrCloneBPPopupBox.show(client.getLocalCopy());
+				
+				EditOrCloneBPPopupBoxController editOrClonePopupBox = new EditOrCloneBPPopupBoxController(model);
+				.show(client.getLocalCopy());
 			});
 
 			StackPane buttonMargins = new StackPane(bpButton);

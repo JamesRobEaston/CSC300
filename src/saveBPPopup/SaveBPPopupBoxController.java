@@ -65,7 +65,7 @@ public class SaveBPPopupBoxController
 	void save(ActionEvent event)
 	{
 		homePageController homePage = new homePageController(model);
-		model.setBusinessPlan(businessPlan);
+		model.setLocalCopy(model.getBusinessPlan());
 		model.saveLocalPlanXML();
 		model.notify(homePage.getScene());
 		saveBPPopupBox.close();

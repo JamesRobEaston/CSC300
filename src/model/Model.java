@@ -118,4 +118,56 @@ public class Model
 		return client.isAdmin();
 	}
 
+	public BPApplication getApplication()
+	{
+		return application;
+	}
+
+	public void setApplication(BPApplication application)
+	{
+		this.application = application;
+	}
+
+	public BP getBusinessPlan()
+	{
+		return businessPlan;
+	}
+
+	public void setModelBusinessPlan(BP businessPlan)
+	{
+		this.businessPlan = businessPlan;
+	}
+
+	public Department getAdminDepartment()
+	{
+		return adminDepartment;
+	}
+
+	public void setAdminDepartment(Department adminDepartment)
+	{
+		this.adminDepartment = adminDepartment;
+	}
+
+	public void setClient(ClientProxy client)
+	{
+		this.client = client;
+	}
+
+	public void setLocalCopy(BP businessPlan2)
+	{
+		client.setLocalCopy(businessPlan2);
+	}
+	
+	public void setBusinessPlan(BP businessPlan2)
+	{
+		client.setLocalCopy(businessPlan2);
+	}
+
+	public void saveLocalPlanXML()
+	{
+		client.saveLocalPlanXML();
+	}
+
+	
+
 }
