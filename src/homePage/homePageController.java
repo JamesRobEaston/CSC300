@@ -2,13 +2,18 @@ package homePage;
 
 import java.io.IOException;
 
+import addDepartmentPopup.AddDepartmentPopupBoxController;
+import addUserPopup.AddNewUserPopupBoxController;
 import applicationFiles.BPApplication;
+import businessPlanView.BusinessPlanScreenController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import model.Model;
+import newBPPopup.NewBPPopupBoxController;
+import viewAllBPView.ViewAllBPScreenController;
 
 public class homePageController
 {
@@ -34,6 +39,8 @@ public class homePageController
 
 	public Scene homePage;
 
+	public homePageController() {}
+	
 	public homePageController(Model model)
 	{
 		FXMLLoader loader = new FXMLLoader();
@@ -49,10 +56,6 @@ public class homePageController
 		}
 	}
 
-	public homePageController()
-	{
-	}
-
 	public void setModel(Model model)
 	{
 		this.model = model;
@@ -62,36 +65,31 @@ public class homePageController
 	@FXML
 	void addDept(ActionEvent event)
 	{
-
+		new AddDepartmentPopupBoxController(model);
 	}
 
 	@FXML
 	void addUser(ActionEvent event)
 	{
-
+		new AddNewUserPopupBoxController(model);
 	}
 
 	@FXML
 	void loadLocalCopy(ActionEvent event)
 	{
-
+		new BusinessPlanScreenController(model);
 	}
 
 	@FXML
 	void newBP(ActionEvent event)
 	{
-
+		new NewBPPopupBoxController(model);
 	}
 
 	@FXML
 	void viewAllPlans(ActionEvent event)
 	{
-
-	}
-
-	public Scene getScene()
-	{
-		return homePage;
+		new ViewAllBPScreenController(model);
 	}
 
 }
