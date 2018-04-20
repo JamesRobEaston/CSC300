@@ -18,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.Model;
 
 public class CategoryPopupBoxController
 {
@@ -42,16 +43,16 @@ public class CategoryPopupBoxController
 	private static ArrayList<TextField> categoryInputs;
 	private static BP businessPlan;
 	public static Stage categoriesPopupBox;
-	
-	BPApplication application;
-	ClientProxy client;
+
+	Model model;
 
 	public CategoryPopupBoxController() {}
 	
-	public CategoryPopupBoxController(ClientProxy client, BPApplication application)
+	public CategoryPopupBoxController(Model model)
 	{
-		this.application = application;
-		this.client = client;
+
+		this.model = model;
+		businessPlan = model.getBusinessPlan();
 		
 		categoriesPopupBox = new Stage();
 		categoriesPopupBox.setWidth(500.0);
@@ -113,9 +114,9 @@ public class CategoryPopupBoxController
 			design.addCategory(categoryName, i + 1, 0, 10000000);
 		}
 		businessPlan.setCategoryList();
-		BusinessPlanScreenController bpScreen = new BusinessPlanScreenController(businessPlan, client, application);
+		BusinessPlanScreenController bpScreen = new BusinessPlanScreenController(model);
 		categoriesPopupBox.close();
-		application.notify(bpScreen.getScene());
+		model.notify(bpScreen.getScene());
 	}
 	
 	//Helper method
