@@ -10,56 +10,60 @@
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="693.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox alignment="CENTER" layoutX="341.0" layoutY="3.0" prefHeight="54.0" prefWidth="353.0" spacing="10.0">
+      <VBox alignment="CENTER_LEFT" layoutX="7.0" layoutY="3.0" prefHeight="103.0" prefWidth="100.0" spacing="10.0">
          <children>
-            <Button mnemonicParsing="false" text="Delete" />
-            <Button mnemonicParsing="false" text="Home" />
-            <Button mnemonicParsing="false" text="Save" />
-            <Button mnemonicParsing="false" text="Save to Server" />
-            <StackPane prefHeight="54.0" prefWidth="78.0">
-               <children>
-                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                     <children>
-                        <Label text="Editable" />
-                        <CheckBox mnemonicParsing="false" />
-                     </children>
-                  </HBox>
-                  <Label text="Is Editable" />
-               </children>
-            </StackPane>
-         </children>
-      </HBox>
-      <VBox alignment="CENTER_LEFT" layoutX="14.0" layoutY="3.0" prefHeight="103.0" prefWidth="100.0" spacing="10.0">
-         <children>
-            <Button mnemonicParsing="false" text="Go up a level" />
-            <Label text="Category: " />
-            <Label text="Name:" />
+            <Button fx:id="goUpALevelButton" mnemonicParsing="false" onAction="#goUpALevel" text="Go up a level" />
+            <Label fx:id="categoryLabel" text="Category: " />
+            <Label fx:id="nameLabel" text="Name:" />
          </children>
       </VBox>
       <VBox layoutX="100.0" layoutY="106.0" prefHeight="556.0" prefWidth="518.0" spacing="10.0">
          <children>
             <ScrollPane prefHeight="218.0" prefWidth="518.0">
                <content>
-                  <VBox prefHeight="101.0" prefWidth="429.0">
+                  <VBox fx:id="statementsNode" prefHeight="216.0" prefWidth="516.0">
                      <children>
-                        <Button mnemonicParsing="false" text="Add New Statement" />
+                        <Button fx:id="addNewStatementButton" mnemonicParsing="false" onAction="#addNewStatement" text="Add New Statement" />
                      </children>
                   </VBox>
                </content>
             </ScrollPane>
-            <Label text="Next Category" />
-            <ScrollPane prefHeight="218.0" prefWidth="518.0">
+            <Label fx:id="subcategoryLabel" text="Next Category" />
+            <ScrollPane fx:id="childrenScrollPane" prefHeight="218.0" prefWidth="518.0">
                <content>
-                  <TilePane prefHeight="116.0" prefWidth="428.0">
+                  <TilePane fx:id="childrenNode" prefHeight="216.0" prefWidth="516.0">
                      <children>
-                        <Button mnemonicParsing="false" text="Create New" />
+                        <Button fx:id="createNewSubcategoryButton" mnemonicParsing="false" onAction="#createNewSubcategory" text="Create New" />
                      </children>
                   </TilePane>
                </content>
             </ScrollPane>
+         </children>
+      </VBox>
+      <VBox alignment="CENTER" layoutX="336.0" layoutY="3.0" prefHeight="67.0" prefWidth="364.0">
+         <children>
+            <HBox alignment="CENTER" prefHeight="54.0" prefWidth="353.0" spacing="10.0">
+               <children>
+                  <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteNode" text="Delete" />
+                  <Button fx:id="homeButton" mnemonicParsing="false" onAction="#goHome" text="Home" />
+                  <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveLocally" text="Save" />
+                  <Button fx:id="saveToServerButton" mnemonicParsing="false" onAction="#saveToServer" text="Save to Server" />
+                  <StackPane prefHeight="54.0" prefWidth="78.0">
+                     <children>
+                        <HBox fx:id="isEditableHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                           <children>
+                              <Label text="Editable" />
+                              <CheckBox fx:id="isEditableCheckbox" mnemonicParsing="false" onAction="#changeEditability" />
+                           </children>
+                        </HBox>
+                        <Label fx:id="isEditableLabel" text="Is Editable" />
+                     </children>
+                  </StackPane>
+               </children>
+            </HBox>
+            <Label fx:id="invalidSaveLabel" />
          </children>
       </VBox>
    </children>
