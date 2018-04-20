@@ -16,14 +16,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.Model;
 
 public class AddDepartmentPopupBoxController {
 
 	Stage popupStage;
 	FXMLLoader loader;
 	Scene newDepartmentScene;
-	ClientProxy client;
-	BPApplication application;
+	Model model;
 	
     @FXML
     private TextField deptNameField;
@@ -39,9 +39,8 @@ public class AddDepartmentPopupBoxController {
 
     public AddDepartmentPopupBoxController() {}
     
-    public AddDepartmentPopupBoxController(ClientProxy client, BPApplication application) throws IOException {
-    	this.client = client;
-		this.application = application;
+    public AddDepartmentPopupBoxController(Model model) throws IOException {
+    	this.model = model;
 		loader = new FXMLLoader();
 		loader.setLocation(AddDepartmentPopupBoxController.class.getResource("AddDepartmentPopupBox.fxml"));
 		newDepartmentScene = new Scene(loader.load());
@@ -77,7 +76,7 @@ public class AddDepartmentPopupBoxController {
 			//Try to create the department
 			try
 			{
-				successfullyAddedDepartment = client.addDepartment(departmentName);
+				successfullyAddedDepartment = model.addDepartment(departmentName);
 			} catch (Exception e1)
 			{
 				e1.printStackTrace();
@@ -92,7 +91,7 @@ public class AddDepartmentPopupBoxController {
 			else
 			{
 				deptNameField.setText("");
-				ArrayList<Department> departments = client.getAllDepartments();
+				ArrayList<Department> departments = model.getAllDepartments();
 				if(departments != null)
 				{
 					Iterator<Department> iterator = departments.iterator();

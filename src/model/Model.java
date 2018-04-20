@@ -2,11 +2,13 @@ package model;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.util.ArrayList;
 
 import applicationFiles.BPApplication;
 import clientServerPackage.BP;
 import clientServerPackage.ClientProxy;
 import clientServerPackage.ConcreteServer;
+import clientServerPackage.Department;
 import clientServerPackage.ServerInterface;
 import homePage.homePageController;
 import javafx.geometry.Pos;
@@ -22,6 +24,7 @@ public class Model
 	public ClientProxy client;
 	BPApplication application;
 	BP businessPlan;
+	Department adminDepartment;
 	
 	public Model(ClientProxy client, BPApplication application, BP businessPlan)
 	{
@@ -33,7 +36,6 @@ public class Model
 	public boolean authenticate(TextField userName_input,PasswordField pass_input,TextField serv_input, Button login_but )
 	{
 		ServerInterface server = new ConcreteServer();
-		Label invalidLoginLabel = new Label();
 		
 		boolean foundServer = true;
 		int serverAddress = Integer.parseInt(serv_input.getText());
@@ -45,7 +47,7 @@ public class Model
 		catch (Exception exception)
 		{
 			foundServer = false;
-			invalidLoginLabel.setText("The server was not found.");
+			//invalidLoginLabel.setText("The server was not found.");
 			exception.printStackTrace();
 		}
 		
@@ -89,6 +91,16 @@ public class Model
 	public void notify(Scene scene)
 	{
 		application.notify(scene);
+	}
+
+	public boolean addDepartment(String departmentName)
+	{
+		return client.addDepartment(departmentName);
+	}
+
+	public ArrayList<Department> getAllDepartments()
+	{
+		return client.getAllDepartments();
 	}
 
 }

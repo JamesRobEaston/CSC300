@@ -18,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.Model;
 
 public class AddNewUserPopupBoxController
 {
@@ -25,9 +26,7 @@ public class AddNewUserPopupBoxController
 	Stage popupStage;
 	FXMLLoader loader;
 	Scene newUserScene;
-	ClientProxy client;
-	BPApplication application;
-	Department adminDepartment;
+	Model model;
 
 	@FXML
 	private CheckBox newIsAdmin;
@@ -51,15 +50,14 @@ public class AddNewUserPopupBoxController
 
 	public AddNewUserPopupBoxController() {}
 	
-	public AddNewUserPopupBoxController(ClientProxy client, BPApplication application) throws IOException
+	public AddNewUserPopupBoxController(Model model) throws IOException
 	{
-		this.client = client;
-		this.application = application;
+		this.model = model;
 		loader = new FXMLLoader();
 		loader.setLocation(AddNewUserPopupBoxController.class.getResource("AddNewUserPopupBox.fxml"));
 		newUserScene = new Scene(loader.load());
 
-		ArrayList<Department> departments = client.getAllDepartments();
+		ArrayList<Department> departments = model.getAllDepartments();
 		newDepartment.setConverter(new DepartmentConverter<Department>());
 		adminDepartment = null;
 
