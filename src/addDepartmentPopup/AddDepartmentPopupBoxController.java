@@ -46,7 +46,7 @@ public class AddDepartmentPopupBoxController {
 		
 		popupStage = new Stage();
 		popupStage.initModality(Modality.APPLICATION_MODAL);
-		popupStage.setTitle("Add New User");
+		popupStage.setTitle("Add Department");
 		popupStage.setResizable(false);
 		popupStage.setScene(newDepartmentScene);
     }
