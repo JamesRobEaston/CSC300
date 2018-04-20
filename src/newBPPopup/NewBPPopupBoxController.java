@@ -17,16 +17,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.Model;
 
 public class NewBPPopupBoxController {
 
 	Stage popupStage;
 	FXMLLoader loader;
 	Scene newBPScene;
-	ClientProxy client;
-	BPApplication application;
 	boolean isClone;
 	BP businessPlan;
+	Model model;
 	
     @FXML
     private TextField planYearField;
@@ -45,9 +45,8 @@ public class NewBPPopupBoxController {
 
     public NewBPPopupBoxController() {}
     
-    public NewBPPopupBoxController(ClientProxy client, BPApplication application, boolean isClone) throws IOException {
-    	this.client = client;
-		this.application = application;
+    public NewBPPopupBoxController(Model model, boolean isClone) throws IOException {
+    	this.model = model;
 		this.isClone = isClone;
 		loader = new FXMLLoader();
 		loader.setLocation(AddDepartmentPopupBoxController.class.getResource("AddDepartmentPopupBox.fxml"));
@@ -82,8 +81,8 @@ public class NewBPPopupBoxController {
 		}
 		else 
 		{
-			client.retrieve(id + " " + year);
-			if(client.getLocalCopy() == null && isInt(year))
+			model.retrieve(id + " " + year);
+			if(model.getBusinessPlan() == null && isInt(year))
 			{
 				if(!isClone)
 				{
@@ -92,11 +91,12 @@ public class NewBPPopupBoxController {
 				}
 				else
 				{
-					businessPlan = client.getBusinessPlan();
+					businessPlan = model.getBusinessPlan();
 					BP newBP = businessPlan.copy();
 					newBP.setID(id + " " +year);
 					newBP.setYear(year);
-					new BusinessPlanScreenController(newBP, client, application);
+					model.setLocalCopy(businessPlan);
+					new BusinessPlanScreenController(model);
 				}
 				popupStage.close();
 				planIDField.setText("");
