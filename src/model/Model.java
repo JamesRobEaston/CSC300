@@ -168,6 +168,10 @@ public class Model
 		client.saveLocalPlanXML();
 	}
 
-	
+	public void submitPlan()
+	{
+		client.setLocalCopy(businessPlan);
+		client.submitPlan();
+	}
 
 }

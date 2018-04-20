@@ -20,7 +20,9 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
-import editOrClonePopup.EditOrCloneBPPopupBoxController;
+import model.Model;
+import editOrClonePopup.EditOrClonePopupBoxController;
+import homePage.homePageController;
 
 public class ViewAllBPScreenController
 {
@@ -50,16 +52,15 @@ public class ViewAllBPScreenController
 	Button resetButton;
 	
 	public static Department currDepartment;
-	
-	ClientProxy client;
-	BPApplication application;
+
+	Model model;
     
 	public ViewAllBPScreenController() {}
 	
-	public ViewAllBPScreenController(ClientProxy client, BPApplication application)
+	public ViewAllBPScreenController(Model model)
 	{
-		this.client = client;
-		this.application = application;
+
+		this.model = model;
 		
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(ViewAllBPScreenController.class.getResource("viewAllBPView/BusinessPlanScreen.fxml"));
@@ -72,16 +73,16 @@ public class ViewAllBPScreenController
 			e1.printStackTrace();
 		}
 		
-		currDepartment = client.getDepartment();
+		currDepartment = model.getDepartment();
 		
 		//Copy allPlans into a new list of plans that will be displayed
-		setValidPlans(client, client.getDepartment());
+		setValidPlans(model.getClient(), model.getDepartment());
 		
-		boolean isAdmin = client.isAdmin();
+		boolean isAdmin = model.isAdmin();
 		
 		if(isAdmin)
 		{
-			ArrayList<Department> departments = client.getAllDepartments();
+			ArrayList<Department> departments = model.getAllDepartments();
 			for(int i = 0; i < departments.size(); i++)
 			{
 				departmentDropDownMenu.getItems().add(departments.get(i));
@@ -91,8 +92,8 @@ public class ViewAllBPScreenController
 			departmentDropDownMenu.getSelectionModel().selectedIndexProperty().addListener((observableValue, oldIndex, newIndex) ->
 			{
 				currDepartment = departmentDropDownMenu.getItems().get(newIndex.intValue());
-				setValidPlans(client, currDepartment);
-				updateBPScrollPane(client, validPlans);
+				setValidPlans(model.getClient(), currDepartment);
+				updateBPScrollPane(model.getClient(), validPlans);
 			});
 			
 			departmentDropDownMenu.setValue(ConcreteServer.adminDepartment);
@@ -102,14 +103,13 @@ public class ViewAllBPScreenController
 			departmentDropDownMenu.setVisible(false);
 		}
 		
-		updateBPScrollPane(client, validPlans);
+		updateBPScrollPane(model.getClient(), validPlans);
 	}
 
 	@FXML
 	void goBack(ActionEvent event)
 	{
-		//TODO
-		//application.notify(HomeScreen.homeScreen);
+		new homePageController(model);
 		resetButton.fire();
 	}
 
@@ -134,7 +134,7 @@ public class ViewAllBPScreenController
 		yearTextInput.setText("");
 		idTextInput.setText("");
 		
-		updateBPScrollPane(client, validPlans);
+		updateBPScrollPane(model.getClient(), validPlans);
 	}
 
 	@FXML
@@ -172,7 +172,7 @@ public class ViewAllBPScreenController
 			}
 		}
 		
-		updateBPScrollPane(client, validPlans);
+		updateBPScrollPane(model.getClient(), validPlans);
 	}
 	
 	void setValidPlans(ClientProxy client, Department dept)
@@ -222,8 +222,8 @@ public class ViewAllBPScreenController
 					client.retrieve(bp[0]);
 				}
 				
-				EditOrCloneBPPopupBoxController editOrClonePopupBox = new EditOrCloneBPPopupBoxController(model);
-				.show(client.getLocalCopy());
+				EditOrClonePopupBoxController editOrClonePopupBox = new EditOrClonePopupBoxController(model);
+				editOrClonePopupBox.show();
 			});
 
 			StackPane buttonMargins = new StackPane(bpButton);
