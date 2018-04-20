@@ -91,5 +91,10 @@ public class homePageController
 	{
 		new ViewAllBPScreenController(model);
 	}
+	
+	public Scene getScene()
+	{
+		return homePage;
+	}
 
 }

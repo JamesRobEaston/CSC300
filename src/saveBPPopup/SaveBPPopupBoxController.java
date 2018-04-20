@@ -2,6 +2,8 @@ package saveBPPopup;
 
 import clientServerPackage.BP;
 import clientServerPackage.ClientProxy;
+import homePage.homePageController;
+
 import java.io.IOException;
 
 import applicationFiles.BPApplication;
@@ -11,23 +13,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.Model;
 import viewAllBPView.ViewAllBPScreenController;
 
 public class SaveBPPopupBoxController
-{
-	
-	ClientProxy client;
-	BPApplication application;
-	
+{	
 	public static Stage saveBPPopupBox;
-	public static BP businessPlan;
+	Model model;
 	
 	public SaveBPPopupBoxController() {}
 	
-	public SaveBPPopupBoxController(ClientProxy client, BPApplication application)
+	public SaveBPPopupBoxController(Model model)
 	{
-		this.client = client;
-		this.application = application;
+		this.model = model;
 
 		// Create the stage to ask the user
 		saveBPPopupBox = new Stage();
@@ -58,16 +56,18 @@ public class SaveBPPopupBoxController
 	@FXML
 	void discard(ActionEvent event)
 	{
-		application.notify(HomeScreen.homeScreen);
+		homePageController homePage = new homePageController(model);
+		model.notify(homePage.getScene());
 		saveBPPopupBox.close();
 	}
 
 	@FXML
 	void save(ActionEvent event)
 	{
-		client.setBusinessPlan(businessPlan);
-		client.saveLocalPlanXML();
-		application.notify(HomeScreen.homeScreen);
+		homePageController homePage = new homePageController(model);
+		model.setBusinessPlan(businessPlan);
+		model.saveLocalPlanXML();
+		model.notify(homePage.getScene());
 		saveBPPopupBox.close();
 
 	}
