@@ -103,4 +103,19 @@ public class Model
 		return client.getAllDepartments();
 	}
 
+	public ClientProxy getClient()
+	{
+		return client;
+	}
+
+	public Department getDepartment()
+	{
+		return client.getDepartment();
+	}
+
+	public boolean isAdmin()
+	{
+		return client.isAdmin();
+	}
+
 }
