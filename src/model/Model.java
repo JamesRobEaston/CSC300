@@ -174,4 +174,15 @@ public class Model
 		client.submitPlan();
 	}
 
+	public boolean addUser(String username, String password, String name, boolean b)
+	{
+		return client.addUser(username, password, name, b);
+	}
+	
+	public void retrieve(String bpid)
+	{
+		client.retrieve(bpid);
+		businessPlan = client.getLocalCopy();
+	}
+
 }

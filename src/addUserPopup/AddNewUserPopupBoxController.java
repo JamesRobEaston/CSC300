@@ -67,7 +67,7 @@ public class AddNewUserPopupBoxController
 				newDepartment.getItems().add(department);
 			} else
 			{
-				adminDepartment = department;
+				model.setAdminDepartment(department);
 			}
 		}
 
@@ -117,7 +117,7 @@ public class AddNewUserPopupBoxController
 			{
 				try
 				{
-					successfullyAddedUser = client.addUser(username, password, department.getName(), true);
+					successfullyAddedUser = model.addUser(username, password, department.getName(), true);
 				} catch (Exception e1)
 				{
 					e1.printStackTrace();
@@ -127,7 +127,7 @@ public class AddNewUserPopupBoxController
 			{
 				try
 				{
-					successfullyAddedUser = client.addUser(username, password, department.getName(),false);
+					successfullyAddedUser = model.addUser(username, password, department.getName(),false);
 				} catch (Exception e1)
 				{
 					e1.printStackTrace();
@@ -151,11 +151,11 @@ public class AddNewUserPopupBoxController
 	{
 		if (newIsAdmin.isSelected())
 		{
-			newDepartment.getItems().add(adminDepartment);
-			newDepartment.setValue(adminDepartment);
+			newDepartment.getItems().add(model.getAdminDepartment());
+			newDepartment.setValue(model.getAdminDepartment());
 		} else
 		{
-			newDepartment.getItems().remove(adminDepartment);
+			newDepartment.getItems().remove(model.getAdminDepartment());
 			newDepartment.setValue(null);
 		}
 	}
