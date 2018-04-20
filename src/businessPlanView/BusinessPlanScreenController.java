@@ -15,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import model.Model;
 
 public class BusinessPlanScreenController
 {
@@ -74,18 +75,16 @@ public class BusinessPlanScreenController
 	BP businessPlan;
 	Statement currentNode;
 	boolean needsToBeSaved;
-	BPApplication application;
-	ClientProxy client;
+	Model model;
 
 	public BusinessPlanScreenController() {}
 	
-	public BusinessPlanScreenController(BP bp, ClientProxy client, BPApplication application)
+	public BusinessPlanScreenController(Model model)
 	{
-		businessPlan = bp;
+		this.model = model;
+		businessPlan = model.getBusinessPlan();
 		needsToBeSaved = false;
-		this.client = client;
-		this.application = application;
-		viewBPScreen = viewBPStatement(bp.getTree().getRoot());
+		viewBPScreen = viewBPStatement(businessPlan.getTree().getRoot());
 	}
 	
 	public Scene viewBPStatement(Statement statement)
@@ -108,7 +107,7 @@ public class BusinessPlanScreenController
 		
 		boolean hasParent = !(currentNode.getParent() == null);
 		boolean isEditable = businessPlan.isEditable();
-		boolean isAdmin = client.isAdmin();
+		boolean isAdmin = model.isAdmin();
 		
 		//Determine whether the goUpALevel button is visible
 		if(!hasParent)
@@ -232,7 +231,7 @@ public class BusinessPlanScreenController
 			Button chooseStatementButton = new Button(childStatement.getId());
 			chooseStatementButton.setOnAction(e ->
 			{
-				application.notify(viewBPStatement(childStatement));
+				model.notify(viewBPStatement(childStatement));
 			});
 			childrenNode.getChildren().remove(createNewSubcategoryButton);
 			childrenNode.getChildren().add(chooseStatementButton);
@@ -292,7 +291,7 @@ public class BusinessPlanScreenController
 	{
 		needsToBeSaved = true;
 		businessPlan.setEditable(isEditableCheckbox.isSelected());
-		new BusinessPlanScreenController(businessPlan, client, application);
+		new BusinessPlanScreenController(model);
 	}
 
 	@FXML
@@ -308,7 +307,7 @@ public class BusinessPlanScreenController
 			Category newChildCategory = categories.get(categories.indexOf(currentNode.getType()) + 1);
 			Statement newChild = new Statement(newChildCategory, currentNode, new ArrayList<String>(), newChildIDInput.getText());
 			currentNode.addChild(newChild);
-			application.notify(viewBPStatement(newChild));
+			model.notify(viewBPStatement(newChild));
 		});
 		childrenNode.getChildren().remove(createNewSubcategoryButton);
 		childrenNode.getChildren().addAll(newChildIDInput, submitButton);
@@ -334,11 +333,7 @@ public class BusinessPlanScreenController
 			parent.getChildren().remove(indexOfThis);
 
 			needsToBeSaved = true;
-			application.notify(viewBPStatement(currentNode.getParent()));
-		}
-		else
-		{
-			client.delete(businessPlan);
+			model.notify(viewBPStatement(currentNode.getParent()));
 		}
 	}
 
@@ -362,32 +357,32 @@ public class BusinessPlanScreenController
 	{
 		if(currentNode.getParent() != null)
 		{
-			application.notify(viewBPStatement(currentNode.getParent()));
+			model.notify(viewBPStatement(currentNode.getParent()));
 		}
 	}
 
 	@FXML
 	void saveLocally(ActionEvent event)
 	{
-		client.setBusinessPlan(businessPlan);
-		client.saveLocalPlanXML();
+		model.setBusinessPlan(businessPlan);
+		model.saveLocalPlanXML();
 		needsToBeSaved = false;
 	}
 
 	@FXML
 	void saveToServer(ActionEvent event)
 	{
-		client.setBusinessPlan(businessPlan);
+		model.setBusinessPlan(businessPlan);
 		try
 		{
-			if(client.isAdmin())
+			if(model.isAdmin())
 			{
 				//TODO
 				//client.saveBPToDepartment(businessPlan, ViewAllScreen.currDepartment.getDepartmentName());
 			}
 			else
 			{
-				client.submitPlan();
+				model.submitPlan();
 			}
 			//TODO
 			//new ViewAllScreen(client, application);
