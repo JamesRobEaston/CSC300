@@ -2,8 +2,6 @@ package saveBPPopup;
 
 import clientServerPackage.BP;
 import clientServerPackage.ClientProxy;
-import guiFiles.screens.HomeScreen;
-
 import java.io.IOException;
 
 import applicationFiles.BPApplication;
@@ -23,6 +21,8 @@ public class SaveBPPopupBoxController
 	
 	public static Stage saveBPPopupBox;
 	public static BP businessPlan;
+	
+	public SaveBPPopupBoxController() {}
 	
 	public SaveBPPopupBoxController(ClientProxy client, BPApplication application)
 	{

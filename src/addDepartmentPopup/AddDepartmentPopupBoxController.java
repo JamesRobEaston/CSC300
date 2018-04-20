@@ -37,10 +37,7 @@ public class AddDepartmentPopupBoxController {
     @FXML
     private Label errorText;
 
-    public AddDepartmentPopupBoxController()
-    {
-    	
-    }
+    public AddDepartmentPopupBoxController() {}
     
     public AddDepartmentPopupBoxController(ClientProxy client, BPApplication application) throws IOException {
     	this.client = client;

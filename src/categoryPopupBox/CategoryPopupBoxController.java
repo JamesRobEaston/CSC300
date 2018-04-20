@@ -46,6 +46,8 @@ public class CategoryPopupBoxController
 	BPApplication application;
 	ClientProxy client;
 
+	public CategoryPopupBoxController() {}
+	
 	public CategoryPopupBoxController(ClientProxy client, BPApplication application)
 	{
 		this.application = application;

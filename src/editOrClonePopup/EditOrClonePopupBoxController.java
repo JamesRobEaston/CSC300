@@ -32,6 +32,8 @@ public class EditOrClonePopupBoxController {
     @FXML
     private Button cancelButton;
 
+    public EditOrClonePopupBoxController() {}
+    
     public EditOrClonePopupBoxController(ClientProxy client, BPApplication application) throws IOException
 	{
     	this.client = client;

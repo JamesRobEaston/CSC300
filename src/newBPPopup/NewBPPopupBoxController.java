@@ -1,3 +1,5 @@
+package newBPPopup;
+
 import java.io.IOException;
 
 import addDepartmentPopup.AddDepartmentPopupBoxController;
@@ -41,6 +43,8 @@ public class NewBPPopupBoxController {
     @FXML
     private Label errorText;
 
+    public NewBPPopupBoxController() {}
+    
     public NewBPPopupBoxController(ClientProxy client, BPApplication application, boolean isClone) throws IOException {
     	this.client = client;
 		this.application = application;

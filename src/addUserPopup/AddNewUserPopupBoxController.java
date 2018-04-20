@@ -49,6 +49,8 @@ public class AddNewUserPopupBoxController
 	
 	private Label errorText;
 
+	public AddNewUserPopupBoxController() {}
+	
 	public AddNewUserPopupBoxController(ClientProxy client, BPApplication application) throws IOException
 	{
 		this.client = client;

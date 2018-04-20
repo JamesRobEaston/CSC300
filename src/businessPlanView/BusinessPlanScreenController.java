@@ -77,6 +77,8 @@ public class BusinessPlanScreenController
 	BPApplication application;
 	ClientProxy client;
 
+	public BusinessPlanScreenController() {}
+	
 	public BusinessPlanScreenController(BP bp, ClientProxy client, BPApplication application)
 	{
 		businessPlan = bp;

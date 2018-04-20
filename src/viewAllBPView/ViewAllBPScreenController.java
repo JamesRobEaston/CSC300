@@ -53,6 +53,8 @@ public class ViewAllBPScreenController
 	ClientProxy client;
 	BPApplication application;
     
+	public ViewAllBPScreenController() {}
+	
 	public ViewAllBPScreenController(ClientProxy client, BPApplication application)
 	{
 		this.client = client;
