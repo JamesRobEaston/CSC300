@@ -69,7 +69,7 @@ public class homePageController
 	}
 
 	@FXML
-	void addUser(ActionEvent event)
+	void addUser(ActionEvent event) throws IOException
 	{
 		new AddNewUserPopupBoxController(model);
 	}
@@ -81,9 +81,9 @@ public class homePageController
 	}
 
 	@FXML
-	void newBP(ActionEvent event)
+	void newBP(ActionEvent event) throws IOException
 	{
-		new NewBPPopupBoxController(model);
+		new NewBPPopupBoxController(model, false);
 	}
 
 	@FXML
