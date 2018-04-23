@@ -239,6 +239,7 @@ public class Model
 			
 			e.printStackTrace();
 		}
+		
 	}
 	
 	public void showViewAllBPScreen()
@@ -319,6 +320,13 @@ public class Model
 		cont.nameLabel.setText("Name: " + cont.currentNode.getId());
 		cont.categoryLabel.setText("Category: " + statement.getType().getName());
 		
+		Statement curr = statement;
+		while(curr != null)
+		{
+			cont.treeDisplay.getChildren().add(0, new Label(">" + curr.getId()));
+			curr = curr.getParent();
+		}
+			
 		boolean hasParent = !(cont.currentNode.getParent() == null);
 		boolean isEditable = businessPlan.isEditable();
 		boolean isAdmin = isAdmin();
