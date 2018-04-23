@@ -45,6 +45,9 @@ public class BusinessPlanScreenController
     public TilePane childrenNode;
     
     @FXML
+    public VBox treeDisplay;
+    
+    @FXML
     public Button deleteButton;
     
     @FXML

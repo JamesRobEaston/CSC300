@@ -218,7 +218,7 @@ public class ViewAllBPScreenController
 			{
 				if(client.isAdmin())
 				{
-					client.retrieve(bp[0], currDepartment);
+					client.retrieve(bp[0], Model.currDepartment);
 				}
 				else
 				{
