@@ -3,16 +3,21 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="homePage_view" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="homePage.homePageController">
+<AnchorPane fx:id="homePage_view" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="homePage.homePageController">
    <children>
       <Button fx:id="logout_but" layoutX="502.0" layoutY="26.0" mnemonicParsing="false" onAction="#logout" text="Log Out" />
-      <Button fx:id="addUser_but" layoutX="225.0" layoutY="254.0" mnemonicParsing="false" onAction="#addUser" prefHeight="27.0" prefWidth="150.0" text="Add New User" />
-      <Button fx:id="addDept_but" layoutX="225.0" layoutY="296.0" mnemonicParsing="false" onAction="#addDept" text="Add New Department" />
-      <Button fx:id="newBP_but" layoutX="225.0" layoutY="213.0" mnemonicParsing="false" onAction="#newBP" prefHeight="27.0" prefWidth="150.0" text="New Business Plan" />
-      <Button fx:id="viewAll_but" layoutX="225.0" layoutY="173.0" mnemonicParsing="false" onAction="#viewAllPlans" prefHeight="27.0" prefWidth="150.0" text="View All Plans" />
-      <Button fx:id="loadlc_but" layoutX="225.0" layoutY="131.0" mnemonicParsing="false" onAction="#loadLocalCopy" prefHeight="27.0" prefWidth="150.0" text="Load Local Copy" />
       <Label layoutX="106.0" layoutY="31.0" text="Admin" />
       <Label layoutX="21.0" layoutY="31.0" text="Department:" />
+      <VBox alignment="CENTER" layoutX="176.0" layoutY="100.0" prefHeight="200.0" prefWidth="249.0" spacing="15.0">
+         <children>
+            <Button fx:id="addUser_but" mnemonicParsing="false" onAction="#addUser" prefHeight="27.0" prefWidth="200.0" text="Add New User" />
+            <Button fx:id="addDept_but" mnemonicParsing="false" onAction="#addDept" prefHeight="26.0" prefWidth="200.0" text="Add New Department" />
+            <Button fx:id="newBP_but" mnemonicParsing="false" onAction="#newBP" prefHeight="27.0" prefWidth="200.0" text="New Business Plan" />
+            <Button fx:id="viewAll_but" mnemonicParsing="false" onAction="#viewAllPlans" prefHeight="27.0" prefWidth="200.0" text="View All Plans" />
+            <Button fx:id="loadlc_but" mnemonicParsing="false" onAction="#loadLocalCopy" prefHeight="27.0" prefWidth="200.0" text="Load Local Copy" />
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
