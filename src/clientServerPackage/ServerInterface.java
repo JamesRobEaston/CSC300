@@ -18,4 +18,5 @@ public interface ServerInterface extends Remote {
 	void saveBPToDepartment(String userToken, BP bp, String dept) throws RemoteException;
 	String[][] view(String userToken, Department dept) throws RemoteException;
 	BP retrieve(String userToken, String bpid, Department dept) throws RemoteException;
+	ArrayList<ConcreteClient> getUsers() throws RemoteException;
 }

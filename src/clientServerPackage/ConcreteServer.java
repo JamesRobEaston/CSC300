@@ -51,7 +51,7 @@ public class ConcreteServer implements ServerInterface, Serializable
 		return token;
 	}
 
-	public ArrayList<ConcreteClient> getUsers()
+	public ArrayList<ConcreteClient> getUsers() throws RemoteException
 	{
 		return users;
 	}
