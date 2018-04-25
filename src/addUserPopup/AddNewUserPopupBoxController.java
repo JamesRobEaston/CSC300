@@ -18,7 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.Model;
+import model.ModelInterface;
 
 public class AddNewUserPopupBoxController
 {
@@ -26,7 +26,7 @@ public class AddNewUserPopupBoxController
 	Stage popupStage;
 	FXMLLoader loader;
 	Scene newUserScene;
-	Model model;
+	ModelInterface model;
 
 	@FXML
 	private CheckBox newIsAdmin;
@@ -130,7 +130,7 @@ public class AddNewUserPopupBoxController
 		}
 	}
 	
-	public void setModel(Model model)
+	public void setModel(ModelInterface model)
 	{
 		this.model = model;
 	}

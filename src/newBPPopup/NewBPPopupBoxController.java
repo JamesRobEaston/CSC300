@@ -8,16 +8,18 @@ import businessPlanClasses.BusinessPlan;
 import businessPlanView.BusinessPlanScreenController;
 import clientServerPackage.BP;
 import clientServerPackage.ClientProxy;
+import clientServerPackage.Department;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.Model;
+import model.ModelInterface;
 
 public class NewBPPopupBoxController
 {
@@ -27,7 +29,8 @@ public class NewBPPopupBoxController
 	Scene newBPScene;
 	boolean isClone;
 	BP businessPlan;
-	Model model;
+	ModelInterface model;
+	public String department;
 
 	@FXML
 	private TextField planYearField;
@@ -40,11 +43,17 @@ public class NewBPPopupBoxController
 
 	@FXML
 	private Button closePopupButton;
+	
+    @FXML
+    public ChoiceBox<Department> departmentChoiceBox;
+
+    @FXML
+    public Label departmentChoiceBoxLabel;
 
 	@FXML
 	private Label errorText;
 
-	public void setModel(Model model)
+	public void setModel(ModelInterface model)
 	{
 		this.model = model;
 	}
@@ -83,10 +92,13 @@ public class NewBPPopupBoxController
 			{
 				if (!isClone)
 				{
-					businessPlan = new BP(year, id);
-					model.setBusinessPlan(businessPlan);
-					model.closePopupBox();
-					model.showCategoryPopupBox();
+					if(!department.equals(""))
+					{
+						businessPlan = new BP(year, id, department);
+						model.setBusinessPlan(businessPlan);
+						model.closePopupBox();
+						model.showCategoryPopupBox();
+					}
 				} else
 				{
 					businessPlan = model.getBusinessPlan();
@@ -96,8 +108,12 @@ public class NewBPPopupBoxController
 					model.setLocalCopy(businessPlan);
 					model.showBusinessPlanScreen();
 				}
-				planIDField.setText("");
-				planYearField.setText("");
+				
+				if(!department.equals(""))
+				{
+					planIDField.setText("");
+					planYearField.setText("");
+				}
 			} else if (!isInt(year))
 			{
 				errorText.setText("Please enter a valid year.");

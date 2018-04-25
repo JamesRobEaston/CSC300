@@ -15,7 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.Model;
+import model.ModelInterface;
 
 public class EditOrClonePopupBoxController
 {
@@ -23,7 +23,7 @@ public class EditOrClonePopupBoxController
 	Stage popupStage;
 	FXMLLoader loader;
 	Scene editOrCloneScene;
-	Model model;
+	ModelInterface model;
 
 	@FXML
 	private Button editButton;
@@ -38,7 +38,7 @@ public class EditOrClonePopupBoxController
 	{
 	}
 
-	public EditOrClonePopupBoxController(Model model)
+	public EditOrClonePopupBoxController(ModelInterface model)
 	{
 		loader = new FXMLLoader();
 		loader.setLocation(AddDepartmentPopupBoxController.class.getResource("AddDepartmentPopupBox.fxml"));
@@ -57,7 +57,7 @@ public class EditOrClonePopupBoxController
 		popupStage.setScene(editOrCloneScene);
 	}
 	
-	public void setModel(Model model)
+	public void setModel(ModelInterface model)
 	{
 		this.model = model;
 	}

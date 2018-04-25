@@ -21,6 +21,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import model.Model;
+import model.ModelInterface;
 import editOrClonePopup.EditOrClonePopupBoxController;
 import homePage.homePageController;
 
@@ -53,11 +54,11 @@ public class ViewAllBPScreenController
 	
 	public static Department currDepartment;
 
-	Model model;
+	ModelInterface model;
     
 	public ViewAllBPScreenController() {}
 	
-	public ViewAllBPScreenController(Model model)
+	public ViewAllBPScreenController(ModelInterface model)
 	{
 
 		this.model = model;
@@ -106,7 +107,7 @@ public class ViewAllBPScreenController
 		updateBPScrollPane(model.getClient(), validPlans);
 	}
 	
-	public void setModel(Model model)
+	public void setModel(ModelInterface model)
 	{
 		this.model = model;
 	}

@@ -10,16 +10,17 @@ public class BP extends BusinessPlan
 	private static final long serialVersionUID = 5650842134649347758L;
 	String ID;
 	String name;
-	Department department;
+	String department;
 	
 	public BP()
 	{
 		
 	}
 
-	public BP(String year, String name)
+	public BP(String year, String name, String department)
 	{
 		super(year, name);
+		this.department = department;
 		this.name = name;
 		ID = name + " " + year;
 	}
@@ -64,12 +65,12 @@ public class BP extends BusinessPlan
 		return copy;
 	}
 
-	public Department getDepartment()
+	public String getDepartment()
 	{
 		return department;
 	}
 
-	public void setDepartment(Department department)
+	public void setDepartment(String department)
 	{
 		this.department = department;
 	}

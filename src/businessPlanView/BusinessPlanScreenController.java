@@ -16,6 +16,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import model.Model;
+import model.ModelInterface;
 
 public class BusinessPlanScreenController
 {
@@ -78,11 +79,11 @@ public class BusinessPlanScreenController
 	BP businessPlan;
 	public Statement currentNode;
 	public boolean needsToBeSaved;
-	Model model;
+	ModelInterface model;
 
 	public BusinessPlanScreenController() {}
 	
-	public BusinessPlanScreenController(Model model)
+	public BusinessPlanScreenController(ModelInterface model)
 	{
 		this.model = model;
 		businessPlan = model.getBusinessPlan();
@@ -90,7 +91,7 @@ public class BusinessPlanScreenController
 		viewBPScreen = viewBPStatement(businessPlan.getTree().getRoot());
 	}
 	
-	public void setModel(Model model)
+	public void setModel(ModelInterface model)
 	{
 		this.model = model;
 		businessPlan = model.getBusinessPlan();

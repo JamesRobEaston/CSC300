@@ -9,7 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import model.Model;
+import model.ModelInterface;
 
 public class loginController {
 
@@ -17,21 +17,21 @@ public class loginController {
     private AnchorPane login_view;
 
     @FXML
-    private Button login_but;
+    public Button login_but;
 
     @FXML
-    private PasswordField pass_input;
+    public PasswordField pass_input;
 
     @FXML
-    private TextField serv_input;
+    public TextField serv_input;
 
     @FXML
-    private TextField userName_input;
+	public TextField userName_input;
 
 	   
-	    Model model;
+	    ModelInterface model;
 	    
-	    public void setModel(Model model)
+	    public void setModel(ModelInterface model)
 	    {
 	    	this. model=model;
 	    }

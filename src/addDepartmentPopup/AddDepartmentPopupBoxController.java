@@ -16,14 +16,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.Model;
+import model.ModelInterface;
 
 public class AddDepartmentPopupBoxController {
 
 	Stage popupStage;
 	FXMLLoader loader;
 	Scene newDepartmentScene;
-	Model model;
+	ModelInterface model;
 	
     @FXML
     private TextField deptNameField;
@@ -37,7 +37,7 @@ public class AddDepartmentPopupBoxController {
     @FXML
     private Label errorText;
 
-    public void setModel(Model model)
+    public void setModel(ModelInterface model)
     {
     	this.model = model;
     }

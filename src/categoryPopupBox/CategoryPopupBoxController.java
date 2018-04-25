@@ -18,7 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.Model;
+import model.ModelInterface;
 
 public class CategoryPopupBoxController
 {
@@ -45,7 +45,7 @@ public class CategoryPopupBoxController
 	private static BP businessPlan;
 	public static Stage categoriesPopupBox;
 
-	Model model;
+	ModelInterface model;
 
 	@FXML
 	void VMOSAModel(ActionEvent event)
@@ -123,7 +123,7 @@ public class CategoryPopupBoxController
 		categoriesPopupBox.show();
 	}
 	
-	public void setModel(Model model)
+	public void setModel(ModelInterface model)
 	{
 		this.model = model;
 	}

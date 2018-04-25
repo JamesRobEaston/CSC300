@@ -10,6 +10,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.*;
 import login.loginController;
 import model.Model;
+import model.ModelInterface;
 import javafx.scene.*;
 
 public class BPApplication extends Application
@@ -27,7 +28,7 @@ public class BPApplication extends Application
 		
 		//LoginScreen loginScreen = new LoginScreen(this);
 		
-		Model model = new Model(null, this, null);
+		ModelInterface model = new Model(null, this, null);
 		model.showLogin();
 		
 		primaryStage.show();

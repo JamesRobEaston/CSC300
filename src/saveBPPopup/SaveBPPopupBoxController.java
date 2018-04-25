@@ -13,17 +13,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import model.Model;
+import model.ModelInterface;
 import viewAllBPView.ViewAllBPScreenController;
 
 public class SaveBPPopupBoxController
 {	
 	public static Stage saveBPPopupBox;
-	Model model;
+	ModelInterface model;
 	
 	public SaveBPPopupBoxController() {}
 	
-	public SaveBPPopupBoxController(Model model)
+	public SaveBPPopupBoxController(ModelInterface model)
 	{
 		this.model = model;
 
@@ -47,7 +47,7 @@ public class SaveBPPopupBoxController
 		}
 	}
 	
-	public void setModel(Model model)
+	public void setModel(ModelInterface model)
 	{
 		this.model = model;
 	}

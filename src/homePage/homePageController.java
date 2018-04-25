@@ -12,13 +12,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import model.Model;
+import model.ModelInterface;
 import newBPPopup.NewBPPopupBoxController;
 import viewAllBPView.ViewAllBPScreenController;
 
 public class homePageController
 {
-	Model model;
+	ModelInterface model;
 
 	@FXML
 	private Button logout_but;
@@ -40,7 +40,7 @@ public class homePageController
 
 	private AnchorPane homePage_view;
 
-	public void setModel(Model model)
+	public void setModel(ModelInterface model)
 	{
 		this.model = model;
 

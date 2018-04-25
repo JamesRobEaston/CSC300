@@ -39,7 +39,7 @@ import newBPPopup.NewBPPopupBoxController;
 import saveBPPopup.SaveBPPopupBoxController;
 import viewAllBPView.ViewAllBPScreenController;
 
-public class Model 
+public class Model implements ModelInterface 
 {
 	public ClientProxy client;
 	BPApplication application;
@@ -54,6 +54,10 @@ public class Model
 		this.businessPlan = businessPlan;
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#authenticate(javafx.scene.control.TextField, javafx.scene.control.PasswordField, javafx.scene.control.TextField, javafx.scene.control.Button)
+	 */
+	@Override
 	public boolean authenticate(TextField userName_input,PasswordField pass_input,TextField serv_input, Button login_but )
 	{
 		ServerInterface server = new ConcreteServer();
@@ -107,105 +111,185 @@ public class Model
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#notify(javafx.scene.Scene)
+	 */
+	@Override
 	public void notify(Scene scene)
 	{
 		application.notify(scene);
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#addDepartment(java.lang.String)
+	 */
+	@Override
 	public boolean addDepartment(String departmentName)
 	{
 		return client.addDepartment(departmentName);
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#getAllDepartments()
+	 */
+	@Override
 	public ArrayList<Department> getAllDepartments()
 	{
 		return client.getAllDepartments();
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#getClient()
+	 */
+	@Override
 	public ClientProxy getClient()
 	{
 		return client;
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#getDepartment()
+	 */
+	@Override
 	public Department getDepartment()
 	{
 		return client.getDepartment();
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#isAdmin()
+	 */
+	@Override
 	public boolean isAdmin()
 	{
 		return client.isAdmin();
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#getApplication()
+	 */
+	@Override
 	public BPApplication getApplication()
 	{
 		return application;
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#setApplication(applicationFiles.BPApplication)
+	 */
+	@Override
 	public void setApplication(BPApplication application)
 	{
 		this.application = application;
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#getBusinessPlan()
+	 */
+	@Override
 	public BP getBusinessPlan()
 	{
 		return businessPlan;
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#setModelBusinessPlan(clientServerPackage.BP)
+	 */
+	@Override
 	public void setModelBusinessPlan(BP businessPlan)
 	{
 		this.businessPlan = businessPlan;
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#getAdminDepartment()
+	 */
+	@Override
 	public Department getAdminDepartment()
 	{
 		return adminDepartment;
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#setAdminDepartment(clientServerPackage.Department)
+	 */
+	@Override
 	public void setAdminDepartment(Department adminDepartment)
 	{
 		this.adminDepartment = adminDepartment;
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#setClient(clientServerPackage.ClientProxy)
+	 */
+	@Override
 	public void setClient(ClientProxy client)
 	{
 		this.client = client;
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#setLocalCopy(clientServerPackage.BP)
+	 */
+	@Override
 	public void setLocalCopy(BP businessPlan2)
 	{
 		businessPlan = businessPlan2;
 		client.setLocalCopy(businessPlan2);
 	}
 	
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#setBusinessPlan(clientServerPackage.BP)
+	 */
+	@Override
 	public void setBusinessPlan(BP businessPlan2)
 	{
 		businessPlan = businessPlan2;
 		client.setLocalCopy(businessPlan2);
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#saveLocalPlanXML()
+	 */
+	@Override
 	public void saveLocalPlanXML()
 	{
 		client.saveLocalPlanXML();
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#submitPlan()
+	 */
+	@Override
 	public void submitPlan()
 	{
 		client.setLocalCopy(businessPlan);
 		client.submitPlan();
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#addUser(java.lang.String, java.lang.String, java.lang.String, boolean)
+	 */
+	@Override
 	public boolean addUser(String username, String password, String name, boolean b)
 	{
 		return client.addUser(username, password, name, b);
 	}
 	
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#retrieve(java.lang.String)
+	 */
+	@Override
 	public void retrieve(String bpid)
 	{
 		client.retrieve(bpid);
 		businessPlan = client.getLocalCopy();
 	}
 	
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#showHome()
+	 */
+	@Override
 	public void showHome()
 	{
 		FXMLLoader loader = new FXMLLoader();
@@ -223,6 +307,10 @@ public class Model
 		}
 	}
 	
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#showLogin()
+	 */
+	@Override
 	public void showLogin()
 	{
 		FXMLLoader loader = new FXMLLoader();
@@ -242,6 +330,10 @@ public class Model
 		
 	}
 	
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#showViewAllBPScreen()
+	 */
+	@Override
 	public void showViewAllBPScreen()
 	{
 		FXMLLoader loader = new FXMLLoader();
@@ -261,7 +353,7 @@ public class Model
 			e1.printStackTrace();
 		}
 		
-		Department currDepartment = getDepartment();
+		currDepartment = getDepartment();
 		
 		//Copy allPlans into a new list of plans that will be displayed
 		cont.setValidPlans(getClient(), getDepartment());
@@ -297,6 +389,10 @@ public class Model
 		cont.updateBPScrollPane(getClient(), cont.validPlans);
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#showBusinessPlanScreen(businessPlanClasses.Statement)
+	 */
+	@Override
 	public void showBusinessPlanScreen(Statement statement)
 	{
 		FXMLLoader loader = new FXMLLoader();
@@ -463,6 +559,10 @@ public class Model
 		notify(viewBPScreen);
 	}
 	
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#showBusinessPlanScreen()
+	 */
+	@Override
 	public void showBusinessPlanScreen()
 	{
 		showBusinessPlanScreen(businessPlan.getTree().getRoot());
@@ -470,11 +570,19 @@ public class Model
 	
 	Stage popupStage;
 	
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#closePopupBox()
+	 */
+	@Override
 	public void closePopupBox()
 	{
 		popupStage.close();
 	}
 	
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#showAddUserPopupBox()
+	 */
+	@Override
 	public void showAddUserPopupBox()
 	{
 		FXMLLoader loader = new FXMLLoader();
@@ -512,6 +620,10 @@ public class Model
 		popupStage.show();
 	}
 	
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#showAddDepartmentPopupBox()
+	 */
+	@Override
 	public void showAddDepartmentPopupBox()
 	{
 		FXMLLoader loader = new FXMLLoader();
@@ -536,6 +648,10 @@ public class Model
 		popupStage.show();
 	}
 	
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#showNewBPPopupBox(boolean)
+	 */
+	@Override
 	public void showNewBPPopupBox(boolean isClone)
 	{
 		FXMLLoader loader = new FXMLLoader();
@@ -553,6 +669,25 @@ public class Model
 		cont.setIsClone(isClone);
 		cont.setModel(this);
 		
+		if(!client.isAdmin())
+		{
+			cont.departmentChoiceBox.setVisible(false);
+			cont.departmentChoiceBoxLabel.setVisible(false);
+		}
+		else
+		{
+			ArrayList<Department> departments = getAllDepartments();
+			for(int i = 0; i < departments.size(); i++)
+			{
+				cont.departmentChoiceBox.getItems().add(departments.get(i));
+			}
+			cont.departmentChoiceBox.setConverter(new DepartmentConverter<Department>());
+			
+			cont.departmentChoiceBox.setValue(client.getDepartment());
+			
+			cont.department = client.getDepartment().getName();
+		}
+		
 		popupStage = new Stage();
 		popupStage.initModality(Modality.APPLICATION_MODAL);
 		popupStage.setTitle("New Business Plan");
@@ -561,6 +696,10 @@ public class Model
 		popupStage.show();
 	}
 	
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#showCategoryPopupBox()
+	 */
+	@Override
 	public void showCategoryPopupBox()
 	{	
 		FXMLLoader loader = new FXMLLoader();
@@ -591,6 +730,10 @@ public class Model
 		cont.categoryInputs = new ArrayList<TextField>();
 	}
 	
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#showSaveBPPopupBox()
+	 */
+	@Override
 	public void showSaveBPPopupBox()
 	{
 		FXMLLoader loader = new FXMLLoader();
@@ -620,6 +763,10 @@ public class Model
 				
 	}
 	
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#showEditOrClone()
+	 */
+	@Override
 	public void showEditOrClone()
 	{
 		FXMLLoader loader = new FXMLLoader();
@@ -644,12 +791,32 @@ public class Model
 		popupStage.show();
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#loadLocalCopy()
+	 */
+	@Override
 	public void loadLocalCopy()
 	{
 		client.readLocalPlanXML();
 		businessPlan = client.getLocalCopy();
+		if(businessPlan != null)
+		{
+			ArrayList<Department> departments = client.getAllDepartments();
+			for(int i = 0; i < departments.size(); i++)
+			{
+				if(businessPlan.getDepartment().equals(departments.get(i).getName()));
+				{
+					currDepartment = departments.get(i);
+					break;
+				}
+			}
+		}
 	}
 
+	/* (non-Javadoc)
+	 * @see model.ModelInterface#saveBPToDepartment(clientServerPackage.BP, java.lang.String)
+	 */
+	@Override
 	public void saveBPToDepartment(BP businessPlan2, String departmentName)
 	{
 		try
