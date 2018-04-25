@@ -7,6 +7,7 @@ import java.rmi.registry.*;
 import java.util.ArrayList;
 
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
 
@@ -28,7 +29,7 @@ public class LoginScreenTest extends ApplicationTest
 	public void start(Stage primaryStage) throws Exception
 	{
 
-		MockModel model = new MockModel(null, null, null);
+		model = new MockModel(null, null, null);
 		Registry registry = LocateRegistry.getRegistry(1099);
 		server = (ServerInterface) registry.lookup("Server");
 		
@@ -50,6 +51,12 @@ public class LoginScreenTest extends ApplicationTest
 		
 	}
 	
+	@BeforeEach
+	public void resetModel()
+	{
+		model = new MockModel(null, null, null);
+	}
+	
 	//Helper method to enter a user's information
 	public void fillUserInfo(String username, String password, String server)
 	{
@@ -63,7 +70,9 @@ public class LoginScreenTest extends ApplicationTest
 		write(password);
 		//WaitForAsyncUtils.waitForFxEvents();
 		
-		clickOn("serverInput");
+		
+		clickOn("#serverInput");
+		clickOn("#serverInput");
 		//WaitForAsyncUtils.waitForFxEvents();
 		write(server);
 		//WaitForAsyncUtils.waitForFxEvents();
@@ -83,7 +92,7 @@ public class LoginScreenTest extends ApplicationTest
 		ArrayList<ConcreteClient> users = new ArrayList<ConcreteClient>();
 		try
 		{
-			users = server.getUsers();
+			users = model.getClient().getStub().getUsers();
 		} catch (Exception e)
 		{
 			fail("this is bad");
@@ -112,7 +121,7 @@ public class LoginScreenTest extends ApplicationTest
 		clickOn("#loginButton");
 		//WaitForAsyncUtils.waitForFxEvents();
 		
-		assertEquals(model.getClient(), null);
+		assertEquals(model.getClient().getUserToken(), null);
 	}
 	
 	//Test logging a user with a valid username but the wrong password
@@ -123,7 +132,7 @@ public class LoginScreenTest extends ApplicationTest
 		clickOn("#loginButton");
 		//WaitForAsyncUtils.waitForFxEvents();
 		
-		assertEquals(model.getClient(), null);
+		assertEquals(model.getClient().getUserToken(), null);
 	}
 	
 	//Test logging a user with an invalid name but a valid password
@@ -134,7 +143,7 @@ public class LoginScreenTest extends ApplicationTest
 		clickOn("#loginButton");
 		//WaitForAsyncUtils.waitForFxEvents();
 		
-		assertEquals(model.getClient(), null);
+		assertEquals(model.getClient().getUserToken(), null);
 	}
 	
 	//Test logging a valid user into an invalid server
