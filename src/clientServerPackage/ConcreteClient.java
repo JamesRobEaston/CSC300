@@ -7,7 +7,7 @@ public class ConcreteClient implements Serializable
 	public String username;
 	public String password;
 	public Department department;
-	private String userToken;
+	public String userToken;
 	public boolean isAdmin;
 	
 	public ConcreteClient(String username, String password)

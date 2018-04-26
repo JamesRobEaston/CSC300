@@ -41,7 +41,7 @@ public class EditOrClonePopupBoxController
 	public EditOrClonePopupBoxController(ModelInterface model)
 	{
 		loader = new FXMLLoader();
-		loader.setLocation(AddDepartmentPopupBoxController.class.getResource("AddDepartmentPopupBox.fxml"));
+		loader.setLocation(EditOrClonePopupBoxController.class.getResource("/editOrClonePopup/EditOrClonePopupBox.fxml"));
 		try
 		{
 			editOrCloneScene = new Scene(loader.load());
@@ -66,7 +66,7 @@ public class EditOrClonePopupBoxController
 	void cloneBusinessPlan(ActionEvent event) throws IOException
 	{
 		model.showNewBPPopupBox(true);
-		popupStage.close();
+		model.closePopupBox();
 	}
 
 	@FXML

@@ -2,16 +2,21 @@ package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.rmi.ConnectException;
 import java.rmi.RemoteException;
 import java.rmi.registry.*;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.rules.ExpectedException;
 import org.testfx.framework.junit.ApplicationTest;
 import org.testfx.util.WaitForAsyncUtils;
 
 import clientServerPackage.ConcreteClient;
+import clientServerPackage.ConcreteServer;
 import clientServerPackage.ServerInterface;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -22,16 +27,27 @@ public class LoginScreenTest extends ApplicationTest
 {
 	
 	loginController loginCont;
-	ServerInterface server;
+	ConcreteServer server;
 	MockModel model;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception
 	{
-
+		
+		server = new ConcreteServer("admin", "admin");
+		try
+		{
+			ServerInterface stub = (ServerInterface) UnicastRemoteObject.exportObject(server, 0);
+			
+			Registry registry = LocateRegistry.createRegistry(1099);
+			registry.bind("Server", stub);
+			
+		} catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
 		model = new MockModel(null, null, null);
-		Registry registry = LocateRegistry.getRegistry(1099);
-		server = (ServerInterface) registry.lookup("Server");
 		
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(loginController.class.getResource("/login/LoginView.fxml"));
@@ -146,35 +162,27 @@ public class LoginScreenTest extends ApplicationTest
 		assertEquals(model.getClient().getUserToken(), null);
 	}
 	
+	@Rule
+	public final ExpectedException exception = ExpectedException.none();
 	//Test logging a valid user into an invalid server
 	@Test
 	public void testValidLoginInvalidServer()
 	{
 		fillUserInfo("admin", "admin", "1");
+		//exception.expect(ConnectException.class);
 		clickOn("#loginButton");
 		assertEquals(model.getClient(), null);
 	}
 	
 	//Test logging an invalid user into an invalid server
-	@Test
 	public void testInvalidLoginInvalidServer()
 	{
 		fillUserInfo("Bradshaw", "Bradshaw", "1");
+		//exception.expect(ConnectException.class);
 		clickOn("#loginButton");
 		//WaitForAsyncUtils.waitForFxEvents();
 		
 		assertEquals(model.getClient(), null);
 	}
-/*
-	@Test
-	public void testAllTests()
-	{
-		testLoginValidUser();
-		testLoginInvalidUser();
-		testLoginValidNameInvalidPass();
-		testLoginInvalidNameValidPass();
-		testValidLoginInvalidServer();
-		testInvalidLoginInvalidServer();
-	}
-*/
+
 }

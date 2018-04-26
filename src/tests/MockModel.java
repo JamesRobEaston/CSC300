@@ -281,4 +281,170 @@ public class MockModel extends Model
 		super.saveBPToDepartment(businessPlan2, departmentName);
 	}
 
+	public int getAuthenticateMethodCallCounter()
+	{
+		return authenticateMethodCallCounter;
+	}
+
+	public int getNotifyMethodCallCounter()
+	{
+		return notifyMethodCallCounter;
+	}
+
+	public int getAddDepartmentMethodCallCounter()
+	{
+		return addDepartmentMethodCallCounter;
+	}
+
+	public int getGetAllDepartmentsMethodCallCounter()
+	{
+		return getAllDepartmentsMethodCallCounter;
+	}
+
+	public int getGetClientMethodCallCounter()
+	{
+		return getClientMethodCallCounter;
+	}
+
+	public int getGetDepartmentMethodCallCounter()
+	{
+		return getDepartmentMethodCallCounter;
+	}
+
+	public int getIsAdminMethodCallCounter()
+	{
+		return isAdminMethodCallCounter;
+	}
+
+	public int getGetApplicationMethodCallCounter()
+	{
+		return getApplicationMethodCallCounter;
+	}
+
+	public int getSetApplicationMethodCallCounter()
+	{
+		return setApplicationMethodCallCounter;
+	}
+
+	public int getGetBusinessPlanMethodCallCounter()
+	{
+		return getBusinessPlanMethodCallCounter;
+	}
+
+	public int getSetModelBusinessPlanMethodCallCounter()
+	{
+		return setModelBusinessPlanMethodCallCounter;
+	}
+
+	public int getGetAdminDepartmentMethodCallCounter()
+	{
+		return getAdminDepartmentMethodCallCounter;
+	}
+
+	public int getSetAdminDepartmentMethodCallCounter()
+	{
+		return setAdminDepartmentMethodCallCounter;
+	}
+
+	public int getSetClientMethodCallCounter()
+	{
+		return setClientMethodCallCounter;
+	}
+
+	public int getSetLocalCopyMethodCallCounter()
+	{
+		return setLocalCopyMethodCallCounter;
+	}
+
+	public int getSetBusinessPlanMethodCallCounter()
+	{
+		return setBusinessPlanMethodCallCounter;
+	}
+
+	public int getSaveLocalPlanXMLMethodCallCounter()
+	{
+		return saveLocalPlanXMLMethodCallCounter;
+	}
+
+	public int getSubmitPlanMethodCallCounter()
+	{
+		return submitPlanMethodCallCounter;
+	}
+
+	public int getAddUserMethodCallCounter()
+	{
+		return addUserMethodCallCounter;
+	}
+
+	public int getRetrieveMethodCallCounter()
+	{
+		return retrieveMethodCallCounter;
+	}
+
+	public int getShowHomeMethodCallCounter()
+	{
+		return showHomeMethodCallCounter;
+	}
+
+	public int getShowLoginMethodCallCounter()
+	{
+		return showLoginMethodCallCounter;
+	}
+
+	public int getShowViewAllBPScreenMethodCallCounter()
+	{
+		return showViewAllBPScreenMethodCallCounter;
+	}
+
+	public int getShowBusinessPlanScreenMethodCallCounter()
+	{
+		return showBusinessPlanScreenMethodCallCounter;
+	}
+
+	public int getClosePopupBoxMethodCallCounter()
+	{
+		return closePopupBoxMethodCallCounter;
+	}
+
+	public int getShowAddUserPopupBoxMethodCallCounter()
+	{
+		return showAddUserPopupBoxMethodCallCounter;
+	}
+
+	public int getShowAddDepartmentPopupBoxMethodCallCounter()
+	{
+		return showAddDepartmentPopupBoxMethodCallCounter;
+	}
+
+	public int getShowNewBPPopupBoxMethodCallCounter()
+	{
+		return showNewBPPopupBoxMethodCallCounter;
+	}
+
+	public int getShowCategoryPopupBoxMethodCallCounter()
+	{
+		return showCategoryPopupBoxMethodCallCounter;
+	}
+
+	public int getShowSaveBPPopupBoxMethodCallCounter()
+	{
+		return showSaveBPPopupBoxMethodCallCounter;
+	}
+
+	public int getShowEditOrCloneMethodCallCounter()
+	{
+		return showEditOrCloneMethodCallCounter;
+	}
+
+	public int getLoadLocalCopyMethodCallCounter()
+	{
+		return loadLocalCopyMethodCallCounter;
+	}
+
+	public int getSaveBPToDepartmentMethodCallCounter()
+	{
+		return saveBPToDepartmentMethodCallCounter;
+	}
+
+	
 }

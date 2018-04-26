@@ -284,6 +284,10 @@ public class ConcreteServer implements ServerInterface, Serializable
 	public boolean isAdmin(String userToken) throws RemoteException
 	{
 		ConcreteClient user = matchUser(userToken);
+		if(user == null)
+		{
+			return false;
+		}
 		return user.isAdmin();
 	}
 	

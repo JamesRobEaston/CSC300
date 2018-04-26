@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import applicationFiles.BPApplication;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -44,7 +45,7 @@ public class ViewAllBPScreenController
     private ScrollPane bpScrollPane;
 
     @FXML
-    private FlowPane bpFlowPane;
+    public FlowPane bpFlowPane;
     
     public Scene viewAllScreen;
 	
@@ -64,7 +65,7 @@ public class ViewAllBPScreenController
 		this.model = model;
 		
 		FXMLLoader loader = new FXMLLoader();
-		loader.setLocation(ViewAllBPScreenController.class.getResource("viewAllBPView/BusinessPlanScreen.fxml"));
+		loader.setLocation(ViewAllBPScreenController.class.getResource("viewAllBPView/ViewAllBPScreen.fxml"));
 		
 		try
 		{
@@ -116,7 +117,6 @@ public class ViewAllBPScreenController
 	void goBack(ActionEvent event)
 	{
 		model.showHome();
-		resetButton.fire();
 	}
 
 	@FXML
@@ -209,7 +209,6 @@ public class ViewAllBPScreenController
 	
 	public void updateBPScrollPane(ClientProxy client, ArrayList<String[]> validPlans)
 	{
-		bpScrollPane.setContent(null);
 		FlowPane rootNode = new FlowPane();
 		for(String[] bp : validPlans)
 		{	
@@ -232,8 +231,62 @@ public class ViewAllBPScreenController
 			StackPane buttonMargins = new StackPane(bpButton);
 			StackPane.setMargin(bpButton, new Insets(10, 10, 10, 10));
 			rootNode.getChildren().add(buttonMargins);
-			bpScrollPane.setContent(rootNode);
+			if(Platform.isFxApplicationThread())
+			{
+				bpScrollPane.setContent(rootNode);
+			}
+			else
+			{
+				Platform.runLater(() ->
+				{
+					bpScrollPane.setContent(rootNode);
+				});
+			}
 		}
 	}
+	
+	public void updateBPScrollPane(ClientProxy client)
+	{
+		updateBPScrollPane(client, validPlans);
+	}
 
+	public void updateDepartmentDropDownMenu()
+	{
+		ArrayList<Department> departments = model.getAllDepartments();
+		if(Platform.isFxApplicationThread())
+		{
+			departmentDropDownMenu.getItems().clear();
+			for(int i = 0; i < departments.size(); i++)
+			{
+				departmentDropDownMenu.getItems().add(departments.get(i));
+			}
+			departmentDropDownMenu.setConverter(new DepartmentConverter<Department>());
+			
+			departmentDropDownMenu.getSelectionModel().selectedIndexProperty().addListener((observableValue, oldIndex, newIndex) ->
+			{
+				currDepartment = departmentDropDownMenu.getItems().get(newIndex.intValue());
+				setValidPlans(model.getClient(), currDepartment);
+				updateBPScrollPane(model.getClient(), validPlans);
+			});
+		}
+		else
+		{
+			Platform.runLater(() ->
+			{
+				departmentDropDownMenu.getItems().clear();
+				for(int i = 0; i < departments.size(); i++)
+				{
+					departmentDropDownMenu.getItems().add(departments.get(i));
+				}
+				departmentDropDownMenu.setConverter(new DepartmentConverter<Department>());
+				
+				departmentDropDownMenu.getSelectionModel().selectedIndexProperty().addListener((observableValue, oldIndex, newIndex) ->
+				{
+					currDepartment = departmentDropDownMenu.getItems().get(newIndex.intValue());
+					setValidPlans(model.getClient(), currDepartment);
+					updateBPScrollPane(model.getClient(), validPlans);
+				});
+			});
+		}
+	}
 }
