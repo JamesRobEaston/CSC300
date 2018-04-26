@@ -50,6 +50,8 @@ public class CategoryPopupBoxController
 	@FXML
 	void VMOSAModel(ActionEvent event)
 	{
+		addNewTextField("Vision", false);
+		addNewTextField("Mission", false);
 		addNewTextField("Objective", false);
 		addNewTextField("Strategy", false);
 		addNewTextField("Action Plan", false);
@@ -70,13 +72,19 @@ public class CategoryPopupBoxController
 	@FXML
 	void centreModel(ActionEvent event)
 	{
+		addNewTextField("Organization", false);
 		addNewTextField("Department", false);
+		addNewTextField("Goal", false);
 		addNewTextField("Student Learning Objective", false);
 	}
 
 	@FXML
 	void submit(ActionEvent event)
 	{
+		if(categoryInputs==null)
+		{
+			categoryInputs = new ArrayList<TextField>();
+		}
 		businessPlan = model.getBusinessPlan();
 		for(int i = 0; i < categoryInputs.size(); i++)
 		{
@@ -94,6 +102,10 @@ public class CategoryPopupBoxController
 	//Helper method
 	private void addNewTextField(String text, boolean isPromptText)
 	{
+		if(categoryInputs==null)
+		{
+			categoryInputs = new ArrayList<TextField>();
+		}
 		HBox newTextFieldBox = new HBox(20);
 		TextField newTextField = new TextField();
 		if(isPromptText)
