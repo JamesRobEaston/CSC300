@@ -1,6 +1,7 @@
 package tests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
 
@@ -9,12 +10,20 @@ import org.junit.jupiter.api.BeforeEach;
 import org.testfx.framework.junit.ApplicationTest;
 
 import addDepartmentPopup.AddDepartmentPopupBoxController;
+import businessPlanClasses.Category;
+import businessPlanClasses.PlanDesign;
 import categoryPopupBox.CategoryPopupBoxController;
+import clientServerPackage.BP;
+import clientServerPackage.ClientProxy;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
 public class CategoryPopupTest extends ApplicationTest
@@ -39,7 +48,7 @@ public class CategoryPopupTest extends ApplicationTest
 			e.printStackTrace();
 		}
 		
-		model = new MockModel(null, null, null);
+		model = new MockModel(new ClientProxy(), null, new BP("test","test","test"));
 		CategoryPopupBoxController cont = loader.getController();
 		cont.setModel(model);
 	}
@@ -47,7 +56,7 @@ public class CategoryPopupTest extends ApplicationTest
 	@BeforeEach
 	public void resetModel()
 	{
-		model = new MockModel(null, null, null);
+		model = new MockModel(null, null, new BP("test","test","test"));
 	}
 	
 	@Test
@@ -102,8 +111,21 @@ public class CategoryPopupTest extends ApplicationTest
 
 	private void checkCorrectSubmission(String[] strings)
 	{
-		// TODO check that the created design matches the input
-		
+		ArrayList<Category> catList = model.client.getLocalCopy().getDesign().getCategoryList();
+		Iterator<Category> catIter = catList.iterator();
+		int i = 0;
+		while(catIter.hasNext() && (i<strings.length))
+		{
+			assertEquals(catIter.next().getName(),strings[i]);
+		}
+		if(catIter.hasNext())
+		{
+			fail("Extra categories added.");
+		}
+		if(strings.length>i+1)
+		{
+			fail("Not all categories added.");
+		}
 	}
 
 }

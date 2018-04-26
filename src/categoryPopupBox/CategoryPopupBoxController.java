@@ -81,10 +81,6 @@ public class CategoryPopupBoxController
 	@FXML
 	void submit(ActionEvent event)
 	{
-		if(categoryInputs==null)
-		{
-			categoryInputs = new ArrayList<TextField>();
-		}
 		businessPlan = model.getBusinessPlan();
 		for(int i = 0; i < categoryInputs.size(); i++)
 		{
