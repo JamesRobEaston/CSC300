@@ -364,20 +364,7 @@ public class Model implements ModelInterface
 		
 		if(isAdmin)
 		{
-			ArrayList<Department> departments = getAllDepartments();
-			for(int i = 0; i < departments.size(); i++)
-			{
-				departmentDropDownMenu.getItems().add(departments.get(i));
-			}
-			departmentDropDownMenu.setConverter(new DepartmentConverter<Department>());
-			
-			
-			departmentDropDownMenu.getSelectionModel().selectedIndexProperty().addListener((observableValue, oldIndex, newIndex) ->
-			{
-				Model.currDepartment = departmentDropDownMenu.getItems().get(newIndex.intValue());
-				controller.setValidPlans(getClient(), Model.currDepartment);
-				controller.updateBPScrollPane(getClient(), controller.validPlans);
-			});
+			cont.updateDepartmentDropDownMenu();
 			
 			cont.departmentDropDownMenu.setValue(ConcreteServer.adminDepartment);
 		}

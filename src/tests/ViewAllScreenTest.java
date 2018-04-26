@@ -1,15 +1,19 @@
 package tests;
 
+import static org.junit.Assert.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.awt.Button;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 
 import org.junit.*;
 import org.testfx.framework.junit.ApplicationTest;
 
+import businessPlanClasses.Category;
 import viewAllBPView.ViewAllBPScreenController;
 import clientServerPackage.BP;
 import clientServerPackage.ClientProxy;
@@ -22,6 +26,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
+import model.Model;
 
 public class ViewAllScreenTest extends ApplicationTest
 {
@@ -131,6 +136,7 @@ public class ViewAllScreenTest extends ApplicationTest
 		model = new MockModel(adminProxy, null, null);
 		adminProxy.setUserToken(adminProxyUserToken);
 		cont.setModel(model);
+		Model.currDepartment = adminProxy.getDepartment();
 		ViewAllBPScreenController.currDepartment = adminProxy.getDepartment();
 		cont.setValidPlans(adminProxy, ConcreteServer.adminDepartment);
 	}
@@ -236,9 +242,142 @@ public class ViewAllScreenTest extends ApplicationTest
 		
 		//Create a new BP and test that it is displayed
 		String adminDepartmentName = adminProxy.getDepartment().getDepartmentName();
-		BP bp = new BP("2018", "Test BP", adminDepartmentName);
+		BP bp = new BP("2018", "TestBP", adminDepartmentName);
+		bp.setCategoryList();
 		model.saveBPToDepartment(bp, adminDepartmentName);
+		
+		//Make sure the BP was actually saved
+		assertEquals(1, ConcreteServer.adminDepartment.getPlans().size());
+		
+		//Update the display so that it shows the BP
 		cont.setValidPlans(adminProxy, adminProxy.getDepartment());
+		cont.updateBPScrollPane(adminProxy);
+		
+		sleep(100);
+		clickOn(lookup(".bpButton").queryAll().iterator().next());
+		
+		//Make sure the editOrClonePopupBox is called and the correct business plan was given to the model
+		assertEquals(1, model.getShowEditOrCloneMethodCallCounter());
+		assertNotNull(model.getBusinessPlan());
+		assertEquals("TestBP 2018", model.getBusinessPlan().getID());
+		
+	}
+	
+	@Test
+	public void testSearchingBPs()
+	{
+		reset();
+		cont.updateDepartmentDropDownMenu();
+		
+		//Create a new BP and test that it is displayed
+		String adminDepartmentName = adminProxy.getDepartment().getDepartmentName();
+		BP bp1 = new BP("2018", "TestBP", adminDepartmentName);
+		BP bp2 = new BP("3018", "TestBP2", adminDepartmentName);
+		BP bp3 = new BP("5", "Centre", adminDepartmentName);
+		BP bp4 = new BP("65", "VMOSA", adminDepartmentName);
+		
+		bp1.setCategoryList();
+		bp2.setCategoryList();
+		bp3.setCategoryList();
+		bp4.setCategoryList();
+		
+		model.saveBPToDepartment(bp1, adminDepartmentName);
+		model.saveBPToDepartment(bp2, adminDepartmentName);
+		model.saveBPToDepartment(bp3, adminDepartmentName);
+		model.saveBPToDepartment(bp4, adminDepartmentName);
+		
+		//Make sure the BP was actually saved
+		assertEquals(4, ConcreteServer.adminDepartment.getPlans().size());
+		
+		//Update the display so that it shows the BP
+		cont.setValidPlans(adminProxy, adminProxy.getDepartment());
+		cont.updateBPScrollPane(adminProxy);
+		
+		//Search by year
+		doubleClickOn("#yearTextInput");
+		write("18");		
+		clickOn("#searchButton");
+		int numOfBPs = lookup(".bpButton").queryAll().size();
+		assertEquals(2, numOfBPs);
+		
+		clickOn("#resetButton");
+		
+		doubleClickOn("#yearTextInput");
+		write("5");
+		clickOn("#searchButton");
+		numOfBPs = lookup(".bpButton").queryAll().size();
+		assertEquals(2, numOfBPs);
+		
+		doubleClickOn("#yearTextInput");
+		write("65");
+		clickOn("#searchButton");
+		numOfBPs = lookup(".bpButton").queryAll().size();
+		assertEquals(1, numOfBPs);
+		
+		clickOn("#resetButton");
+		
+		doubleClickOn("#yearTextInput");
+		write("9");		
+		clickOn("#searchButton");
+		numOfBPs = lookup(".bpButton").queryAll().size();
+		assertEquals(0, numOfBPs);
+		
+		clickOn("#resetButton");
+		
+		//Check that an empty search does not change the number of BPs displayed
+		clickOn("#searchButton");
+		numOfBPs = lookup(".bpButton").queryAll().size();
+		assertEquals(4, numOfBPs);
+		
+		//Search by ID
+		doubleClickOn("#idTextInput");
+		write("Centre");		
+		clickOn("#searchButton");
+		numOfBPs = lookup(".bpButton").queryAll().size();
+		assertEquals(1, numOfBPs);
+		
+		clickOn("#resetButton");
+		
+		doubleClickOn("#idTextInput");
+		write("VMOSA");		
+		clickOn("#searchButton");
+		numOfBPs = lookup(".bpButton").queryAll().size();
+		assertEquals(1, numOfBPs);
+		
+		clickOn("#resetButton");
+		
+		doubleClickOn("#idTextInput");
+		write("TestBP");		
+		clickOn("#searchButton");
+		numOfBPs = lookup(".bpButton").queryAll().size();
+		assertEquals(2, numOfBPs);
+		
+		doubleClickOn("#idTextInput");
+		write("TestBP2");		
+		clickOn("#searchButton");
+		numOfBPs = lookup(".bpButton").queryAll().size();
+		assertEquals(1, numOfBPs);
+
+		clickOn("#resetButton");
+		
+		//Search by name and year
+		doubleClickOn("#yearTextInput");
+		write("18");		
+		doubleClickOn("#idTextInput");
+		write("TestBP");
+		clickOn("#searchButton");
+		numOfBPs = lookup(".bpButton").queryAll().size();
+		assertEquals(2, numOfBPs);
+
+		clickOn("#resetButton");
+		
+		doubleClickOn("#yearTextInput");
+		write("18");		
+		doubleClickOn("#idTextInput");
+		write("TestBP2");
+		clickOn("#searchButton");
+		numOfBPs = lookup(".bpButton").queryAll().size();
+		assertEquals(1, numOfBPs);
 	}
 
 }

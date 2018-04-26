@@ -155,6 +155,7 @@ public class ViewAllBPScreenController
 				if(!bp[2].contains(year))
 				{
 					validPlans.remove(bp);
+					i--;
 				}
 				
 			}
@@ -171,6 +172,7 @@ public class ViewAllBPScreenController
 				if(!bp[0].contains(name))
 				{
 					validPlans.remove(bp);
+					i--;
 				}
 				
 			}
@@ -225,23 +227,26 @@ public class ViewAllBPScreenController
 					client.retrieve(bp[0]);
 				}
 				model.setBusinessPlan(client.getLocalCopy());
+				System.out.println(client.getLocalCopy());
 				model.showEditOrClone();
 			});
 
+			bpButton.getStyleClass().add("bpButton");
 			StackPane buttonMargins = new StackPane(bpButton);
 			StackPane.setMargin(bpButton, new Insets(10, 10, 10, 10));
 			rootNode.getChildren().add(buttonMargins);
-			if(Platform.isFxApplicationThread())
+		}
+		
+		if(Platform.isFxApplicationThread())
+		{
+			bpScrollPane.setContent(rootNode);
+		}
+		else
+		{
+			Platform.runLater(() ->
 			{
 				bpScrollPane.setContent(rootNode);
-			}
-			else
-			{
-				Platform.runLater(() ->
-				{
-					bpScrollPane.setContent(rootNode);
-				});
-			}
+			});
 		}
 	}
 	

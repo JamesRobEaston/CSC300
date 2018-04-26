@@ -28,7 +28,7 @@
       <Button id="searchButton" layoutX="640.0" layoutY="95.0" mnemonicParsing="false" onAction="#searchThroughBPs" text="Go!" />
       <Button id="resetButton" layoutX="630.0" layoutY="130.0" mnemonicParsing="false" onAction="#resetBPs" text="Reset" />
       <Button id="newBPButton" layoutX="637.0" layoutY="168.0" mnemonicParsing="false" onAction="#newBP" text="New" />
-      <ScrollPane fx:id="bpScrollPane" layoutX="83.0" layoutY="108.0" prefHeight="490.0" prefWidth="510.0">
+      <ScrollPane id="bpScrollPane" fx:id="bpScrollPane" layoutX="83.0" layoutY="108.0" prefHeight="490.0" prefWidth="510.0">
          <content>
             <FlowPane id="bpDisplayNode" fx:id="bpFlowPane" prefHeight="488.0" prefWidth="507.0" />
          </content>

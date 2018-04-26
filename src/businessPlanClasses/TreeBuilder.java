@@ -14,7 +14,12 @@ public class TreeBuilder implements Serializable
 	public TreeBuilder(ArrayList<Category> categories, String id)
 	{
 		this.categories = categories;
-		this.root = new Statement(categories.get(0), null, new ArrayList<String>(), id);
+		Category rootCategory = null;
+		if(categories != null && categories.size() > 0)
+		{
+			rootCategory = categories.get(0);
+		}
+		this.root = new Statement(rootCategory, null, new ArrayList<String>(), id);
 	}
 	
 	public TreeBuilder(String id)
@@ -87,8 +92,9 @@ public class TreeBuilder implements Serializable
 	public TreeBuilder copy()
 	{
 		ArrayList<Category> categoriesCopy = new  ArrayList<Category>();
-		for(Category category : categories)
+		for(int i = 0; i < categories.size(); i++)
 		{
+			Category category = categories.get(i);
 			categoriesCopy.add(category.copy());
 		}
 		

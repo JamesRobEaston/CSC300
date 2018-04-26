@@ -354,7 +354,23 @@ public class ConcreteServer implements ServerInterface, Serializable
 		ConcreteClient user = matchUser(userToken);
 		if(user.isAdmin())
 		{
-			return dept.retrieve(bpid);
+			String departmentName = dept.getDepartmentName();
+			Iterator<Department> iterator = departments.iterator();
+			boolean foundDept = false;
+			Department department = new Department();
+			while(!foundDept && iterator.hasNext())
+			{
+				department = iterator.next();
+				if(department.getDepartmentName().equals(departmentName))
+				{
+					foundDept = true;
+				}
+			}
+			
+			if(foundDept)
+			{
+				return department.retrieve(bpid);
+			}
 		}
 		
 		return null;
