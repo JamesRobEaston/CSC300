@@ -30,6 +30,7 @@ public class CategoryPopupTest extends ApplicationTest
 {
 
 	MockModel model;
+	CategoryPopupBoxController cont;
 	
 	@Override
 	public void start(Stage stage) throws Exception
@@ -49,19 +50,22 @@ public class CategoryPopupTest extends ApplicationTest
 		}
 		
 		model = new MockModel(new ClientProxy(), null, new BP("test","test","test"));
-		CategoryPopupBoxController cont = loader.getController();
+		cont = loader.getController();
 		cont.setModel(model);
 	}
 	
 	@BeforeEach
 	public void resetModel()
 	{
-		model = new MockModel(null, null, new BP("test","test","test"));
+		model = new MockModel(new ClientProxy(), null, new BP("test","test","test"));
+		cont.setModel(model);
 	}
 	
 	@Test
 	public void testCancelButton()
 	{
+		model = new MockModel(new ClientProxy(), null, new BP("test","test","test"));
+		cont.setModel(model);
 		assertEquals(0, model.getClosePopupBoxMethodCallCounter());
 		clickOn("#cancelButton");
 		assertEquals(1, model.getClosePopupBoxMethodCallCounter());
@@ -70,6 +74,8 @@ public class CategoryPopupTest extends ApplicationTest
 	@Test
 	public void testCreateCustomPlan()
 	{
+		model = new MockModel(new ClientProxy(), null, new BP("test","test","test"));
+		cont.setModel(model);
 		clickOn("#newCategoryButton");
 		clickOn("#newCategoryButton");
 		clickOn("#newCategoryButton");
@@ -96,6 +102,8 @@ public class CategoryPopupTest extends ApplicationTest
 	@Test
 	public void testCreateCentrePlan()
 	{
+		model = new MockModel(new ClientProxy(), null, new BP("test","test","test"));
+		cont.setModel(model);
 		clickOn("#centreButton");
 		clickOn("#submitButton");
 		checkCorrectSubmission(new String[]{"Organization","Department","Goal","Student Learning Objective"});
@@ -104,6 +112,8 @@ public class CategoryPopupTest extends ApplicationTest
 	@Test
 	public void testCreateVMOSAPlan()
 	{
+		model = new MockModel(new ClientProxy(), null, new BP("test","test","test"));
+		cont.setModel(model);
 		clickOn("#VMOSAButton");
 		clickOn("#submitButton");
 		checkCorrectSubmission(new String[]{"Vision","Mission","Objective","Strategy","Action Plan"});
@@ -117,6 +127,7 @@ public class CategoryPopupTest extends ApplicationTest
 		while(catIter.hasNext() && (i<strings.length))
 		{
 			assertEquals(catIter.next().getName(),strings[i]);
+			i++;
 		}
 		if(catIter.hasNext())
 		{
