@@ -66,8 +66,6 @@ public class BusinessPlanViewTest extends ApplicationTest
 		businessPlan = new BP("test","Head Element","test");
 		PlanDesign design = businessPlan.getDesign();
 		design.addCategory("1st Element", 1, 0, 10000000);
-		design.addCategory("2nd Element", 2, 0, 10000000);
-		design.addCategory("3rd Element", 3, 0, 10000000);
 		rootStatement = businessPlan.getTree().getRoot();
 		
 		model = new MockModel(new ClientProxy(), null, businessPlan);
@@ -467,19 +465,9 @@ public class BusinessPlanViewTest extends ApplicationTest
 		push(KeyCode.TAB);
 		write("Test 1st Element");
 		clickOn("Submit");
-		update(rootStatement.getChildren().get(0),stage);
-		// TODO update the scene manually
-		clickOn("#createNewSubcategoryButton");
-		push(KeyCode.TAB);
-		write("Test 2st Element");
+		assertEquals(1, model.getShowBusinessPlanScreenMethodCallCounter());
 		clickOn("Submit");
-		showBusinessPlanScreen(rootStatement.getChildren().get(0).getChildren().get(0),stage);
-		clickOn("#createNewSubcategoryButton");
-		push(KeyCode.TAB);
-		write("Test 3st Element");
-		clickOn("Submit");
-		showBusinessPlanScreen(rootStatement.getChildren().get(0).getChildren().get(0).getChildren().get(0),stage);
-		sleep(10, TimeUnit.SECONDS);
+		assertEquals(2, model.getShowBusinessPlanScreenMethodCallCounter());
 		
 		
 		

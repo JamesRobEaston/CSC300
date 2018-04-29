@@ -240,6 +240,8 @@ public class BusinessPlanScreenController
 		return viewBPScreen;
 	}
 	
+	
+	
 	@FXML
 	void addNewStatement(ActionEvent event)
 	{
