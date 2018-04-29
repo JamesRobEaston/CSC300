@@ -39,10 +39,10 @@ public class CategoryPopupTest extends ApplicationTest
 		loader.setLocation(CategoryPopupBoxController.class.getResource("/categoryPopupBox/CategoryPopupBox.fxml"));
 		try
 		{
-			Scene editOrCloneScene = new Scene(loader.load());
+			Scene scene = new Scene(loader.load());
 			stage.setTitle("Edit or Clone Business Plan");
 			stage.setResizable(false);
-			stage.setScene(editOrCloneScene);
+			stage.setScene(scene);
 			stage.show();
 		} catch (IOException e)
 		{

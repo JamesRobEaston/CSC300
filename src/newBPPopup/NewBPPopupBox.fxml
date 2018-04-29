@@ -13,9 +13,9 @@
       <VBox alignment="CENTER" layoutX="117.0" layoutY="21.0" prefHeight="207.0" prefWidth="244.0" spacing="10.0">
          <children>
             <Label text="Input the ID of the business plan:" />
-            <TextField fx:id="planYearField" />
-            <Label text="Input the year of the business plan:" />
             <TextField fx:id="planIDField" />
+            <Label text="Input the year of the business plan:" />
+            <TextField fx:id="planYearField" />
             <Label fx:id="departmentChoiceBoxLabel" text="Input the department of the Business Plan:" />
             <ChoiceBox fx:id="departmentChoiceBox" prefWidth="150.0" />
             <HBox alignment="CENTER" prefHeight="39.0" prefWidth="244.0" spacing="20.0">

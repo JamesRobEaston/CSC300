@@ -41,9 +41,9 @@ public class CategoryPopupBoxController
     @FXML
     private VBox categoriesNode;
     
-	public static ArrayList<TextField> categoryInputs;
-	private static BP businessPlan;
-	public static Stage categoriesPopupBox;
+	public ArrayList<TextField> categoryInputs;
+	private BP businessPlan;
+	public Stage categoriesPopupBox;
 
 	ModelInterface model;
 

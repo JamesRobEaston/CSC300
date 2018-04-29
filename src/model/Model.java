@@ -286,6 +286,72 @@ public class Model implements ModelInterface
 		businessPlan = client.getLocalCopy();
 	}
 	
+	public void createNewBP(String id, String year, String department, boolean isClone, NewBPPopupBoxController cont)
+	{
+		if (id.replaceAll("\\s+", "").equals(""))
+		{
+			cont.errorText.setText("Please enter a valid ID.");
+			cont.planIDField.setText("");
+		} 
+		else if (year.replaceAll("\\s+", "").equals(""))
+		{
+			cont.errorText.setText("Please enter a valid year.");
+			cont.planYearField.setText("");
+		} 
+		else
+		{
+			retrieve(id + " " + year);
+			if (businessPlan == null && isInt(year))
+			{
+				if (!isClone)
+				{
+					if(!department.equals(""))
+					{
+						businessPlan = new BP(year, id, department);
+						setBusinessPlan(businessPlan);
+						closePopupBox();
+						showCategoryPopupBox();
+					}
+				} else
+				{
+					businessPlan = getBusinessPlan();
+					BP newBP = businessPlan.copy();
+					newBP.setID(id + " " + year);
+					newBP.setYear(year);
+					setLocalCopy(businessPlan);
+					showBusinessPlanScreen();
+				}
+				
+				if(!department.equals(""))
+				{
+					cont.planIDField.setText("");
+					cont.planYearField.setText("");
+				}
+			} else if (!isInt(year))
+			{
+				cont.errorText.setText("Please enter a valid year.");
+			} else
+			{
+				System.out.println(businessPlan);
+				System.out.println(isInt(year));
+				cont.errorText.setText("A Business Plan already has that name and year.");
+			}
+
+		}
+	}
+	
+	private boolean isInt(String integer)
+	{
+		try
+		{
+			Integer.parseInt(integer);
+			return true;
+		} catch (NumberFormatException e)
+		{
+		}
+		return false;
+	}
+	
 	/* (non-Javadoc)
 	 * @see model.ModelInterface#showHome()
 	 */

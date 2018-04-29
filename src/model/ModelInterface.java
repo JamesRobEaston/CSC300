@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import newBPPopup.NewBPPopupBoxController;
 
 public interface ModelInterface
 {
@@ -82,5 +83,7 @@ public interface ModelInterface
 	void loadLocalCopy();
 
 	void saveBPToDepartment(BP businessPlan2, String departmentName);
+	
+	void createNewBP(String id, String year, String department, boolean isClone, NewBPPopupBoxController cont);
 
 }
