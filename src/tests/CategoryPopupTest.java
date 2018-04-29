@@ -106,7 +106,7 @@ public class CategoryPopupTest extends ApplicationTest
 		cont.setModel(model);
 		clickOn("#centreButton");
 		clickOn("#submitButton");
-		checkCorrectSubmission(new String[]{"Organization","Department","Goal","Student Learning Objective"});
+		checkCorrectSubmission(new String[]{"Department","Goal","Student Learning Objective"});
 	}
 	
 	@Test
@@ -116,7 +116,7 @@ public class CategoryPopupTest extends ApplicationTest
 		cont.setModel(model);
 		clickOn("#VMOSAButton");
 		clickOn("#submitButton");
-		checkCorrectSubmission(new String[]{"Vision","Mission","Objective","Strategy","Action Plan"});
+		checkCorrectSubmission(new String[]{"Mission","Objective","Strategy","Action Plan"});
 	}
 
 	private void checkCorrectSubmission(String[] strings)
