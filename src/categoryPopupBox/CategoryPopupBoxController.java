@@ -50,7 +50,6 @@ public class CategoryPopupBoxController
 	@FXML
 	void VMOSAModel(ActionEvent event)
 	{
-		addNewTextField("Vision", false);
 		addNewTextField("Mission", false);
 		addNewTextField("Objective", false);
 		addNewTextField("Strategy", false);
@@ -72,7 +71,6 @@ public class CategoryPopupBoxController
 	@FXML
 	void centreModel(ActionEvent event)
 	{
-		addNewTextField("Organization", false);
 		addNewTextField("Department", false);
 		addNewTextField("Goal", false);
 		addNewTextField("Student Learning Objective", false);
