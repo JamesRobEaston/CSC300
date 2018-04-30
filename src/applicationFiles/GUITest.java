@@ -11,7 +11,7 @@ class GUITest
 {
 	public static void main(String[] args)
 	{	
-		BPApplication application = new BPApplication();
-		application.launch();
+		BPApplication app = new BPApplication();
+		app.launch();
 	}
 }

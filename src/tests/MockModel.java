@@ -270,7 +270,6 @@ public class MockModel extends Model
 	public void loadLocalCopy()
 	{
 		loadLocalCopyMethodCallCounter++;
-		super.loadLocalCopy();
 	}
 
 	public int saveBPToDepartmentMethodCallCounter = 0;

@@ -23,32 +23,6 @@
        </void>
       </object>
      </void>
-     <void method="add">
-      <object class="businessPlanClasses.Category">
-       <void property="max">
-        <int>10000000</int>
-       </void>
-       <void property="name">
-        <string>2nd Element</string>
-       </void>
-       <void property="rank">
-        <int>2</int>
-       </void>
-      </object>
-     </void>
-     <void method="add">
-      <object class="businessPlanClasses.Category">
-       <void property="max">
-        <int>10000000</int>
-       </void>
-       <void property="name">
-        <string>3rd Element</string>
-       </void>
-       <void property="rank">
-        <int>3</int>
-       </void>
-      </object>
-     </void>
     </void>
    </object>
   </void>

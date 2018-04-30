@@ -46,6 +46,7 @@ public class BusinessPlanViewTest extends ApplicationTest
 	Statement rootStatement;
 	Stage stage;
 	Scene screen;
+	PlanDesign design;
 
 	@Override
 	public void start(Stage stage)
@@ -64,7 +65,7 @@ public class BusinessPlanViewTest extends ApplicationTest
 		}
 
 		businessPlan = new BP("test","Head Element","test");
-		PlanDesign design = businessPlan.getDesign();
+		design = businessPlan.getDesign();
 		design.addCategory("1st Element", 1, 0, 10000000);
 		rootStatement = businessPlan.getTree().getRoot();
 		
@@ -72,7 +73,7 @@ public class BusinessPlanViewTest extends ApplicationTest
 		model.client.setStub(server);
 		model.client.login("admin", "admin");
 		
-		showBusinessPlanScreen(rootStatement,stage);
+		showBusinessPlanScreen(rootStatement,this.stage);
 	}
 	
 	public void showBusinessPlanScreen(Statement statement,Stage stage)
@@ -469,7 +470,22 @@ public class BusinessPlanViewTest extends ApplicationTest
 		clickOn("Submit");
 		assertEquals(2, model.getShowBusinessPlanScreenMethodCallCounter());
 		
+	}
+	
+	@Test
+	public void testStatementAtBottomOfBP()
+	{
+		rootStatement.addChild(new Statement(design.getCategoryList().get(0),rootStatement, new ArrayList<String>(), "Child 1"));
+		Statement statement = rootStatement.getChildren().get(0);
 		
+		Platform.runLater(() -> 
+		{
+			showBusinessPlanScreen(statement, this.stage);
+		});
 		
+		sleep(500);
+		
+		clickOn("Delete");
+		assertEquals(1, model.getShowBusinessPlanScreenMethodCallCounter());
 	}
 }

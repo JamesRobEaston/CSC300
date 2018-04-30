@@ -47,7 +47,7 @@
          <children>
             <HBox alignment="CENTER" prefHeight="54.0" prefWidth="353.0" spacing="10.0">
                <children>
-                  <Button fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteNode" text="Delete" />
+                  <Button id="deleteButton" fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteNode" text="Delete" />
                   <Button fx:id="homeButton" mnemonicParsing="false" onAction="#goHome" text="Home" />
                   <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveLocally" text="Save" />
                   <Button fx:id="saveToServerButton" mnemonicParsing="false" onAction="#saveToServer" text="Save to Server" />

@@ -6,9 +6,9 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="saveBPPopup.SaveBPPopupBoxController">
    <children>
-      <Button layoutX="122.0" layoutY="181.0" mnemonicParsing="false" onAction="#save" text="Save" />
-      <Button layoutX="221.0" layoutY="181.0" mnemonicParsing="false" onAction="#discard" text="Discard" />
-      <Button layoutX="331.0" layoutY="181.0" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
+      <Button id="save_but" layoutX="122.0" layoutY="181.0" mnemonicParsing="false" onAction="#save" text="Save" />
+      <Button id="discard_but" layoutX="221.0" layoutY="181.0" mnemonicParsing="false" onAction="#discard" text="Discard" />
+      <Button id="cancel_but" layoutX="331.0" layoutY="181.0" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
       <Label layoutX="122.0" layoutY="134.0" text="Do you want to save your Business Plan locally? " />
    </children>
 </Pane>

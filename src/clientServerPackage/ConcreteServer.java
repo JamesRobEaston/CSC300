@@ -198,7 +198,7 @@ public class ConcreteServer implements ServerInterface, Serializable
 		{
 			currUser = userIterator.next();
 			//Return before adding new user if username matches a previous user's username
-			if (currUser.getUsername() == username)
+			if (currUser.getUsername().equals(username))
 			{
 				return false;
 			}

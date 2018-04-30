@@ -16,7 +16,7 @@ import javafx.scene.*;
 public class BPApplication extends Application
 {
 	//The stage that will act as the primary window in the application.
-	Stage primaryStage;
+	public Stage primaryStage;
 	
 	@Override
 	public void start(Stage stage)
@@ -51,5 +51,15 @@ public class BPApplication extends Application
 	public static void main(String[] args)
 	{
 		launch();
+	}
+	
+	public void launchApp()
+	{
+		launch();
+	}
+	
+	public void closeApp()
+	{
+		primaryStage.close();
 	}
 }
