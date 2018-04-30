@@ -226,7 +226,7 @@ public class BusinessPlanViewTest extends ApplicationTest
 			cont.subcategoryLabel.setVisible(true);
 
 			String nextCategory = categoryList.get(categoryList.indexOf(statement.getType()) + 1).getName();
-			cont.subcategoryLabel = new Label(nextCategory);
+			cont.subcategoryLabel.setText(nextCategory);
 		}
 		
 		//Populate childrenNode

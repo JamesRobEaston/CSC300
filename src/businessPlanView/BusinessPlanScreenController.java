@@ -221,7 +221,7 @@ public class BusinessPlanScreenController
 			subcategoryLabel.setVisible(true);
 
 			String nextCategory = categoryList.get(categoryList.indexOf(statement.getType()) + 1).getName();
-			subcategoryLabel = new Label(nextCategory);
+			subcategoryLabel.setText(nextCategory);
 		}
 		
 		//Populate childrenNode
