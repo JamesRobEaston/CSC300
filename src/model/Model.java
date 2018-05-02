@@ -365,6 +365,7 @@ public class Model implements ModelInterface
 			Scene homePage = new Scene(loader.load());
 			homePageController cont = loader.getController();
 			cont.setModel(this);
+			cont.departmentLabel.setText(client.getDepartment().getName());
 			notify(homePage);
 		} catch (IOException e)
 		{

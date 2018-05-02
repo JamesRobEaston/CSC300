@@ -50,7 +50,12 @@ public class BPApplication extends Application
 	
 	public static void main(String[] args)
 	{
+
+		ServerWorker serverStarter = new ServerWorker();
+		serverStarter.startServer();
+		
 		launch();
+		
 	}
 	
 	public void launchApp()

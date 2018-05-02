@@ -131,6 +131,22 @@ public class ServerWorker
 		SaveThread saver = serverStarter.new SaveThread();
 		saver.start();
 	}
+	
+	public void startServer()
+	{
+		
+		//The initial admin's username and password.
+		String initAdminUsername = "admin";
+		String initAdminPassword = "admin";
+		
+		//Start up the ConcreteServer.
+		ServerWorker serverStarter = new ServerWorker();
+		ConcreteServer concreteServer = serverStarter.deserialize(initAdminUsername, initAdminPassword);
+		serverStarter.startRegistry(concreteServer);
+				
+		SaveThread saver = serverStarter.new SaveThread();
+		saver.start();
+	}
 
 }
 

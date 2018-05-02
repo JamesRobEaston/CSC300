@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import model.ModelInterface;
 import newBPPopup.NewBPPopupBoxController;
@@ -31,6 +32,9 @@ public class homePageController
 
 	@FXML
 	private Button newBP_but;
+	
+    @FXML
+    public Label departmentLabel;
 
 	@FXML
 	private Button viewAll_but;

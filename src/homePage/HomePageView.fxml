@@ -8,7 +8,7 @@
 <AnchorPane fx:id="homePage_view" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="homePage.homePageController">
    <children>
       <Button fx:id="logout_but" layoutX="502.0" layoutY="26.0" mnemonicParsing="false" onAction="#logout" text="Log Out" />
-      <Label layoutX="106.0" layoutY="31.0" text="Admin" />
+      <Label fx:id="departmentLabel" layoutX="106.0" layoutY="31.0" text="Admin" />
       <Label layoutX="21.0" layoutY="31.0" text="Department:" />
       <VBox alignment="CENTER" layoutX="176.0" layoutY="100.0" prefHeight="200.0" prefWidth="249.0" spacing="15.0">
          <children>
