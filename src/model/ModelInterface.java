@@ -1,5 +1,6 @@
 package model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import applicationFiles.BPApplication;
@@ -13,7 +14,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import newBPPopup.NewBPPopupBoxController;
 
-public interface ModelInterface
+public interface ModelInterface extends Serializable
 {
 
 	boolean authenticate(TextField userName_input, PasswordField pass_input, TextField serv_input, Button login_but);
@@ -76,7 +77,7 @@ public interface ModelInterface
 
 	void showCategoryPopupBox();
 
-	void showSaveBPPopupBox();
+	void showSaveBPPopupBox(boolean shouldCloseOnAction);
 
 	void showEditOrClone();
 
@@ -85,5 +86,9 @@ public interface ModelInterface
 	void saveBPToDepartment(BP businessPlan2, String departmentName);
 	
 	void createNewBP(String id, String year, String department, boolean isClone, NewBPPopupBoxController cont);
+
+	void closeApplication();
+	
+	void notifyBusinessPlanChanged();
 
 }

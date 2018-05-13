@@ -20,6 +20,7 @@ public class SaveBPPopupBoxController
 {	
 	public static Stage saveBPPopupBox;
 	ModelInterface model;
+	boolean shouldCloseOnAction;
 	
 	public SaveBPPopupBoxController() {}
 	
@@ -61,7 +62,14 @@ public class SaveBPPopupBoxController
 	@FXML
 	void discard(ActionEvent event)
 	{
-		model.showHome();
+		if(shouldCloseOnAction)
+		{
+			model.closeApplication();
+		}
+		else
+		{
+			model.showHome();
+		}
 		model.closePopupBox();
 	}
 
@@ -70,9 +78,26 @@ public class SaveBPPopupBoxController
 	{
 		model.setLocalCopy(model.getBusinessPlan());
 		model.saveLocalPlanXML();
-		model.showHome();
+		if(shouldCloseOnAction)
+		{
+			model.closeApplication();
+		}
+		else
+		{
+			model.showHome();
+		}
 		model.closePopupBox();
 
+	}
+
+	public boolean isShouldCloseOnAction()
+	{
+		return shouldCloseOnAction;
+	}
+
+	public void setShouldCloseOnAction(boolean shouldCloseOnAction)
+	{
+		this.shouldCloseOnAction = shouldCloseOnAction;
 	}
 
 }

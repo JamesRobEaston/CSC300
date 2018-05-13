@@ -19,6 +19,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.Model;
 import model.ModelInterface;
 
 public class NewBPPopupBoxController
@@ -74,6 +75,10 @@ public class NewBPPopupBoxController
 	{
 		String id = planIDField.getText();
 		String year = planYearField.getText();
+		if(model.isAdmin())
+		{
+			Model.currDepartment = departmentChoiceBox.getValue();
+		}
 		
 		model.createNewBP(id, year, department, isClone, this);
 	}

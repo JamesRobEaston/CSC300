@@ -475,7 +475,7 @@ public class BusinessPlanViewTest extends ApplicationTest
 	@Test
 	public void testStatementAtBottomOfBP()
 	{
-		rootStatement.addChild(new Statement(design.getCategoryList().get(0),rootStatement, new ArrayList<String>(), "Child 1"));
+		rootStatement.addChild(new Statement(design.getCategoryList().get(0),rootStatement, new ArrayList<String>(), new ArrayList<String>(), "Child 1"));
 		Statement statement = rootStatement.getChildren().get(0);
 		
 		Platform.runLater(() -> 

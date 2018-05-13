@@ -41,17 +41,21 @@ import viewAllBPView.ViewAllBPScreenController;
 
 public class Model implements ModelInterface 
 {
+	private static final long serialVersionUID = 2188182164143419735L;
 	public ClientProxy client;
 	BPApplication application;
 	BP businessPlan;
 	Department adminDepartment;
 	public static Department currDepartment;
+	boolean isViewingBP;
+	public FXMLLoader loader;
 	
 	public Model(ClientProxy client, BPApplication application, BP businessPlan)
 	{
 		this.client = client;
 		this.application = application;
 		this.businessPlan = businessPlan;
+		StaticModelAccessor.setModel(this);
 	}
 
 	/* (non-Javadoc)
@@ -82,6 +86,7 @@ public class Model implements ModelInterface
 			{
 				client = new ClientProxy(server);
 				client.login(userName_input.getText(), pass_input.getText());
+				client.setModel(this);
 			}
 			catch (Exception e1)
 			{
@@ -89,7 +94,7 @@ public class Model implements ModelInterface
 			}
 		
 			//If the login failed, notify the user.
-			if(client.getUserToken() == null)
+			if(client.getToken() == null)
 			{
 				return false;
 				//invalidLoginLabel.setText("The username or password was not valid! Please try again.");
@@ -264,7 +269,13 @@ public class Model implements ModelInterface
 	public void submitPlan()
 	{
 		client.setLocalCopy(businessPlan);
-		client.submitPlan();
+		try
+		{
+			client.submitPlan();
+		} catch (RemoteException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	/* (non-Javadoc)
@@ -282,7 +293,13 @@ public class Model implements ModelInterface
 	@Override
 	public void retrieve(String bpid)
 	{
-		client.retrieve(bpid);
+		try
+		{
+			client.retrieve(bpid);
+		} catch (RemoteException e)
+		{
+			e.printStackTrace();
+		}
 		businessPlan = client.getLocalCopy();
 	}
 	
@@ -297,7 +314,7 @@ public class Model implements ModelInterface
 		{
 			cont.errorText.setText("Please enter a valid year.");
 			cont.planYearField.setText("");
-		} 
+		}
 		else
 		{
 			retrieve(id + " " + year);
@@ -305,7 +322,7 @@ public class Model implements ModelInterface
 			{
 				if (!isClone)
 				{
-					if(!department.equals(""))
+					if(department!= null && !department.equals(""))
 					{
 						businessPlan = new BP(year, id, department);
 						setBusinessPlan(businessPlan);
@@ -322,11 +339,15 @@ public class Model implements ModelInterface
 					showBusinessPlanScreen();
 				}
 				
-				if(!department.equals(""))
+				if(client.isAdmin())
 				{
-					cont.planIDField.setText("");
-					cont.planYearField.setText("");
+					currDepartment = cont.departmentChoiceBox.getValue();
 				}
+				else
+				{
+					currDepartment = getDepartment();
+				}
+			
 			} else if (!isInt(year))
 			{
 				cont.errorText.setText("Please enter a valid year.");
@@ -358,6 +379,11 @@ public class Model implements ModelInterface
 	@Override
 	public void showHome()
 	{
+		if(isViewingBP)
+		{
+			client.unsubscribeFromBP();
+			isViewingBP = false;
+		}
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(homePageController.class.getResource("/homePage/HomePageView.fxml"));
 		try
@@ -449,7 +475,8 @@ public class Model implements ModelInterface
 	@Override
 	public void showBusinessPlanScreen(Statement statement)
 	{
-		FXMLLoader loader = new FXMLLoader();
+		isViewingBP = true;
+		loader = new FXMLLoader();
 		loader.setLocation(BusinessPlanScreenController.class.getResource("/businessPlanView/BusinessPlanScreen.fxml"));
 		
 		Scene viewBPScreen = new Scene(new AnchorPane());
@@ -610,6 +637,9 @@ public class Model implements ModelInterface
 			cont.childrenNode.getChildren().add(cont.createNewSubcategoryButton);
 		}
 		
+		cont.showWarningImageIfAppropriate();
+		application.setSaveFunctionalityOnClose(this);
+		
 		notify(viewBPScreen);
 	}
 	
@@ -740,6 +770,8 @@ public class Model implements ModelInterface
 			cont.departmentChoiceBox.setValue(client.getDepartment());
 			
 			cont.department = client.getDepartment().getName();
+			cont.departmentChoiceBox.setValue(adminDepartment);
+			currDepartment = adminDepartment;
 		}
 		
 		popupStage = new Stage();
@@ -788,7 +820,7 @@ public class Model implements ModelInterface
 	 * @see model.ModelInterface#showSaveBPPopupBox()
 	 */
 	@Override
-	public void showSaveBPPopupBox()
+	public void showSaveBPPopupBox(boolean shouldCloseOnAction)
 	{
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(SaveBPPopupBoxController.class.getResource("/saveBPPopup/SaveBPPopupBox.fxml"));
@@ -804,6 +836,7 @@ public class Model implements ModelInterface
 		}
 		
 		SaveBPPopupBoxController cont = loader.getController();
+		cont.setShouldCloseOnAction(shouldCloseOnAction);
 		cont.setModel(this);
 		
 		popupStage = new Stage();
@@ -879,6 +912,28 @@ public class Model implements ModelInterface
 		} catch (RemoteException e)
 		{
 			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void closeApplication()
+	{
+		client.unsubscribeFromBP();
+		application.closeApp();
+	}
+	
+	public void closeRequest()
+	{
+		client.unsubscribeFromBP();
+	}
+	
+	public void notifyBusinessPlanChanged()
+	{
+		if(isViewingBP)
+		{
+			System.out.println("Hello");
+			BusinessPlanScreenController cont = loader.getController();
+			cont.setWarningImageVisibility(true);
 		}
 	}
 

@@ -102,7 +102,7 @@ public class LoginScreenTest extends ApplicationTest
 		clickOn("#loginButton");
 		//WaitForAsyncUtils.waitForFxEvents();
 		
-		String modelUserToken = model.getClient().getUserToken();
+		String modelUserToken = model.getClient().getToken();
 		
 		ConcreteClient admin = null;
 		ArrayList<ConcreteClient> users = new ArrayList<ConcreteClient>();
@@ -137,7 +137,7 @@ public class LoginScreenTest extends ApplicationTest
 		clickOn("#loginButton");
 		//WaitForAsyncUtils.waitForFxEvents();
 		
-		assertEquals(model.getClient().getUserToken(), null);
+		assertEquals(model.getClient().getToken(), null);
 	}
 	
 	//Test logging a user with a valid username but the wrong password
@@ -148,7 +148,7 @@ public class LoginScreenTest extends ApplicationTest
 		clickOn("#loginButton");
 		//WaitForAsyncUtils.waitForFxEvents();
 		
-		assertEquals(model.getClient().getUserToken(), null);
+		assertEquals(model.getClient().getToken(), null);
 	}
 	
 	//Test logging a user with an invalid name but a valid password
@@ -159,7 +159,7 @@ public class LoginScreenTest extends ApplicationTest
 		clickOn("#loginButton");
 		//WaitForAsyncUtils.waitForFxEvents();
 		
-		assertEquals(model.getClient().getUserToken(), null);
+		assertEquals(model.getClient().getToken(), null);
 	}
 	
 	@Rule

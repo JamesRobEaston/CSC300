@@ -6,6 +6,7 @@ import clientServerPackage.Department;
 import applicationFiles.DepartmentConverter;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 import applicationFiles.BPApplication;
@@ -220,11 +221,23 @@ public class ViewAllBPScreenController
 			{
 				if(client.isAdmin())
 				{
-					client.retrieve(bp[0], Model.currDepartment);
+					try
+					{
+						client.retrieve(bp[0], Model.currDepartment);
+					} catch (RemoteException e1)
+					{
+						e1.printStackTrace();
+					}
 				}
 				else
 				{
-					client.retrieve(bp[0]);
+					try
+					{
+						client.retrieve(bp[0]);
+					} catch (RemoteException e1)
+					{
+						e1.printStackTrace();
+					}
 				}
 				model.setBusinessPlan(client.getLocalCopy());
 				System.out.println(client.getLocalCopy());
@@ -270,6 +283,7 @@ public class ViewAllBPScreenController
 			departmentDropDownMenu.getSelectionModel().selectedIndexProperty().addListener((observableValue, oldIndex, newIndex) ->
 			{
 				currDepartment = departmentDropDownMenu.getItems().get(newIndex.intValue());
+				Model.currDepartment = currDepartment;
 				setValidPlans(model.getClient(), currDepartment);
 				updateBPScrollPane(model.getClient(), validPlans);
 			});

@@ -10,9 +10,10 @@ public class Statement implements java.io.Serializable
 	Statement parent;
 	ArrayList<Statement> children;
 	ArrayList<String> data;
+	ArrayList<String> comments;
 	String id;
 
-	public Statement(Category type, Statement parent, ArrayList<String> data, String id)
+	public Statement(Category type, Statement parent, ArrayList<String> data, ArrayList<String> comments, String id)
 	{
 		this.type = type;
 		this.parent = parent;
@@ -23,8 +24,17 @@ public class Statement implements java.io.Serializable
 		}
 		else
 		{
-			data = new ArrayList<String>();
+			this.data = new ArrayList<String>();
 		}
+		if(comments != null)
+		{
+			this.comments = data;
+		}
+		else
+		{
+			this.comments = new ArrayList<String>();
+		}
+		
 		this.id = id;
 	}
 
@@ -119,6 +129,19 @@ public class Statement implements java.io.Serializable
 			children.get(i).setParent(this);
 		}
 	}
+	
+	public void addComment(String comment)
+	{
+		comments.add(comment);
+	}
+	
+	public void removeComment(int index)
+	{
+		if (index < comments.size())
+		{
+			comments.remove(index);
+		}
+	}
 
 	public void addData(String statement)
 	{
@@ -159,10 +182,28 @@ public class Statement implements java.io.Serializable
 			dataCopy.add(data.get(i));
 		}
 		
-		Statement copy = new Statement(typeCopy, parentCopy, dataCopy, id);
+		ArrayList<String> commentsCopy = new ArrayList<String>();
+		for(int i = 0; i < comments.size(); i++)
+		{
+			commentsCopy.add(comments.get(i));
+		}
+		
+		Statement copy = new Statement(typeCopy, parentCopy, dataCopy, commentsCopy, id);
 		copy.setChildren(childrenCopy);
 		
 		return copy;
 	}
+
+	public ArrayList<String> getComments()
+	{
+		return comments;
+	}
+
+	public void setComments(ArrayList<String> comments)
+	{
+		this.comments = comments;
+	}
+	
+	
 
 }

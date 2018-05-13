@@ -3,7 +3,7 @@ package businessPlanClasses;
 import java.util.*;
 
 import clientServerPackage.AdminClient;
-import clientServerPackage.ConcreteClient;
+import clientServerPackage.ClientProxyInterface;
 
 import java.io.*;
 
@@ -133,7 +133,7 @@ public class BusinessPlan implements Serializable
 
 	// Changes the editable status of the plan ONLY if the client calling it is an
 	// AdminClient
-	public void changeEditable(ConcreteClient client)
+	public void changeEditable(ClientProxyInterface client)
 	{
 		if (client instanceof AdminClient)
 		{

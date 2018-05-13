@@ -1,5 +1,6 @@
 package clientServerPackage;
 import java.io.Serializable;
+import java.rmi.RemoteException;
 
 public class ConcreteClient implements Serializable
 {

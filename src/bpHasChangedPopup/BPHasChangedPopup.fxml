@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="236.0" prefWidth="509.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="BPHasChangedPopupController">
+   <children>
+      <Label layoutX="84.0" layoutY="101.0" text="A new version of this Business Plan has been saved to the server." />
+      <Label layoutX="130.0" layoutY="118.0" text="Please reload this plan to get the latest version." />
+      <Button layoutX="233.0" layoutY="166.0" mnemonicParsing="false" onAction="#closePopup" text="Okay" />
+   </children>
+</Pane>

@@ -3,6 +3,7 @@ package tests;
 import org.testfx.framework.junit.ApplicationTest;
 
 import clientServerPackage.ClientProxy;
+import clientServerPackage.ClientProxyInterface;
 import clientServerPackage.ConcreteClient;
 import clientServerPackage.ConcreteServer;
 import clientServerPackage.ServerInterface;
@@ -32,7 +33,7 @@ public class SaveBPTest extends ApplicationTest
 	SaveBPPopupBoxController spb;
 	MockModel model;
 	Stage popupStage;
-	ConcreteClient admin;
+	ClientProxyInterface admin;
 	ConcreteServer server;
 	ClientProxy adminProxy;
 	

@@ -7,18 +7,48 @@ import java.io.BufferedOutputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-public class ClientProxy
+import addUserPopup.AddNewUserPopupBoxController;
+import bpHasChangedPopup.BPHasChangedPopupController;
+import businessPlanView.BusinessPlanScreenController;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
+import model.Model;
+import model.ModelInterface;
+import model.StaticModelAccessor;
+
+public class ClientProxy implements ClientProxyInterface
 {
+	
+	private static final long serialVersionUID = 5242747310111867431L;
 	ServerInterface stub;
 	String userToken;
 	BP localCopy;
+	transient Model model;
+	ConcreteBPChangeObserver changeObserver;
+	BPChangeObserver changeStub;
 
 	public ClientProxy(ServerInterface server)
 	{
 		this.stub = server;
+		changeObserver = new ConcreteBPChangeObserver();
+		changeObserver.setClient(this);
+		changeObserver.setUserToken(userToken);
+		try
+		{
+			changeStub = (BPChangeObserver) UnicastRemoteObject.exportObject(changeObserver, 0);
+		} catch (RemoteException e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public ClientProxy() { }
@@ -33,6 +63,7 @@ public class ClientProxy
 		try
 		{
 			userToken = stub.authenticate(username, password);
+			changeObserver.setUserToken(userToken);
 		} catch (RemoteException e)
 		{
 			System.out.println("Login failed.");
@@ -42,7 +73,7 @@ public class ClientProxy
 	//Sets localCopy to be whatever BusinessPlan has an ID matching bpid.
 	//If an external application controlling Client wants localCopy, they should call
 	//getLocalCopy() after calling retrieve(), with an appropriate bpid().
-	public void retrieve(String bpid)
+	public void retrieve(String bpid) throws RemoteException
 	{
 		try
 		{
@@ -51,10 +82,13 @@ public class ClientProxy
 		{
 			e.printStackTrace();
 		}
+		
+		subscribeToBP();
 	}
 	
-	public void retrieve(String bpid, Department dept)
+	public void retrieve(String bpid, Department dept) throws RemoteException
 	{
+		
 		try
 		{
 			localCopy = stub.retrieve(userToken, bpid, dept);
@@ -62,6 +96,8 @@ public class ClientProxy
 		{
 			e.printStackTrace();
 		}
+		
+		subscribeToBP();
 	}
 	
 	//Saves localCopy.
@@ -73,23 +109,23 @@ public class ClientProxy
 	//			 BusinessPlan will be overwritten. For this reason, ensure that your ID is correct.
 	//
 	//view() can be called to see all of the BusinessPlan IDs within a department.
-	public void save()
+	public void save() throws RemoteException
 	{
 		try
 		{
-			stub.save(userToken, localCopy);
+			stub.save(userToken, localCopy, changeStub);
 		} catch (RemoteException e)
 		{
 			e.printStackTrace();
 		}
 	}
 	
-	public void saveToAdminDepartment()
+	public void saveToAdminDepartment() throws RemoteException
 	{
 		try
 		{
-			stub.saveToAdminDepartment(userToken, localCopy);
-			stub.save(userToken, localCopy);
+			stub.saveToAdminDepartment(userToken, localCopy, changeStub);
+			stub.save(userToken, localCopy, changeStub);
 		} catch (RemoteException e)
 		{
 			e.printStackTrace();
@@ -181,7 +217,7 @@ public class ClientProxy
 		this.stub = stub;
 	}
 
-	public String getUserToken()
+	public String getUserToken() throws RemoteException
 	{
 		return userToken;
 	}
@@ -223,7 +259,7 @@ public class ClientProxy
 		return null;
 	}
 	
-	public void submitPlan()
+	public void submitPlan() throws RemoteException
 	{
 		this.save();
 	}
@@ -308,8 +344,98 @@ public class ClientProxy
 	
 	public void saveBPToDepartment(BP bp, String dept) throws RemoteException
 	{
-		stub.saveBPToDepartment(userToken, bp, dept);
+		stub.saveBPToDepartment(userToken, bp, dept, changeStub);
 	}
 
+	@Override
+	public void notifyBusinessPlanChanged() throws RemoteException
+	{
+		model.notifyBusinessPlanChanged();
+		
+		/*
+		FXMLLoader loader = new FXMLLoader();
+		loader.setLocation(AddNewUserPopupBoxController.class.getResource("/bpHasChangedPopup/BPHasChangedPopup.fxml"));
+		Scene popupScene = new Scene(new AnchorPane());
+		try
+		{
+			popupScene = new Scene(loader.load());
+		} catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+		BPHasChangedPopupController cont = loader.getController();
+		Stage stage = new Stage();
+		stage.setScene(popupScene);
+		cont.setStage(stage);
+		stage.show();
+		*/
+	}
+
+	public String getToken()
+	{
+		return userToken;
+	}
+
+	public Model getModel()
+	{
+		return model;
+	}
+
+	public void setModel(Model model)
+	{
+		this.model = model;
+	}
+	
+	public void subscribeToBP()
+	{
+		if(localCopy != null)
+		{
+			try
+			{
+				stub.subscribeToBP(localCopy, changeStub);
+			} catch (RemoteException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+
+	public void unsubscribeFromBP()
+	{
+		if(localCopy != null)
+		{
+			try
+			{
+				stub.unSubscribeFromBP(localCopy, changeStub);
+			} catch (RemoteException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public BPChangeObserver exportObserver()
+	{
+		BPChangeObserver clientStub = changeObserver;
+		try 
+		{
+			UnicastRemoteObject.unexportObject(changeObserver, true);
+			clientStub = (BPChangeObserver) UnicastRemoteObject.exportObject(changeObserver, 0);
+		}
+		catch(RemoteException e)
+		{
+			try
+			{
+				clientStub = (BPChangeObserver) UnicastRemoteObject.exportObject(changeObserver, 0);
+			} catch (RemoteException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		return clientStub;
+	}
 }
 

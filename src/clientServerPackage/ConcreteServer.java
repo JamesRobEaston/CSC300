@@ -8,15 +8,17 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
-import java.util.concurrent.TimeUnit;
+import java.util.Hashtable;
 
 public class ConcreteServer implements ServerInterface, Serializable
 {
 
+	private static final long serialVersionUID = 3409865608827353664L;
 	public ArrayList<ConcreteClient> users;
 	public ArrayList<Department> departments;
 	public Random tokenGenerator;
 	public static Department adminDepartment;
+	public Hashtable<String, ArrayList<BPChangeObserver>> activeBusinessPlans;
 	
 	//The default constructor, primarily used for XMLDeserialization
 	public ConcreteServer()
@@ -24,6 +26,7 @@ public class ConcreteServer implements ServerInterface, Serializable
 		users = new ArrayList<ConcreteClient>();
 		departments = new ArrayList<Department>();
 		tokenGenerator = new Random(System.currentTimeMillis());
+		activeBusinessPlans = new Hashtable<String, ArrayList<BPChangeObserver>>();
 	}
 	
 	//The primary constructor for the server, which adds an initial default admin to the server.
@@ -38,6 +41,7 @@ public class ConcreteServer implements ServerInterface, Serializable
 		departments = new ArrayList<Department>();
 		departments.add(adminDepartment);
 		tokenGenerator = new Random(System.currentTimeMillis());
+		activeBusinessPlans = new Hashtable<String, ArrayList<BPChangeObserver>>();
 	}
 
 	//This method generates a unique user token that is used to identify users, which is returned.
@@ -166,12 +170,13 @@ public class ConcreteServer implements ServerInterface, Serializable
 		{
 			return null;
 		}
-		return user.getDepartment().retrieve(bpid);
+		BP bp = user.getDepartment().retrieve(bpid);
+		return bp;
 	}
 
 	// Saves the BusinessPlan within the department.
 	@Override
-	public void save(String userToken, BP plan) throws RemoteException
+	public void save(String userToken, BP plan, BPChangeObserver stub) throws RemoteException
 	{
 		ConcreteClient user = matchUser(userToken);
 		
@@ -179,6 +184,8 @@ public class ConcreteServer implements ServerInterface, Serializable
 		{
 			return;
 		}
+
+		notifyAllUsersBPChanged(plan, stub);
 		user.save(plan);
 		
 	}
@@ -303,17 +310,19 @@ public class ConcreteServer implements ServerInterface, Serializable
 	}
 
 	@Override
-	public void saveToAdminDepartment(String userToken, BP bp) throws RemoteException
+	public void saveToAdminDepartment(String userToken, BP bp, BPChangeObserver stub) throws RemoteException
 	{
 		ConcreteClient user = matchUser(userToken);
 		if(user != null)
 		{
+			notifyAllUsersBPChanged(bp, stub);
+			
 			adminDepartment.save(bp, user.isAdmin());
 		}
 	}
 
 	@Override
-	public void saveBPToDepartment(String userToken, BP bp, String dept) throws RemoteException
+	public void saveBPToDepartment(String userToken, BP bp, String dept, BPChangeObserver stub) throws RemoteException
 	{
 		Iterator<Department> departmentIterator = this.departments.iterator();
 		Department department = null;
@@ -331,6 +340,8 @@ public class ConcreteServer implements ServerInterface, Serializable
 		//Create a new department if the ConcreteClient's requested department does not exist.
 		if(found)
 		{
+			notifyAllUsersBPChanged(bp, stub);
+			
 			ConcreteClient user = matchUser(userToken);
 			department.save(bp, user.isAdmin());
 		}
@@ -358,6 +369,7 @@ public class ConcreteServer implements ServerInterface, Serializable
 			Iterator<Department> iterator = departments.iterator();
 			boolean foundDept = false;
 			Department department = new Department();
+			
 			while(!foundDept && iterator.hasNext())
 			{
 				department = iterator.next();
@@ -369,11 +381,84 @@ public class ConcreteServer implements ServerInterface, Serializable
 			
 			if(foundDept)
 			{
-				return department.retrieve(bpid);
+				BP bp = department.retrieve(bpid); 
+				return bp;
 			}
 		}
 		
 		return null;
 	}
+	
+	//Helper method to add a user to the list of clients viewing the specified BP
+	public void subscribeToBP(BP bp, BPChangeObserver stub) throws RemoteException
+	{
+		String bpid = bp.getID();
+		ArrayList<BPChangeObserver> clients = activeBusinessPlans.get(bpid);
+		if(clients == null)
+		{
+			clients = new ArrayList<BPChangeObserver>();
+			activeBusinessPlans.put(bpid, clients);
+		}
+		clients.add(stub);
+	}
+	
+	//Helper method to notify all users if a BP has changed
+	private void notifyAllUsersBPChanged(BP bp, BPChangeObserver stub) throws RemoteException
+	{
+		ArrayList<BPChangeObserver> clients = activeBusinessPlans.get(bp.getID());
+		if(clients != null)
+		{
+			for(int i = 0; i < clients.size(); i++)
+			{
+				BPChangeObserver observer = clients.get(i);
+				System.out.println(observer.getUserToken());
+				System.out.println(stub.getUserToken());
+				if(observer.getUserToken().equals(stub.getUserToken()))
+				{}
+				else
+				{
+					try
+					{
+						observer.notifyBusinessPlanChanged();
+					}
+					catch(RemoteException e)
+					{
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+		else
+		{
+			clients = new ArrayList<BPChangeObserver>();
+			clients.add(stub);
+			activeBusinessPlans.put(bp.getID(), clients);
+		}
+	}
+
+	//If a user stops viewing a BP, remove them from activeBusinessPlans
+	@Override
+	public void unSubscribeFromBP(BP bp, BPChangeObserver stub) throws RemoteException
+	{
+		//Remove the user from the list of clients viewing the plan
+		ArrayList<BPChangeObserver> clients = activeBusinessPlans.get(bp.getID());
+		for(int i = 0; i < clients.size(); i++)
+		{
+			BPChangeObserver client = clients.get(i);
+			if(client.getUserToken() == stub.getUserToken())
+			{
+				clients.remove(i);
+			}
+		}
+		
+		//If there are no more clients viewing the plan, remove the plan from the list of active plans
+		if(clients.size() == 0)
+		{
+			activeBusinessPlans.remove(bp.getID());
+		}
+		
+	}
+	
+	
 
 }

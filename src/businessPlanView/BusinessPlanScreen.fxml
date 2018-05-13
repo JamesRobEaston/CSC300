@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
@@ -20,19 +25,90 @@
             <VBox fx:id="treeDisplay" prefHeight="556.0" prefWidth="100.0" spacing="10.0" />
          </children>
       </VBox>
-      <VBox layoutX="157.0" layoutY="106.0" prefHeight="556.0" prefWidth="461.0" spacing="10.0">
+      <VBox layoutX="157.0" layoutY="103.0" prefHeight="559.0" prefWidth="461.0" spacing="10.0">
          <children>
-            <ScrollPane prefHeight="218.0" prefWidth="518.0">
-               <content>
-                  <VBox fx:id="statementsNode" prefHeight="216.0" prefWidth="516.0">
-                     <children>
-                        <Button fx:id="addNewStatementButton" mnemonicParsing="false" onAction="#addNewStatement" text="Add New Statement" />
-                     </children>
-                  </VBox>
-               </content>
-            </ScrollPane>
+            <TabPane prefHeight="349.0" prefWidth="461.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Statements">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ScrollPane prefHeight="304.0" prefWidth="461.0">
+                                 <content>
+                                    <VBox fx:id="statementsNode" prefHeight="301.0" prefWidth="458.0">
+                                       <children>
+                                          <Button fx:id="addNewStatementButton" mnemonicParsing="false" onAction="#addNewStatementToMain" text="Add New Statement" />
+                                       </children>
+                                    </VBox>
+                                 </content>
+                                 <opaqueInsets>
+                                    <Insets left="5.0" top="5.0" />
+                                 </opaqueInsets>
+                              </ScrollPane>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab text="Comments">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ScrollPane prefHeight="305.0" prefWidth="461.0">
+                                 <content>
+                                    <VBox fx:id="commentsNode" prefHeight="303.0" prefWidth="458.0">
+                                       <children>
+                                          <Button fx:id="addNewCommentButton" mnemonicParsing="false" onAction="#addNewCommentToMain" text="Add New Comment" />
+                                       </children>
+                                    </VBox>
+                                 </content>
+                                 <opaqueInsets>
+                                    <Insets left="5.0" top="5.0" />
+                                 </opaqueInsets>
+                              </ScrollPane>
+                           </children>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                  <Tab text="Side-By-Side">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="301.0" prefWidth="461.0">
+                           <children>
+                              <VBox prefHeight="319.0" prefWidth="461.0">
+                                 <children>
+                                    <ScrollPane prefHeight="159.0" prefWidth="461.0">
+                                       <content>
+                                          <VBox fx:id="statementsNode1" prefHeight="148.0" prefWidth="458.0">
+                                             <children>
+                                                <Button fx:id="addNewStatementButton1" mnemonicParsing="false" onAction="#addNewStatementToSBS" text="Add New Statement" />
+                                             </children>
+                                          </VBox>
+                                       </content>
+                                       <opaqueInsets>
+                                          <Insets left="5.0" top="5.0" />
+                                       </opaqueInsets>
+                                    </ScrollPane>
+                                    <ScrollPane prefHeight="160.0" prefWidth="461.0">
+                                       <content>
+                                          <VBox fx:id="commentsNode1" prefHeight="137.0" prefWidth="458.0">
+                                             <children>
+                                                <Button fx:id="addNewCommentButton1" mnemonicParsing="false" onAction="#addNewCommentToSBS" text="Add New Comment" />
+                                             </children>
+                                          </VBox>
+                                       </content>
+                                       <opaqueInsets>
+                                          <Insets left="5.0" top="5.0" />
+                                       </opaqueInsets>
+                                    </ScrollPane>
+                                 </children>
+                              </VBox>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
             <Label fx:id="subcategoryLabel" text="Next Category" />
-            <ScrollPane fx:id="childrenScrollPane" prefHeight="218.0" prefWidth="518.0">
+            <ScrollPane fx:id="childrenScrollPane" prefHeight="157.0" prefWidth="461.0">
                <content>
                   <TilePane fx:id="childrenNode" prefHeight="216.0" prefWidth="516.0">
                      <children>
@@ -43,7 +119,7 @@
             </ScrollPane>
          </children>
       </VBox>
-      <VBox alignment="CENTER" layoutX="336.0" layoutY="3.0" prefHeight="67.0" prefWidth="364.0">
+      <VBox alignment="CENTER_RIGHT" layoutX="336.0" layoutY="3.0" prefHeight="93.0" prefWidth="364.0">
          <children>
             <HBox alignment="CENTER" prefHeight="54.0" prefWidth="353.0" spacing="10.0">
                <children>
@@ -65,7 +141,15 @@
                </children>
             </HBox>
             <Label fx:id="invalidSaveLabel" />
+            <ImageView id="warningImage" fx:id="warningImage" fitHeight="27.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@WarningImage.png" />
+               </image>
+            </ImageView>
          </children>
+         <padding>
+            <Insets right="10.0" />
+         </padding>
       </VBox>
    </children>
 </AnchorPane>

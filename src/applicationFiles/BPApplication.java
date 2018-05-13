@@ -1,6 +1,7 @@
 package applicationFiles;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 import addDepartmentPopup.AddDepartmentPopupBoxController;
 import clientServerPackage.*;
@@ -13,8 +14,12 @@ import model.Model;
 import model.ModelInterface;
 import javafx.scene.*;
 
-public class BPApplication extends Application
+public class BPApplication extends Application implements Serializable
 {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -7060640439579741506L;
 	//The stage that will act as the primary window in the application.
 	public Stage primaryStage;
 	
@@ -63,5 +68,22 @@ public class BPApplication extends Application
 	public void closeApp()
 	{
 		primaryStage.close();
+	}
+	
+	public void setSaveFunctionalityOnClose(Model model)
+	{
+		primaryStage.setOnCloseRequest(e -> 
+		{
+			e.consume();
+			model.showSaveBPPopupBox(true);
+		});
+	}
+	
+	public void removeCloseFunctionality(Model model)
+	{
+		primaryStage.setOnCloseRequest(e -> 
+		{
+			model.closeRequest();
+		});
 	}
 }

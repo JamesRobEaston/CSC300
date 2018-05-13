@@ -253,7 +253,7 @@ public class MockModel extends Model
 
 	public int showSaveBPPopupBoxMethodCallCounter = 0;
 	@Override
-	public void showSaveBPPopupBox()
+	public void showSaveBPPopupBox(boolean b)
 	{
 		showSaveBPPopupBoxMethodCallCounter++;
 	}

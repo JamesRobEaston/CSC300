@@ -19,12 +19,12 @@ public class TreeBuilder implements Serializable
 		{
 			rootCategory = categories.get(0);
 		}
-		this.root = new Statement(rootCategory, null, new ArrayList<String>(), id);
+		this.root = new Statement(rootCategory, null, new ArrayList<String>(), new ArrayList<String>(), id);
 	}
 	
 	public TreeBuilder(String id)
 	{
-		this.root = new Statement(new Category(0, 0, id, 0), null, new ArrayList<String>(), id);
+		this.root = new Statement(new Category(0, 0, id, 0), null, new ArrayList<String>(), new ArrayList<String>(), id);
 	}
 	
 	public TreeBuilder() {}

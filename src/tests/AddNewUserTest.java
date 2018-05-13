@@ -18,6 +18,7 @@ import org.testfx.framework.junit.ApplicationTest;
 import addUserPopup.AddNewUserPopupBoxController;
 import applicationFiles.DepartmentConverter;
 import clientServerPackage.ClientProxy;
+import clientServerPackage.ClientProxyInterface;
 import clientServerPackage.ConcreteClient;
 import javafx.application.Platform;
 import clientServerPackage.ConcreteServer;
@@ -36,7 +37,7 @@ public class AddNewUserTest extends ApplicationTest
 	AddNewUserPopupBoxController anuc;
 	MockModel model;	
 	Stage  popupStage;
-	ConcreteClient admin;
+	ClientProxyInterface admin;
 	ConcreteServer server;
 	ClientProxy adminProxy;
 	
