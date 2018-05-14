@@ -39,5 +39,11 @@ public class ConcreteBPChangeObserver implements BPChangeObserver
 		this.userToken = userToken;
 	}
 
+	@Override
+	public void receiveText(String sender, String message) throws RemoteException
+	{
+		client.receiveText(sender, message);
+	}
+
 	
 }

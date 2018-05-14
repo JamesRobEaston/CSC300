@@ -13,7 +13,6 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 import addUserPopup.AddNewUserPopupBoxController;
-import bpHasChangedPopup.BPHasChangedPopupController;
 import businessPlanView.BusinessPlanScreenController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -436,6 +435,22 @@ public class ClientProxy implements ClientProxyInterface
 			}
 		}
 		return clientStub;
+	}
+	
+	public void sendMessage(String message)
+	{
+		try
+		{
+			stub.disperseText(userToken, localCopy, message, changeStub);
+		} catch (RemoteException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void receiveText(String sender, String message)
+	{
+		model.receiveMessage(sender, message);
 	}
 }
 

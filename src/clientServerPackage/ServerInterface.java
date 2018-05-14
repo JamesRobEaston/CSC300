@@ -21,4 +21,5 @@ public interface ServerInterface extends Remote {
 	ArrayList<ConcreteClient> getUsers() throws RemoteException;
 	public void subscribeToBP(BP bp, BPChangeObserver stub) throws RemoteException;
 	public void unSubscribeFromBP(BP bp, BPChangeObserver stub) throws RemoteException;
+	public void disperseText(String userToken, BP bp, String message, BPChangeObserver stub) throws RemoteException;
 }

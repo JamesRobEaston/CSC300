@@ -11,6 +11,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.layout.VBox?>
@@ -89,7 +90,7 @@
                                     </ScrollPane>
                                     <ScrollPane prefHeight="160.0" prefWidth="461.0">
                                        <content>
-                                          <VBox fx:id="commentsNode1" prefHeight="137.0" prefWidth="458.0">
+                                          <VBox fx:id="commentsNode1" prefHeight="158.0" prefWidth="458.0">
                                              <children>
                                                 <Button fx:id="addNewCommentButton1" mnemonicParsing="false" onAction="#addNewCommentToSBS" text="Add New Comment" />
                                              </children>
@@ -141,11 +142,25 @@
                </children>
             </HBox>
             <Label fx:id="invalidSaveLabel" />
-            <ImageView id="warningImage" fx:id="warningImage" fitHeight="27.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@WarningImage.png" />
-               </image>
-            </ImageView>
+            <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+               <children>
+                  <ImageView id="warningImage" fx:id="warningImage" fitHeight="27.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@WarningImage.png" />
+                     </image>
+                  </ImageView>
+                  <Button mnemonicParsing="false" onAction="#openChatWindow" prefHeight="36.0" prefWidth="36.0">
+                     <graphic>
+                        <ImageView fitHeight="147.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@chatImage.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
+                  <Region prefHeight="200.0" prefWidth="10.0" />
+               </children>
+            </HBox>
          </children>
          <padding>
             <Insets right="10.0" />

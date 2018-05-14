@@ -14,6 +14,7 @@ import businessPlanClasses.Category;
 import businessPlanClasses.Statement;
 import businessPlanView.BusinessPlanScreenController;
 import categoryPopupBox.CategoryPopupBoxController;
+import chatPopup.ChatPopupController;
 import clientServerPackage.BP;
 import clientServerPackage.ClientProxy;
 import clientServerPackage.ConcreteServer;
@@ -48,7 +49,10 @@ public class Model implements ModelInterface
 	Department adminDepartment;
 	public static Department currDepartment;
 	boolean isViewingBP;
+	boolean needsToRefreshBP;
 	public FXMLLoader loader;
+	public ChatPopupController chatCont;
+	Stage chatPopup;
 	
 	public Model(ClientProxy client, BPApplication application, BP businessPlan)
 	{
@@ -310,6 +314,7 @@ public class Model implements ModelInterface
 			cont.errorText.setText("Please enter a valid ID.");
 			cont.planIDField.setText("");
 		} 
+		
 		else if (year.replaceAll("\\s+", "").equals(""))
 		{
 			cont.errorText.setText("Please enter a valid year.");
@@ -382,7 +387,14 @@ public class Model implements ModelInterface
 		if(isViewingBP)
 		{
 			client.unsubscribeFromBP();
+			application.removeCloseFunctionality(this);
 			isViewingBP = false;
+			needsToRefreshBP = false;
+			if(chatPopup != null)
+			{
+				chatPopup.close();
+				chatPopup = null;
+			}
 		}
 		FXMLLoader loader = new FXMLLoader();
 		loader.setLocation(homePageController.class.getResource("/homePage/HomePageView.fxml"));
@@ -570,29 +582,110 @@ public class Model implements ModelInterface
 			for(String dataStatement : statement.getData())
 			{
 				HBox statementPane = new HBox(20);
+				HBox statementPaneSBS = new HBox(20);
 				Label statementLabel = new Label(dataStatement);
+				Label statementLabelSBS = new Label(dataStatement);
 				
-				Button deleteStatementButton = new Button("Delete");
-				deleteStatementButton.setOnAction(e ->
+				if (businessPlan.isEditable())
+				{
+					Button deleteStatementButton = new Button("Delete");
+					deleteStatementButton.setOnAction(e ->
+					{
+						cont.needsToBeSaved = true;
+						cont.statementsNode.getChildren().remove(statementPane);
+						cont.statementsNode1.getChildren().remove(statementPaneSBS);
+						for(int i = 0; i < statement.getData().size(); i++)
+						{
+							String data = statement.getData().get(i);
+							if(data.equals(dataStatement))
+							{
+								statement.removeData(i);
+								break;
+							}
+						}
+					});
+					
+					Button deleteStatementButtonSBS = new Button("Delete");
+					deleteStatementButtonSBS.setOnAction(e ->
+					{
+						cont.needsToBeSaved = true;
+						cont.statementsNode.getChildren().remove(statementPane);
+						cont.statementsNode1.getChildren().remove(statementPaneSBS);
+						for(int i = 0; i < statement.getData().size(); i++)
+						{
+							String data = statement.getData().get(i);
+							if(data.equals(dataStatement))
+							{
+								statement.removeData(i);
+								break;
+							}
+						}
+					});
+					
+					statementPane.getChildren().addAll(statementLabel, deleteStatementButton);
+					statementPaneSBS.getChildren().addAll(statementLabelSBS, deleteStatementButtonSBS);
+				}
+				cont.statementsNode.getChildren().remove(cont.addNewStatementButton);
+				cont.statementsNode.getChildren().add(statementPane);
+				cont.statementsNode.getChildren().add(cont.addNewStatementButton);
+				cont.statementsNode1.getChildren().remove(cont.addNewStatementButton1);
+				cont.statementsNode1.getChildren().add(statementPaneSBS);
+				cont.statementsNode1.getChildren().add(cont.addNewStatementButton1);
+			}
+		}
+		
+		if(statement.getComments()!= null)
+		{
+			for(String commentStatement : statement.getComments())
+			{
+				HBox commentPane = new HBox(20);
+				HBox commentPaneSBS = new HBox(20);
+				Label commentLabel = new Label(commentStatement);
+				Label commentLabelSBS = new Label(commentStatement);
+				
+				Button deleteCommentButton = new Button("Delete");
+				deleteCommentButton.setOnAction(e ->
 				{
 					cont.needsToBeSaved = true;
-					cont.statementsNode.getChildren().remove(statementPane);
-					for(int i = 0; i < statement.getData().size(); i++)
+					cont.commentsNode.getChildren().remove(commentPane);
+					cont.commentsNode1.getChildren().remove(commentPaneSBS);
+					for(int i = 0; i < statement.getComments().size(); i++)
 					{
-						String data = statement.getData().get(i);
-						if(data.equals(dataStatement))
+						String data = statement.getComments().get(i);
+						if(data.equals(commentStatement))
 						{
-							statement.removeData(i);
+							statement.removeComment(i);
 							break;
 						}
 					}
 				});
 				
-				statementPane.getChildren().addAll(statementLabel, deleteStatementButton);
+				Button deleteCommentButtonSBS = new Button("Delete");
+				deleteCommentButtonSBS.setOnAction(e ->
+				{
+					cont.needsToBeSaved = true;
+					cont.commentsNode.getChildren().remove(commentPane);
+					cont.commentsNode1.getChildren().remove(commentPaneSBS);
+					for(int i = 0; i < statement.getComments().size(); i++)
+					{
+						String data = statement.getComments().get(i);
+						if(data.equals(commentStatement))
+						{
+							statement.removeComment(i);
+							break;
+						}
+					}
+				});
 				
-				cont.statementsNode.getChildren().remove(cont.addNewStatementButton);
-				cont.statementsNode.getChildren().add(statementPane);
-				cont.statementsNode.getChildren().add(cont.addNewStatementButton);
+				commentPane.getChildren().addAll(commentLabel, deleteCommentButton);
+				commentPaneSBS.getChildren().addAll(commentLabelSBS, deleteCommentButtonSBS);
+				
+				cont.commentsNode.getChildren().remove(cont.addNewCommentButton);
+				cont.commentsNode.getChildren().add(commentPane);
+				cont.commentsNode.getChildren().add(cont.addNewCommentButton);
+				cont.commentsNode1.getChildren().remove(cont.addNewCommentButton1);
+				cont.commentsNode1.getChildren().add(commentPaneSBS);
+				cont.commentsNode1.getChildren().add(cont.addNewCommentButton1);
 			}
 		}
 		
@@ -603,6 +696,15 @@ public class Model implements ModelInterface
 		else
 		{
 			cont.addNewStatementButton.setVisible(false);
+		}
+		
+		if(needsToRefreshBP)
+		{
+			cont.setWarningImageVisibility(true);
+		}
+		else
+		{
+			cont.setWarningImageVisibility(false);
 		}
 		
 		//Determine if the scroll pane that displays the child of this node should be displayed
@@ -924,6 +1026,10 @@ public class Model implements ModelInterface
 	
 	public void closeRequest()
 	{
+		if(chatPopup != null)
+		{
+			chatPopup.close();
+		}
 		client.unsubscribeFromBP();
 	}
 	
@@ -931,9 +1037,55 @@ public class Model implements ModelInterface
 	{
 		if(isViewingBP)
 		{
-			System.out.println("Hello");
 			BusinessPlanScreenController cont = loader.getController();
 			cont.setWarningImageVisibility(true);
+			needsToRefreshBP = true;
+		}
+	}
+	
+	public void sendMessage(String message)
+	{
+		client.sendMessage(message);
+	}
+	
+	public void receiveMessage(String sender, String message)
+	{
+		chatCont.receiveText(sender, message);
+	}
+	
+	public void openChatPopup()
+	{
+		if(chatPopup == null)
+		{
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(ChatPopupController.class.getResource("/chatPopup/ChatPopup.fxml"));
+			
+			Scene newScene = new Scene(new AnchorPane());
+			
+			try
+			{
+				newScene = new Scene(loader.load());
+			} catch (IOException e1)
+			{
+				e1.printStackTrace();
+			}
+			
+			chatCont = loader.getController();
+			chatCont.setModel(this);
+			
+			chatPopup = new Stage();
+			chatPopup.setTitle("Chat");
+			chatPopup.setScene(newScene);
+			chatPopup.show();	
+			chatPopup.setOnCloseRequest(e ->
+			{
+				chatPopup.close();
+				chatPopup = null;
+			});
+		}
+		else
+		{
+			chatPopup.toFront();
 		}
 	}
 

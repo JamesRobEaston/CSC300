@@ -18,7 +18,7 @@ public class ConcreteServer implements ServerInterface, Serializable
 	public ArrayList<Department> departments;
 	public Random tokenGenerator;
 	public static Department adminDepartment;
-	public Hashtable<String, ArrayList<BPChangeObserver>> activeBusinessPlans;
+	public transient Hashtable<String, ArrayList<BPChangeObserver>> activeBusinessPlans;
 	
 	//The default constructor, primarily used for XMLDeserialization
 	public ConcreteServer()
@@ -411,8 +411,6 @@ public class ConcreteServer implements ServerInterface, Serializable
 			for(int i = 0; i < clients.size(); i++)
 			{
 				BPChangeObserver observer = clients.get(i);
-				System.out.println(observer.getUserToken());
-				System.out.println(stub.getUserToken());
 				if(observer.getUserToken().equals(stub.getUserToken()))
 				{}
 				else
@@ -442,23 +440,54 @@ public class ConcreteServer implements ServerInterface, Serializable
 	{
 		//Remove the user from the list of clients viewing the plan
 		ArrayList<BPChangeObserver> clients = activeBusinessPlans.get(bp.getID());
-		for(int i = 0; i < clients.size(); i++)
+		if(clients != null)
 		{
-			BPChangeObserver client = clients.get(i);
-			if(client.getUserToken() == stub.getUserToken())
+			for(int i = 0; i < clients.size(); i++)
 			{
-				clients.remove(i);
+				BPChangeObserver client = clients.get(i);
+				if(client.getUserToken().equals(stub.getUserToken()))
+				{
+					clients.remove(i);
+				}
 			}
-		}
-		
-		//If there are no more clients viewing the plan, remove the plan from the list of active plans
-		if(clients.size() == 0)
-		{
-			activeBusinessPlans.remove(bp.getID());
+			
+			//If there are no more clients viewing the plan, remove the plan from the list of active plans
+			if(clients.size() == 0)
+			{
+				activeBusinessPlans.remove(bp.getID());
+			}
 		}
 		
 	}
 	
-	
+	public void disperseText(String userToken, BP bp, String message, BPChangeObserver stub) throws RemoteException
+	{
+		if(bp != null)
+		{
+			ConcreteClient user = matchUser(userToken);
+			
+			if(user == null)
+			{
+				return;
+			}
+			
+			String sender = user.getUsername();
+			ArrayList<BPChangeObserver> clients = activeBusinessPlans.get(bp.getID());
+			
+			if(clients == null)
+			{
+				clients = new ArrayList<BPChangeObserver>();
+				clients.add(stub);
+				activeBusinessPlans.put(bp.getID(), clients);
+			}
+			
+			for(int i = 0; i < clients.size(); i++)
+			{
+				clients.get(i).receiveText(sender, message);
+			}
+			
+			
+		}
+	}
 
 }

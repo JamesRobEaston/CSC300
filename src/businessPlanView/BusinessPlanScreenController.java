@@ -80,35 +80,35 @@ public class BusinessPlanScreenController
 	public ImageView warningImage;
 
 	@FXML
-	private VBox commentsNode;
+	public VBox commentsNode;
 
 	@FXML
-	private Button addNewCommentButton;
+	public Button addNewCommentButton;
 
 	@FXML
-	private VBox statementsNode1;
+	public VBox statementsNode1;
 
 	@FXML
-	private Button addNewStatementButton1;
+	public Button addNewStatementButton1;
 
 	@FXML
-	private VBox commentsNode1;
+	public VBox commentsNode1;
 
 	@FXML
-	private Button addNewCommentButton1;
+	public Button addNewCommentButton1;
 
 	Scene viewBPScreen;
 	BP businessPlan;
 	public Statement currentNode;
 	public boolean needsToBeSaved;
-	ModelInterface model;
+	Model model;
 	boolean showWarningImage;
 
 	public BusinessPlanScreenController()
 	{
 	}
 
-	public BusinessPlanScreenController(ModelInterface model)
+	public BusinessPlanScreenController(Model model)
 	{
 		this.model = model;
 		businessPlan = model.getBusinessPlan();
@@ -116,7 +116,7 @@ public class BusinessPlanScreenController
 		viewBPScreen = viewBPStatement(businessPlan.getTree().getRoot());
 	}
 
-	public void setModel(ModelInterface model)
+	public void setModel(Model model)
 	{
 		this.model = model;
 		businessPlan = model.getBusinessPlan();
@@ -192,6 +192,8 @@ public class BusinessPlanScreenController
 				HBox statementPane = new HBox(20);
 				Label statementLabel = new Label(dataStatement);
 
+				if (businessPlan.isEditable())
+				{
 				Button deleteStatementButton = new Button("Delete");
 				deleteStatementButton.setOnAction(e -> {
 					needsToBeSaved = true;
@@ -208,6 +210,7 @@ public class BusinessPlanScreenController
 				});
 
 				statementPane.getChildren().addAll(statementLabel, deleteStatementButton);
+				}
 
 				statementsNode.getChildren().remove(addNewStatementButton);
 				statementsNode.getChildren().add(statementPane);
@@ -273,19 +276,17 @@ public class BusinessPlanScreenController
 			currCommentPane.getChildren().addAll(commentLabel);
 			otherCommentPane.getChildren().addAll(otherCommentLabel);
 
-			if (businessPlan.isEditable())
-			{
 				Button deleteCommentButton = new Button("Delete");
 				deleteCommentButton.setOnAction(e2 -> {
 					needsToBeSaved = true;
 					currNode.getChildren().remove(currCommentPane);
 					otherNode.getChildren().remove(otherCommentPane);
-					for (int i = 0; i < currentNode.getData().size(); i++)
+					for (int i = 0; i < currentNode.getComments().size(); i++)
 					{
-						String data = currentNode.getData().get(i);
+						String data = currentNode.getComments().get(i);
 						if (data.equals(newCommentInput.getText()))
 						{
-							currentNode.removeData(i);
+							currentNode.removeComment(i);
 							break;
 						}
 					}
@@ -296,12 +297,12 @@ public class BusinessPlanScreenController
 					needsToBeSaved = true;
 					currNode.getChildren().remove(currCommentPane);
 					otherNode.getChildren().remove(otherCommentPane);
-					for (int i = 0; i < currentNode.getData().size(); i++)
+					for (int i = 0; i < currentNode.getComments().size(); i++)
 					{
-						String data = currentNode.getData().get(i);
+						String data = currentNode.getComments().get(i);
 						if (data.equals(newCommentInput.getText()))
 						{
-							currentNode.removeData(i);
+							currentNode.removeComment(i);
 							break;
 						}
 					}
@@ -309,9 +310,8 @@ public class BusinessPlanScreenController
 
 				currCommentPane.getChildren().add(deleteCommentButton);
 				otherCommentPane.getChildren().add(otherDeleteCommentButton);
-			}
 
-			currentNode.addData(newCommentInput.getText());
+			currentNode.addComment(newCommentInput.getText());
 			currNode.getChildren().remove(newCommentInput);
 			currNode.getChildren().remove(submitButton);
 			currNode.getChildren().add(currCommentPane);
@@ -529,11 +529,20 @@ public class BusinessPlanScreenController
 	{
 		showWarningImage = visible;
 		warningImage.setVisible(visible);
+		Tooltip tooltip = new Tooltip("A new version of this plan has been saved to the server."
+				+ "\nPlease reopen this plan to get the new version");
+		Tooltip.install(warningImage, tooltip);
 	}
 
 	// Method to display the warningImage if it needs to be
 	public void showWarningImageIfAppropriate()
 	{
 		warningImage.setVisible(showWarningImage);
+	}
+	
+	@FXML
+	public void openChatWindow(ActionEvent event)
+	{
+		model.openChatPopup();
 	}
 }

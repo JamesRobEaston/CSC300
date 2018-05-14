@@ -229,7 +229,7 @@ public class NewBPPopupTest extends ApplicationTest
 		BP bp = new BP("2018", "AlreadyExistingPlan", "Admin");
 		try
 		{
-			server.saveToAdminDepartment(client.getUserToken(), bp, client);
+			server.saveToAdminDepartment(client.getUserToken(), bp, null);
 		} catch (RemoteException e)
 		{
 			fail("OOF.");

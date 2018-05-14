@@ -28,7 +28,7 @@ public class Statement implements java.io.Serializable
 		}
 		if(comments != null)
 		{
-			this.comments = data;
+			this.comments = comments;
 		}
 		else
 		{

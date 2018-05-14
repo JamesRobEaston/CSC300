@@ -76,6 +76,7 @@ public class BPApplication extends Application implements Serializable
 		{
 			e.consume();
 			model.showSaveBPPopupBox(true);
+			model.closeRequest();
 		});
 	}
 	

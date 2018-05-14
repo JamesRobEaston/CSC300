@@ -240,7 +240,6 @@ public class ViewAllBPScreenController
 					}
 				}
 				model.setBusinessPlan(client.getLocalCopy());
-				System.out.println(client.getLocalCopy());
 				model.showEditOrClone();
 			});
 
