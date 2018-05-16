@@ -80,7 +80,7 @@ public class NewBPPopupBoxController
 			Model.currDepartment = departmentChoiceBox.getValue();
 		}
 		
-		model.createNewBP(id, year, department, isClone, this);
+		model.createNewBP(id, year, Model.currDepartment.getDepartmentName(), isClone, this);
 	}
 
 }

@@ -16,7 +16,6 @@
             <Button fx:id="addDept_but" mnemonicParsing="false" onAction="#addDept" prefHeight="26.0" prefWidth="200.0" text="Add New Department" />
             <Button fx:id="newBP_but" mnemonicParsing="false" onAction="#newBP" prefHeight="27.0" prefWidth="200.0" text="New Business Plan" />
             <Button fx:id="viewAll_but" mnemonicParsing="false" onAction="#viewAllPlans" prefHeight="27.0" prefWidth="200.0" text="View All Plans" />
-            <Button fx:id="loadlc_but" mnemonicParsing="false" onAction="#loadLocalCopy" prefHeight="27.0" prefWidth="200.0" text="Load Local Copy" />
          </children>
       </VBox>
    </children>

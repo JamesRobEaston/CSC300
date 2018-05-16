@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_162" class="java.beans.XMLDecoder">
+ <object class="clientServerPackage.ConcreteServer" id="ConcreteServer0"/>
+<void class="businessPlanClasses.Category" id="Category0">
+ <void property="name">
+  <string>Department</string>
+ </void>
+ <void property="rank">
+  <int>1</int>
+ </void>
+ <void property="max">
+  <int>10000000</int>
+ </void>
+</void>
+<void class="businessPlanClasses.Category" id="Category1">
+ <void property="name">
+  <string>Department</string>
+ </void>
+ <void property="rank">
+  <int>1</int>
+ </void>
+ <void property="max">
+  <int>10000000</int>
+ </void>
+</void>
+<void class="businessPlanClasses.Category" id="Category2">
+ <void property="name">
+  <string>Goal</string>
+ </void>
+ <void property="rank">
+  <int>2</int>
+ </void>
+ <void property="max">
+  <int>10000000</int>
+ </void>
+</void>
+<void class="businessPlanClasses.Category" id="Category3">
+ <void property="name">
+  <string>Student Learning Objective</string>
+ </void>
+ <void property="rank">
+  <int>3</int>
+ </void>
+ <void property="max">
+  <int>10000000</int>
+ </void>
+</void>
+<void class="businessPlanClasses.TreeBuilder" id="TreeBuilder0">
+ <void property="root">
+  <object class="businessPlanClasses.Statement">
+   <void property="children">
+    <object class="java.util.ArrayList"/>
+   </void>
+   <void property="comments">
+    <object class="java.util.ArrayList"/>
+   </void>
+   <void property="data">
+    <object class="java.util.ArrayList"/>
+   </void>
+   <void property="id">
+    <string>Centre</string>
+   </void>
+   <void property="type">
+    <object class="businessPlanClasses.Category">
+     <void property="name">
+      <string>Centre</string>
+     </void>
+    </object>
+   </void>
+  </object>
+ </void>
+ <void property="categories">
+  <void class="businessPlanClasses.PlanDesign" id="PlanDesign0">
+   <void id="ArrayList0" property="categoryList">
+    <void method="add">
+     <object idref="Category1"/>
+    </void>
+    <void method="add">
+     <object class="businessPlanClasses.Category">
+      <void property="max">
+       <int>10000000</int>
+      </void>
+      <void property="name">
+       <string>Goal</string>
+      </void>
+      <void property="rank">
+       <int>2</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object idref="Category3"/>
+    </void>
+   </void>
+  </void>
+  <object idref="ArrayList0"/>
+ </void>
+</void>
+<void class="businessPlanClasses.Category" id="Category4">
+ <void property="name">
+  <string>Goal</string>
+ </void>
+ <void property="rank">
+  <int>2</int>
+ </void>
+ <void property="max">
+  <int>10000000</int>
+ </void>
+</void>
+<void class="businessPlanClasses.TreeBuilder" id="TreeBuilder1">
+ <void property="root">
+  <object class="businessPlanClasses.Statement">
+   <void property="children">
+    <object class="java.util.ArrayList"/>
+   </void>
+   <void property="comments">
+    <object class="java.util.ArrayList"/>
+   </void>
+   <void property="data">
+    <object class="java.util.ArrayList"/>
+   </void>
+   <void property="id">
+    <string>a</string>
+   </void>
+   <void property="type">
+    <object class="businessPlanClasses.Category">
+     <void property="name">
+      <string>a</string>
+     </void>
+    </object>
+   </void>
+  </object>
+ </void>
+ <void property="categories">
+  <void class="businessPlanClasses.PlanDesign" id="PlanDesign1">
+   <void id="ArrayList1" property="categoryList">
+    <void method="add">
+     <object class="businessPlanClasses.Category">
+      <void property="max">
+       <int>10000000</int>
+      </void>
+      <void property="name">
+       <string>Department</string>
+      </void>
+      <void property="rank">
+       <int>1</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="businessPlanClasses.Category">
+      <void property="max">
+       <int>10000000</int>
+      </void>
+      <void property="name">
+       <string>Goal</string>
+      </void>
+      <void property="rank">
+       <int>2</int>
+      </void>
+     </object>
+    </void>
+    <void method="add">
+     <object class="businessPlanClasses.Category">
+      <void property="max">
+       <int>10000000</int>
+      </void>
+      <void property="name">
+       <string>Student Learning Objective</string>
+      </void>
+      <void property="rank">
+       <int>3</int>
+      </void>
+     </object>
+    </void>
+   </void>
+  </void>
+  <object idref="ArrayList1"/>
+ </void>
+</void>
+<void class="businessPlanClasses.PlanDesign" id="PlanDesign2">
+ <void id="ArrayList2" property="categoryList">
+  <void method="add">
+   <object idref="Category2"/>
+  </void>
+  <void method="add">
+   <object class="businessPlanClasses.Category">
+    <void property="max">
+     <int>10000000</int>
+    </void>
+    <void property="name">
+     <string>Student Learning Objective</string>
+    </void>
+    <void property="rank">
+     <int>3</int>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="businessPlanClasses.Category">
+    <void property="max">
+     <int>10000000</int>
+    </void>
+    <void property="name">
+     <string>Department</string>
+    </void>
+    <void property="rank">
+     <int>1</int>
+    </void>
+   </object>
+  </void>
+ </void>
+</void>
+<void idref="ArrayList2"/>
+<void class="clientServerPackage.Department" id="Department0">
+ <void property="plans">
+  <object class="java.util.ArrayList">
+   <void method="add">
+    <object class="clientServerPackage.BP">
+     <void property="ID">
+      <string>Centre 2018</string>
+     </void>
+     <void property="department">
+      <string>CSC</string>
+     </void>
+     <void property="design">
+      <object idref="PlanDesign0"/>
+     </void>
+     <void property="histroy">
+      <object class="java.util.ArrayList"/>
+     </void>
+     <void property="name">
+      <string>Centre</string>
+     </void>
+     <void property="tree">
+      <object idref="TreeBuilder0"/>
+     </void>
+     <void property="year">
+      <string>2018</string>
+     </void>
+    </object>
+   </void>
+  </object>
+ </void>
+ <void property="departmentName">
+  <string>CSC</string>
+ </void>
+</void>
+<void class="businessPlanClasses.Category" id="Category5">
+ <void property="name">
+  <string>Student Learning Objective</string>
+ </void>
+ <void property="rank">
+  <int>3</int>
+ </void>
+ <void property="max">
+  <int>10000000</int>
+ </void>
+</void>
+<void class="businessPlanClasses.Statement" id="Statement0">
+ <void property="comments">
+  <object class="java.util.ArrayList"/>
+ </void>
+ <void property="data">
+  <object class="java.util.ArrayList"/>
+ </void>
+ <void property="id">
+  <string>a</string>
+ </void>
+ <void property="type">
+  <object class="businessPlanClasses.Category">
+   <void property="name">
+    <string>a</string>
+   </void>
+  </object>
+ </void>
+ <void property="children">
+  <object class="java.util.ArrayList"/>
+ </void>
+</void>
+<void class="clientServerPackage.ConcreteServer" id="Field0" method="getField">
+ <string>departments</string>
+ <void id="ArrayList3" method="get">
+  <object idref="ConcreteServer0"/>
+  <void method="add">
+   <object idref="Department0"/>
+  </void>
+  <void method="add">
+   <object class="clientServerPackage.Department" id="Department1">
+    <void property="departmentName">
+     <string>Admin</string>
+    </void>
+    <void property="plans">
+     <object class="java.util.ArrayList">
+      <void method="add">
+       <object class="clientServerPackage.BP">
+        <void property="ID">
+         <string>a 1</string>
+        </void>
+        <void property="design">
+         <object idref="PlanDesign2"/>
+        </void>
+        <void property="histroy">
+         <object class="java.util.ArrayList"/>
+        </void>
+        <void property="tree">
+         <object class="businessPlanClasses.TreeBuilder">
+          <void property="categories">
+           <object class="java.util.ArrayList">
+            <void method="add">
+             <object idref="Category0"/>
+            </void>
+            <void method="add">
+             <object idref="Category4"/>
+            </void>
+            <void method="add">
+             <object idref="Category5"/>
+            </void>
+           </object>
+          </void>
+          <void property="root">
+           <object idref="Statement0"/>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void method="add">
+       <object class="clientServerPackage.BP">
+        <void property="ID">
+         <string>a 2</string>
+        </void>
+        <void property="department">
+         <string>Admin</string>
+        </void>
+        <void property="design">
+         <object idref="PlanDesign1"/>
+        </void>
+        <void property="histroy">
+         <object class="java.util.ArrayList"/>
+        </void>
+        <void property="name">
+         <string>a</string>
+        </void>
+        <void property="tree">
+         <object idref="TreeBuilder1"/>
+        </void>
+        <void property="year">
+         <string>2</string>
+        </void>
+       </object>
+      </void>
+     </object>
+    </void>
+   </object>
+  </void>
+ </void>
+</void>
+<void idref="ArrayList3"/>
+<void class="clientServerPackage.ConcreteClient" method="getField">
+ <string>username</string>
+ <void method="set">
+  <object class="clientServerPackage.AdminClient" id="AdminClient0">
+   <void class="clientServerPackage.ConcreteClient" method="getField">
+    <string>password</string>
+    <void method="set">
+     <object idref="AdminClient0"/>
+     <string>admin</string>
+    </void>
+   </void>
+   <void class="clientServerPackage.ConcreteClient" method="getField">
+    <string>department</string>
+    <void method="set">
+     <object idref="AdminClient0"/>
+     <object idref="Department1"/>
+    </void>
+   </void>
+   <void class="clientServerPackage.ConcreteClient" method="getField">
+    <string>userToken</string>
+    <void method="set">
+     <object idref="AdminClient0"/>
+     <string>1134280300845943</string>
+    </void>
+   </void>
+   <void class="clientServerPackage.ConcreteClient" method="getField">
+    <string>isAdmin</string>
+    <void method="set">
+     <object idref="AdminClient0"/>
+     <boolean>true</boolean>
+    </void>
+   </void>
+  </object>
+  <string>admin</string>
+ </void>
+</void>
+<void class="clientServerPackage.ConcreteServer" id="Field1" method="getField">
+ <string>users</string>
+ <void id="ArrayList4" method="get">
+  <object idref="ConcreteServer0"/>
+  <void method="add">
+   <object class="clientServerPackage.AdminClient" id="AdminClient1">
+    <void class="clientServerPackage.ConcreteClient" method="getField">
+     <string>username</string>
+     <void method="set">
+      <object idref="AdminClient1"/>
+      <string>a</string>
+     </void>
+    </void>
+    <void class="clientServerPackage.ConcreteClient" method="getField">
+     <string>password</string>
+     <void method="set">
+      <object idref="AdminClient1"/>
+      <string>a</string>
+     </void>
+    </void>
+    <void class="clientServerPackage.ConcreteClient" method="getField">
+     <string>department</string>
+     <void method="set">
+      <object idref="AdminClient1"/>
+      <object idref="Department1"/>
+     </void>
+    </void>
+    <void class="clientServerPackage.ConcreteClient" method="getField">
+     <string>userToken</string>
+     <void method="set">
+      <object idref="AdminClient1"/>
+      <string>5452883119747128</string>
+     </void>
+    </void>
+    <void class="clientServerPackage.ConcreteClient" method="getField">
+     <string>isAdmin</string>
+     <void method="set">
+      <object idref="AdminClient1"/>
+      <boolean>true</boolean>
+     </void>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="clientServerPackage.ConcreteClient" id="ConcreteClient0">
+    <void class="clientServerPackage.ConcreteClient" method="getField">
+     <string>username</string>
+     <void method="set">
+      <object idref="ConcreteClient0"/>
+      <string>Bob</string>
+     </void>
+    </void>
+    <void class="clientServerPackage.ConcreteClient" method="getField">
+     <string>password</string>
+     <void method="set">
+      <object idref="ConcreteClient0"/>
+      <string>b</string>
+     </void>
+    </void>
+    <void class="clientServerPackage.ConcreteClient" method="getField">
+     <string>department</string>
+     <void method="set">
+      <object idref="ConcreteClient0"/>
+      <object idref="Department0"/>
+     </void>
+    </void>
+    <void class="clientServerPackage.ConcreteClient" method="getField">
+     <string>userToken</string>
+     <void method="set">
+      <object idref="ConcreteClient0"/>
+      <string>1593262621399555</string>
+     </void>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object class="clientServerPackage.ConcreteClient" id="ConcreteClient1">
+    <void class="clientServerPackage.ConcreteClient" method="getField">
+     <string>username</string>
+     <void method="set">
+      <object idref="ConcreteClient1"/>
+      <string>Sally</string>
+     </void>
+    </void>
+    <void class="clientServerPackage.ConcreteClient" method="getField">
+     <string>password</string>
+     <void method="set">
+      <object idref="ConcreteClient1"/>
+      <string>s</string>
+     </void>
+    </void>
+    <void class="clientServerPackage.ConcreteClient" method="getField">
+     <string>department</string>
+     <void method="set">
+      <object idref="ConcreteClient1"/>
+      <object idref="Department0"/>
+     </void>
+    </void>
+    <void class="clientServerPackage.ConcreteClient" method="getField">
+     <string>userToken</string>
+     <void method="set">
+      <object idref="ConcreteClient1"/>
+      <string>8154104270573617</string>
+     </void>
+    </void>
+   </object>
+  </void>
+  <void method="add">
+   <object idref="AdminClient0"/>
+  </void>
+ </void>
+</void>
+<void idref="ArrayList4"/>
+</java>

@@ -52,14 +52,13 @@ public class Model implements ModelInterface
 	boolean needsToRefreshBP;
 	public FXMLLoader loader;
 	public ChatPopupController chatCont;
-	Stage chatPopup;
+	public Stage chatPopup;
 	
 	public Model(ClientProxy client, BPApplication application, BP businessPlan)
 	{
 		this.client = client;
 		this.application = application;
 		this.businessPlan = businessPlan;
-		StaticModelAccessor.setModel(this);
 	}
 
 	/* (non-Javadoc)
@@ -110,6 +109,7 @@ public class Model implements ModelInterface
 			else
 			{
 				//application.createAllStaticScreensAndPopupBoxes(client);
+				Model.currDepartment = client.getDepartment();
 				return true;
 			//	userName_input.setText("");
 				//pass_input.setText("");
@@ -403,7 +403,14 @@ public class Model implements ModelInterface
 			Scene homePage = new Scene(loader.load());
 			homePageController cont = loader.getController();
 			cont.setModel(this);
-			cont.departmentLabel.setText(client.getDepartment().getName());
+			if(client.isAdmin())
+			{
+				cont.departmentLabel.setText("Admin");
+			}
+			else
+			{
+				cont.departmentLabel.setText(currDepartment.getDepartmentName());
+			}
 			notify(homePage);
 		} catch (IOException e)
 		{
@@ -567,12 +574,12 @@ public class Model implements ModelInterface
 		//Determine if the save buttons are visible
 		if(isAdmin || isEditable)
 		{
-			cont.saveButton.setVisible(true);
+			//cont.saveButton.setVisible(true);
 			cont.saveToServerButton.setVisible(true);
 		}
 		else
 		{
-			cont.saveButton.setVisible(false);
+			//cont.saveButton.setVisible(false);
 			cont.saveToServerButton.setVisible(false);
 		}
 		
@@ -679,6 +686,9 @@ public class Model implements ModelInterface
 				
 				commentPane.getChildren().addAll(commentLabel, deleteCommentButton);
 				commentPaneSBS.getChildren().addAll(commentLabelSBS, deleteCommentButtonSBS);
+
+				deleteCommentButton.getStyleClass().add("mainDeleteCommentButton");
+				deleteCommentButtonSBS.getStyleClass().add("SBSDeleteCommentButton");
 				
 				cont.commentsNode.getChildren().remove(cont.addNewCommentButton);
 				cont.commentsNode.getChildren().add(commentPane);

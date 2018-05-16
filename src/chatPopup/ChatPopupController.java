@@ -13,18 +13,18 @@ public class ChatPopupController
 {
 
 	@FXML
-	private VBox messagePane;
+	public VBox messagePane;
 
 	@FXML
-	private TextField messageInput;
+	public TextField messageInput;
 
 	@FXML
-	private Button sendButton;
+	public Button sendButton;
 	
 	Model model;
 
 	@FXML
-	void sendMessage(ActionEvent event)
+	public void sendMessage(ActionEvent event)
 	{
 		model.sendMessage(messageInput.getText());
 		messageInput.setText("");

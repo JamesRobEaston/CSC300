@@ -96,13 +96,25 @@ public class BusinessPlanScreenController
 
 	@FXML
 	public Button addNewCommentButton1;
+	
+	@FXML
+	public Tab statementsTab;
+	
+	@FXML
+	public Tab commentsTab;
+	
+	@FXML
+	public Tab SBSTab;
+	
+	@FXML
+	public Button openChatButton;
 
 	Scene viewBPScreen;
 	BP businessPlan;
 	public Statement currentNode;
 	public boolean needsToBeSaved;
 	Model model;
-	boolean showWarningImage;
+	public boolean showWarningImage;
 
 	public BusinessPlanScreenController()
 	{
@@ -176,11 +188,11 @@ public class BusinessPlanScreenController
 		// Determine if the save buttons are visible
 		if (isAdmin || isEditable)
 		{
-			saveButton.setVisible(true);
+			//saveButton.setVisible(true);
 			saveToServerButton.setVisible(true);
 		} else
 		{
-			saveButton.setVisible(false);
+			//saveButton.setVisible(false);
 			saveToServerButton.setVisible(false);
 		}
 
@@ -264,7 +276,9 @@ public class BusinessPlanScreenController
 	void addNewComment(VBox currNode, Button currButton, VBox otherNode, Button otherButton)
 	{
 		TextField newCommentInput = new TextField();
+		newCommentInput.setId("newCommentInput");
 		Button submitButton = new Button("Submit");
+		submitButton.setId("submitButton");
 		submitButton.setOnAction(e1 -> {
 			needsToBeSaved = true;
 			HBox currCommentPane = new HBox(20);
@@ -310,6 +324,8 @@ public class BusinessPlanScreenController
 
 				currCommentPane.getChildren().add(deleteCommentButton);
 				otherCommentPane.getChildren().add(otherDeleteCommentButton);
+				deleteCommentButton.getStyleClass().add("mainDeleteCommentButton");
+				otherDeleteCommentButton.getStyleClass().add("SBSDeleteCommentButton");
 
 			currentNode.addComment(newCommentInput.getText());
 			currNode.getChildren().remove(newCommentInput);
@@ -429,6 +445,7 @@ public class BusinessPlanScreenController
 		needsToBeSaved = true;
 		TextField newChildIDInput = new TextField();
 		newChildIDInput.setPromptText("Enter a new ID");
+		newChildIDInput.setId("newChildIDInput");
 		Button submitButton = new Button("Submit");
 		submitButton.setOnAction(e1 -> {
 			ArrayList<Category> categories = model.getBusinessPlan().getDesign().getCategoryList();

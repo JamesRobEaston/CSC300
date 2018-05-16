@@ -21,7 +21,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Model;
 import model.ModelInterface;
-import model.StaticModelAccessor;
 
 public class ClientProxy implements ClientProxyInterface
 {

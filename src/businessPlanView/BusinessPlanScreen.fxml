@@ -30,7 +30,7 @@
          <children>
             <TabPane prefHeight="349.0" prefWidth="461.0" tabClosingPolicy="UNAVAILABLE">
               <tabs>
-                <Tab text="Statements">
+                <Tab fx:id="statementsTab" text="Statements">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
@@ -50,7 +50,7 @@
                         </AnchorPane>
                   </content>
                 </Tab>
-                <Tab text="Comments">
+                <Tab fx:id="commentsTab" text="Comments">
                   <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
@@ -70,7 +70,7 @@
                         </AnchorPane>
                   </content>
                 </Tab>
-                  <Tab text="Side-By-Side">
+                  <Tab fx:id="SBSTab" text="Side-By-Side">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="301.0" prefWidth="461.0">
                            <children>
@@ -126,7 +126,6 @@
                <children>
                   <Button id="deleteButton" fx:id="deleteButton" mnemonicParsing="false" onAction="#deleteNode" text="Delete" />
                   <Button fx:id="homeButton" mnemonicParsing="false" onAction="#goHome" text="Home" />
-                  <Button fx:id="saveButton" mnemonicParsing="false" onAction="#saveLocally" text="Save" />
                   <Button fx:id="saveToServerButton" mnemonicParsing="false" onAction="#saveToServer" text="Save to Server" />
                   <StackPane prefHeight="54.0" prefWidth="78.0">
                      <children>
@@ -149,7 +148,7 @@
                         <Image url="@WarningImage.png" />
                      </image>
                   </ImageView>
-                  <Button mnemonicParsing="false" onAction="#openChatWindow" prefHeight="36.0" prefWidth="36.0">
+                  <Button fx:id="openChatButton" mnemonicParsing="false" onAction="#openChatWindow" prefHeight="36.0" prefWidth="36.0">
                      <graphic>
                         <ImageView fitHeight="147.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
                            <image>

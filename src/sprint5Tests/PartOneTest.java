@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import applicationFiles.BPApplication;
 import businessPlanClasses.PlanDesign;
+import businessPlanView.BusinessPlanScreenController;
 import clientServerPackage.BP;
 import clientServerPackage.ConcreteServer;
 import clientServerPackage.ServerInterface;
@@ -25,7 +26,7 @@ public class PartOneTest extends ApplicationTest
 {
 
 	Stage stage;
-	ModelInterface model;
+	Model model;
 	ConcreteServer server;
 	
 	@Override
@@ -75,9 +76,9 @@ public class PartOneTest extends ApplicationTest
 		userName.setText("a");
 		PasswordField pass = new PasswordField();
 		pass.setText("a");
-		TextField server = new TextField();
-		server.setText("1099");
-		modelOnSeparateClientSide.authenticate(userName, pass, server, null);
+		TextField serverInput = new TextField();
+		serverInput.setText("1099");
+		modelOnSeparateClientSide.authenticate(userName, pass, serverInput, null);
 		
 		//Create a new BP
 		clickOn("#newBP_but");
@@ -94,10 +95,17 @@ public class PartOneTest extends ApplicationTest
 		clickOn("#centreButton");
 		clickOn("#submitButton");
 		
+		clickOn("#saveToServerButton");
+		
 		//Get the business plan on a separate client and ensure it was retrieved properly
 		modelOnSeparateClientSide.retrieve("Test 2018");
 		assertNotNull(modelOnSeparateClientSide.getBusinessPlan());
 		
+		//Make sure the warning image is not visibile
+		assertFalse(((BusinessPlanScreenController) model.loader.getController()).warningImage.isVisible());
+		assertFalse(((BusinessPlanScreenController) model.loader.getController()).showWarningImage);
+		
+		//Save the BP from a separate client and ensure the image is visible
 		sleep(1000);
 		try
 		{
@@ -107,5 +115,28 @@ public class PartOneTest extends ApplicationTest
 			e.printStackTrace();
 		}
 		sleep(1000);
+		
+		assertTrue(((BusinessPlanScreenController) model.loader.getController()).warningImage.isVisible());
+		assertTrue(((BusinessPlanScreenController) model.loader.getController()).showWarningImage);
+
+		//Move throughout the BP and ensure the image is still visible
+		clickOn("#createNewSubcategoryButton");
+		clickOn("#newChildIDInput");
+		write("Test Child");
+		clickOn("Submit");
+		
+		assertTrue(((BusinessPlanScreenController) model.loader.getController()).warningImage.isVisible());
+		assertTrue(((BusinessPlanScreenController) model.loader.getController()).showWarningImage);
+
+		clickOn("#goUpALevelButton");
+		
+		assertTrue(((BusinessPlanScreenController) model.loader.getController()).warningImage.isVisible());
+		assertTrue(((BusinessPlanScreenController) model.loader.getController()).showWarningImage);
+		
+		//Save the BP to the server and ensure that the warning image is not visible
+		clickOn("#saveToServerButton");
+
+		assertFalse(((BusinessPlanScreenController) model.loader.getController()).warningImage.isVisible());
+		assertFalse(((BusinessPlanScreenController) model.loader.getController()).showWarningImage);
 	}
 }
