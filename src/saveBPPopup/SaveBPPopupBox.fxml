@@ -9,6 +9,6 @@
       <Button id="save_but" layoutX="122.0" layoutY="181.0" mnemonicParsing="false" onAction="#save" text="Save" />
       <Button id="discard_but" layoutX="221.0" layoutY="181.0" mnemonicParsing="false" onAction="#discard" text="Discard" />
       <Button id="cancel_but" layoutX="331.0" layoutY="181.0" mnemonicParsing="false" onAction="#cancel" text="Cancel" />
-      <Label layoutX="122.0" layoutY="134.0" text="Do you want to save your Business Plan locally? " />
+      <Label layoutX="122.0" layoutY="134.0" text="Do you want to save your Business Plan to the server? " />
    </children>
 </Pane>

@@ -13,18 +13,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.Model;
 import model.ModelInterface;
 import viewAllBPView.ViewAllBPScreenController;
 
 public class SaveBPPopupBoxController
 {	
 	public static Stage saveBPPopupBox;
-	ModelInterface model;
+	Model model;
 	boolean shouldCloseOnAction;
 	
 	public SaveBPPopupBoxController() {}
 	
-	public SaveBPPopupBoxController(ModelInterface model)
+	public SaveBPPopupBoxController(Model model)
 	{
 		this.model = model;
 
@@ -48,7 +49,7 @@ public class SaveBPPopupBoxController
 		}
 	}
 	
-	public void setModel(ModelInterface model)
+	public void setModel(Model model)
 	{
 		this.model = model;
 	}
@@ -76,8 +77,7 @@ public class SaveBPPopupBoxController
 	@FXML
 	void save(ActionEvent event)
 	{
-		model.setLocalCopy(model.getBusinessPlan());
-		model.saveLocalPlanXML();
+		model.save();
 		if(shouldCloseOnAction)
 		{
 			model.closeApplication();

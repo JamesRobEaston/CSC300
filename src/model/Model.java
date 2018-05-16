@@ -1026,6 +1026,11 @@ public class Model implements ModelInterface
 			e.printStackTrace();
 		}
 	}
+	
+	public void save()
+	{
+		saveBPToDepartment(businessPlan, currDepartment.getDepartmentName());
+	}
 
 	@Override
 	public void closeApplication()

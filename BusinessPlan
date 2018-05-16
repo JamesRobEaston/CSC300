@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.8.0_162" class="java.beans.XMLDecoder">
+ <object class="clientServerPackage.BP">
+  <void property="ID">
+   <string>CSC 2018</string>
+  </void>
+  <void property="department">
+   <string>CSC</string>
+  </void>
+  <void property="design">
+   <object class="businessPlanClasses.PlanDesign" id="PlanDesign0">
+    <void id="ArrayList0" property="categoryList">
+     <void method="add">
+      <object class="businessPlanClasses.Category" id="Category0">
+       <void property="max">
+        <int>10000000</int>
+       </void>
+       <void property="name">
+        <string>Department</string>
+       </void>
+       <void property="rank">
+        <int>1</int>
+       </void>
+      </object>
+     </void>
+     <void method="add">
+      <object class="businessPlanClasses.Category" id="Category1">
+       <void property="max">
+        <int>10000000</int>
+       </void>
+       <void property="name">
+        <string>Goal</string>
+       </void>
+       <void property="rank">
+        <int>2</int>
+       </void>
+      </object>
+     </void>
+     <void method="add">
+      <object class="businessPlanClasses.Category" id="Category2">
+       <void property="max">
+        <int>10000000</int>
+       </void>
+       <void property="name">
+        <string>Student Learning Objective</string>
+       </void>
+       <void property="rank">
+        <int>3</int>
+       </void>
+      </object>
+     </void>
+    </void>
+   </object>
+  </void>
+  <void property="histroy">
+   <object class="java.util.ArrayList"/>
+  </void>
+  <void property="name">
+   <string>CSC</string>
+  </void>
+  <void property="tree">
+   <object class="businessPlanClasses.TreeBuilder">
+    <void property="categories">
+     <object idref="ArrayList0"/>
+    </void>
+    <void property="root">
+     <object class="businessPlanClasses.Statement" id="Statement0">
+      <void property="children">
+       <object class="java.util.ArrayList">
+        <void method="add">
+         <object class="businessPlanClasses.Statement" id="Statement1">
+          <void property="children">
+           <object class="java.util.ArrayList">
+            <void method="add">
+             <object class="businessPlanClasses.Statement" id="Statement2">
+              <void property="children">
+               <object class="java.util.ArrayList">
+                <void method="add">
+                 <object class="businessPlanClasses.Statement">
+                  <void property="children">
+                   <object class="java.util.ArrayList"/>
+                  </void>
+                  <void property="comments">
+                   <object class="java.util.ArrayList"/>
+                  </void>
+                  <void property="data">
+                   <object class="java.util.ArrayList">
+                    <void method="add">
+                     <string>This is my SLO 1.</string>
+                    </void>
+                   </object>
+                  </void>
+                  <void property="id">
+                   <string>SLO 1</string>
+                  </void>
+                  <void property="parent">
+                   <object idref="Statement2"/>
+                  </void>
+                  <void property="type">
+                   <object idref="Category2"/>
+                  </void>
+                 </object>
+                </void>
+                <void method="add">
+                 <object class="businessPlanClasses.Statement">
+                  <void property="children">
+                   <object class="java.util.ArrayList"/>
+                  </void>
+                  <void property="comments">
+                   <object class="java.util.ArrayList"/>
+                  </void>
+                  <void property="data">
+                   <object class="java.util.ArrayList">
+                    <void method="add">
+                     <string>This is my SLO 2.</string>
+                    </void>
+                   </object>
+                  </void>
+                  <void property="id">
+                   <string>SLO 2</string>
+                  </void>
+                  <void property="parent">
+                   <object idref="Statement2"/>
+                  </void>
+                  <void property="type">
+                   <object idref="Category2"/>
+                  </void>
+                 </object>
+                </void>
+               </object>
+              </void>
+              <void property="comments">
+               <object class="java.util.ArrayList"/>
+              </void>
+              <void property="data">
+               <object class="java.util.ArrayList">
+                <void method="add">
+                 <string>This is my Goal 1.</string>
+                </void>
+               </object>
+              </void>
+              <void property="id">
+               <string>Goal 1</string>
+              </void>
+              <void property="parent">
+               <object idref="Statement1"/>
+              </void>
+              <void property="type">
+               <object idref="Category1"/>
+              </void>
+             </object>
+            </void>
+            <void method="add">
+             <object class="businessPlanClasses.Statement" id="Statement3">
+              <void property="children">
+               <object class="java.util.ArrayList">
+                <void method="add">
+                 <object class="businessPlanClasses.Statement">
+                  <void property="children">
+                   <object class="java.util.ArrayList"/>
+                  </void>
+                  <void property="comments">
+                   <object class="java.util.ArrayList"/>
+                  </void>
+                  <void property="data">
+                   <object class="java.util.ArrayList">
+                    <void method="add">
+                     <string>This is my SLO 1.</string>
+                    </void>
+                   </object>
+                  </void>
+                  <void property="id">
+                   <string>SLO 1.</string>
+                  </void>
+                  <void property="parent">
+                   <object idref="Statement3"/>
+                  </void>
+                  <void property="type">
+                   <object idref="Category2"/>
+                  </void>
+                 </object>
+                </void>
+                <void method="add">
+                 <object class="businessPlanClasses.Statement">
+                  <void property="children">
+                   <object class="java.util.ArrayList"/>
+                  </void>
+                  <void property="comments">
+                   <object class="java.util.ArrayList"/>
+                  </void>
+                  <void property="data">
+                   <object class="java.util.ArrayList">
+                    <void method="add">
+                     <string>This is my SLO 2.</string>
+                    </void>
+                   </object>
+                  </void>
+                  <void property="id">
+                   <string>SLO 2.</string>
+                  </void>
+                  <void property="parent">
+                   <object idref="Statement3"/>
+                  </void>
+                  <void property="type">
+                   <object idref="Category2"/>
+                  </void>
+                 </object>
+                </void>
+               </object>
+              </void>
+              <void property="comments">
+               <object class="java.util.ArrayList"/>
+              </void>
+              <void property="data">
+               <object class="java.util.ArrayList">
+                <void method="add">
+                 <string>This is my Goal 2.</string>
+                </void>
+               </object>
+              </void>
+              <void property="id">
+               <string>Goal 2</string>
+              </void>
+              <void property="parent">
+               <object idref="Statement1"/>
+              </void>
+              <void property="type">
+               <object idref="Category1"/>
+              </void>
+             </object>
+            </void>
+           </object>
+          </void>
+          <void property="comments">
+           <object class="java.util.ArrayList"/>
+          </void>
+          <void property="data">
+           <object class="java.util.ArrayList">
+            <void method="add">
+             <string>This is my Department 1.</string>
+            </void>
+           </object>
+          </void>
+          <void property="id">
+           <string>Department 1</string>
+          </void>
+          <void property="parent">
+           <object idref="Statement0"/>
+          </void>
+          <void property="type">
+           <object idref="Category0"/>
+          </void>
+         </object>
+        </void>
+        <void method="add">
+         <object class="businessPlanClasses.Statement">
+          <void property="children">
+           <object class="java.util.ArrayList"/>
+          </void>
+          <void property="comments">
+           <object class="java.util.ArrayList"/>
+          </void>
+          <void property="data">
+           <object class="java.util.ArrayList">
+            <void method="add">
+             <string>This is my Department 2.</string>
+            </void>
+           </object>
+          </void>
+          <void property="id">
+           <string>Department 2</string>
+          </void>
+          <void property="parent">
+           <object idref="Statement0"/>
+          </void>
+          <void property="type">
+           <object idref="Category0"/>
+          </void>
+         </object>
+        </void>
+       </object>
+      </void>
+      <void property="comments">
+       <object class="java.util.ArrayList">
+        <void method="add">
+         <string>Comments can be added by anyone.</string>
+        </void>
+       </object>
+      </void>
+      <void property="data">
+       <object class="java.util.ArrayList">
+        <void method="add">
+         <string>Mission Statement</string>
+        </void>
+       </object>
+      </void>
+      <void property="id">
+       <string>CSC</string>
+      </void>
+      <void property="type">
+       <object class="businessPlanClasses.Category">
+        <void property="name">
+         <string>CSC</string>
+        </void>
+       </object>
+      </void>
+     </object>
+    </void>
+   </object>
+  </void>
+  <void property="year">
+   <string>2018</string>
+  </void>
+ </object>
+</java>
